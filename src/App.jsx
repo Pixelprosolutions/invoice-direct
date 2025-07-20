@@ -5,6 +5,7 @@ import ErrorBoundary from './components/ErrorBoundary'
 import AuthModal from './components/auth/AuthModal'
 import LandingPage from './components/LandingPage'
 import AuthenticatedApp from './components/AuthenticatedApp'
+import PasswordResetHandler from './components/auth/PasswordResetHandler'
 import { FaSignInAlt } from 'react-icons/fa'
 
 function App() {
@@ -13,9 +14,21 @@ function App() {
 
   const { user, loading, error } = useAuth()
 
+  // Check if this is a password reset callback
+  const isPasswordReset = window.location.hash.includes('type=recovery')
+
   const handleAuthClick = (mode = 'signin') => {
     setAuthMode(mode)
     setShowAuthModal(true)
+  }
+
+  // Show password reset handler if it's a password reset callback
+  if (isPasswordReset) {
+    return (
+      <ErrorBoundary>
+        <PasswordResetHandler />
+      </ErrorBoundary>
+    )
   }
 
   if (loading) {
