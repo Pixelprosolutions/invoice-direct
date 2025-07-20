@@ -18,41 +18,120 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    // Get initial session
-    const getInitialSession = async () => {
+    let mounted = true
+    
+    // Set a maximum loading time of 10 seconds
+    const maxLoadingTimeout = setTimeout(() => {
+      if (mounted) {
+        console.warn('Auth initialization timed out after 10 seconds')
+        setLoading(false)
+        setError('Connection timeout - using offline mode')
+      }
+    }, 10000)
+
+    const initializeAuth = async () => {
       try {
-        const { data: { session }, error } = await supabase.auth.getSession()
+        console.log('🔄 Initializing auth...')
         
-        if (error) {
-          console.error('Error getting session:', error)
-          setError(error.message)
+        // Try to get session with a shorter timeout
+        const sessionPromise = supabase.auth.getSession()
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Session timeout')), 5000)
+        )
+        
+        const { data: { session }, error: sessionError } = await Promise.race([
+          sessionPromise,
+          timeoutPromise
+        ])
+        
+        if (!mounted) return
+        
+        if (sessionError) {
+          console.warn('Session error:', sessionError.message)
+          setError(sessionError.message)
           setLoading(false)
           return
         }
         
         if (session?.user) {
+          console.log('✅ Found existing session for:', session.user.email)
           setUser(session.user)
-          await loadUserProfile(session.user.id)
+          
+          // Try to load profile, but don't block on it
+          try {
+            const profile = await getUserProfile(session.user.id)
+            if (mounted) {
+              setUserProfile(profile || {
+                id: session.user.id,
+                email: session.user.email,
+                plan: 'free',
+                invoice_count: 0,
+                created_at: new Date().toISOString()
+              })
+            }
+          } catch (profileError) {
+            console.warn('Profile load failed, using default:', profileError.message)
+            if (mounted) {
+              setUserProfile({
+                id: session.user.id,
+                email: session.user.email,
+                plan: 'free',
+                invoice_count: 0,
+                created_at: new Date().toISOString()
+              })
+            }
+          }
         } else {
-          setLoading(false)
+          console.log('ℹ️ No existing session found')
         }
+        
       } catch (error) {
-        console.error('Error getting initial session:', error)
-        setError(error.message)
-        setLoading(false)
+        console.warn('Auth initialization failed:', error.message)
+        if (mounted) {
+          setError(error.message)
+        }
+      } finally {
+        if (mounted) {
+          setLoading(false)
+          clearTimeout(maxLoadingTimeout)
+        }
       }
     }
 
-    getInitialSession()
+    // Start initialization
+    initializeAuth()
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('Auth state change:', event, session?.user?.email)
+        console.log('🔄 Auth state change:', event, session?.user?.email)
+        
+        if (!mounted) return
+        
         try {
           if (session?.user) {
             setUser(session.user)
-            await loadUserProfile(session.user.id)
+            
+            // Try to load profile
+            try {
+              const profile = await getUserProfile(session.user.id)
+              setUserProfile(profile || {
+                id: session.user.id,
+                email: session.user.email,
+                plan: 'free',
+                invoice_count: 0,
+                created_at: new Date().toISOString()
+              })
+            } catch (profileError) {
+              console.warn('Profile load failed in auth change:', profileError.message)
+              setUserProfile({
+                id: session.user.id,
+                email: session.user.email,
+                plan: 'free',
+                invoice_count: 0,
+                created_at: new Date().toISOString()
+              })
+            }
           } else {
             setUser(null)
             setUserProfile(null)
@@ -65,42 +144,12 @@ export const AuthProvider = ({ children }) => {
       }
     )
 
-    return () => subscription.unsubscribe()
-  }, [])
-
-  const loadUserProfile = async (userId) => {
-    try {
-      const profile = await getUserProfile(userId)
-      
-      if (profile) {
-        setUserProfile(profile)
-      } else {
-        // Create a default profile if none exists
-        console.log('No profile found, creating default profile')
-        setUserProfile({
-          id: userId,
-          email: user?.email || 'user@example.com',
-          plan: 'free',
-          invoice_count: 0,
-          created_at: new Date().toISOString()
-        })
-      }
-      setLoading(false)
-    } catch (error) {
-      console.error('Error loading user profile:', error)
-      
-      // Always set a fallback profile to prevent app from breaking
-      setUserProfile({
-        id: userId,
-        email: user?.email || 'user@example.com',
-        plan: 'free',
-        invoice_count: 0,
-        created_at: new Date().toISOString()
-      })
-      
-      setLoading(false)
+    return () => {
+      mounted = false
+      clearTimeout(maxLoadingTimeout)
+      subscription.unsubscribe()
     }
-  }
+  }, [])
 
   const signUp = async (email, password) => {
     try {
@@ -113,7 +162,6 @@ export const AuthProvider = ({ children }) => {
       })
 
       if (error) throw error
-
       return { data, error: null }
     } catch (error) {
       setError(error.message)
@@ -165,20 +213,6 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const updateProfile = async (updates) => {
-    try {
-      setError(null)
-      if (user) {
-        const updatedProfile = await updateUserProfile(user.id, updates)
-        setUserProfile(updatedProfile)
-        return { data: updatedProfile, error: null }
-      }
-    } catch (error) {
-      setError(error.message)
-      return { data: null, error }
-    }
-  }
-
   const canCreateInvoice = () => {
     if (!userProfile) return false
     if (userProfile.plan === 'premium') return true
@@ -195,6 +229,23 @@ export const AuthProvider = ({ children }) => {
     return Math.max(0, 3 - userProfile.invoice_count)
   }
 
+  const refreshProfile = async () => {
+    if (!user) return
+    
+    try {
+      const profile = await getUserProfile(user.id)
+      setUserProfile(profile || {
+        id: user.id,
+        email: user.email,
+        plan: 'free',
+        invoice_count: 0,
+        created_at: new Date().toISOString()
+      })
+    } catch (error) {
+      console.warn('Profile refresh failed:', error.message)
+    }
+  }
+
   const value = {
     user,
     userProfile,
@@ -204,11 +255,10 @@ export const AuthProvider = ({ children }) => {
     signIn,
     signOut,
     resetPassword,
-    updateProfile,
     canCreateInvoice,
     isPremium,
     getRemainingInvoices,
-    refreshProfile: () => user && loadUserProfile(user.id)
+    refreshProfile
   }
 
   return (
