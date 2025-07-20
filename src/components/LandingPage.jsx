@@ -41,25 +41,6 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
               <div className={styles.previewLine}></div>
               <div className={styles.previewLine}></div>
               <div className={styles.previewTable}>
-        <div className={styles.heroVisual}>
-          <div className={styles.invoicePreview}>
-            <div className={styles.previewHeader}>
-              <div className={styles.previewLogo}></div>
-              <div className={styles.previewTitle}>INVOICE</div>
-            </div>
-            <div className={styles.previewContent}>
-              <div className={styles.previewLine}></div>
-              <div className={styles.previewLine}></div>
-              <div className={styles.previewLine}></div>
-              <div className={styles.previewTable}>
-                <div className={styles.tableLine}></div>
-                <div className={styles.tableLine}></div>
-                <div className={styles.tableLine}></div>
-              </div>
-              <div className={styles.previewTotal}></div>
-            </div>
-          </div>
-        </div>
                 <div className={styles.tableLine}></div>
                 <div className={styles.tableLine}></div>
                 <div className={styles.tableLine}></div>
