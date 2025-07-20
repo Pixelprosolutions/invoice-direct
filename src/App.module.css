@@ -54,10 +54,10 @@
   right: 0;
   z-index: 10;
   padding: 1.5rem 2rem;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   height: 80px;
   display: flex;
   align-items: center;
@@ -75,9 +75,12 @@
 .landingHeader h1 {
   font-size: 2rem;
   font-weight: 800;
-  color: white;
+  color: #1e293b;
   margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .landingHeader .headerActions {
@@ -87,9 +90,9 @@
 }
 
 .landingHeader .signInButton {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
+  background: rgba(79, 70, 229, 0.1);
+  border: 1px solid rgba(79, 70, 229, 0.2);
+  color: #4f46e5;
   padding: 0.875rem 1.5rem;
   border-radius: var(--radius-lg);
   cursor: pointer;
@@ -104,15 +107,16 @@
 }
 
 .landingHeader .signInButton:hover {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(79, 70, 229, 0.15);
+  border-color: rgba(79, 70, 229, 0.3);
+  color: #4338ca;
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .landingHeader .signUpButton {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
-  color: var(--primary-color);
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
   border: none;
   padding: 0.875rem 1.5rem;
   border-radius: var(--radius-lg);
@@ -124,7 +128,7 @@
 }
 
 .landingHeader .signUpButton:hover {
-  background: linear-gradient(135deg, white, rgba(255, 255, 255, 0.95));
+  background: linear-gradient(135deg, #4338ca, #6d28d9);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
