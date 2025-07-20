@@ -1,9 +1,11 @@
 .dashboard {
-  background: var(--background-secondary);
+  background: white;
   border-radius: 12px;
   padding: 1.5rem;
   max-width: 500px;
   width: 100%;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
 }
 
 .header {
@@ -12,7 +14,7 @@
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .userInfo {
@@ -24,18 +26,19 @@
 .avatar {
   width: 48px;
   height: 48px;
-  background: var(--primary-color);
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   font-size: 1.25rem;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.3);
 }
 
 .userDetails h3 {
   margin: 0 0 0.25rem 0;
-  color: var(--text-primary);
+  color: #1e293b;
   font-size: 1.1rem;
   font-weight: 600;
 }
@@ -58,8 +61,8 @@
 }
 
 .freeBadge {
-  background: var(--background-tertiary);
-  color: var(--text-secondary);
+  background: #f1f5f9;
+  color: #64748b;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.8rem;
@@ -68,8 +71,8 @@
 
 .signOutButton {
   background: none;
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
+  border: 1px solid #e2e8f0;
+  color: #64748b;
   padding: 0.5rem;
   border-radius: 8px;
   cursor: pointer;
@@ -80,8 +83,8 @@
 }
 
 .signOutButton:hover {
-  background: var(--background-tertiary);
-  color: var(--text-primary);
+  background: #f8fafc;
+  color: #1e293b;
 }
 
 .stats {
@@ -92,8 +95,8 @@
 }
 
 .statCard {
-  background: var(--background-primary);
-  border: 1px solid var(--border-color);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   padding: 1rem;
   display: flex;
@@ -104,18 +107,19 @@
 .statIcon {
   width: 40px;
   height: 40px;
-  background: var(--primary-color);
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   font-size: 1.1rem;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.3);
 }
 
 .statContent h4 {
   margin: 0 0 0.25rem 0;
-  color: var(--text-secondary);
+  color: #64748b;
   font-size: 0.8rem;
   font-weight: 500;
   text-transform: uppercase;
@@ -124,7 +128,7 @@
 
 .statNumber {
   margin: 0;
-  color: var(--text-primary);
+  color: #1e293b;
   font-size: 1.5rem;
   font-weight: 700;
 }
@@ -135,7 +139,7 @@
 
 .usageSection h4 {
   margin: 0 0 1rem 0;
-  color: var(--text-primary);
+  color: #1e293b;
   font-size: 1rem;
   font-weight: 600;
 }
@@ -143,7 +147,7 @@
 .progressBar {
   width: 100%;
   height: 8px;
-  background: var(--background-tertiary);
+  background: #f1f5f9;
   border-radius: 4px;
   overflow: hidden;
   margin-bottom: 0.5rem;
@@ -151,13 +155,13 @@
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(90deg, #4f46e5, #7c3aed);
   transition: width 0.3s ease;
 }
 
 .usageText {
   margin: 0;
-  color: var(--text-secondary);
+  color: #64748b;
   font-size: 0.9rem;
 }
 
@@ -177,7 +181,7 @@
 }
 
 .upgradePromo {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
   border-radius: 12px;
   padding: 1.5rem;
   color: white;
@@ -205,8 +209,8 @@
 }
 
 .upgradeButton {
-  background: #ffd700;
-  color: #92400e;
+  background: white;
+  color: #4f46e5;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -221,20 +225,20 @@
 }
 
 .upgradeButton:hover {
-  background: #ffed4e;
+  background: #f8fafc;
   transform: translateY(-1px);
 }
 
 .premiumFeatures {
-  background: var(--background-primary);
-  border: 1px solid var(--border-color);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   padding: 1.5rem;
 }
 
 .premiumFeatures h4 {
   margin: 0 0 1rem 0;
-  color: var(--text-primary);
+  color: #1e293b;
   font-size: 1rem;
   font-weight: 600;
 }
@@ -259,7 +263,7 @@
 }
 
 .feature span:last-child {
-  color: var(--text-secondary);
+  color: #64748b;
   font-size: 0.8rem;
 }
 
@@ -278,7 +282,7 @@
 }
 
 .upgradeContent {
-  background: var(--background-primary);
+  background: white;
   border-radius: 12px;
   padding: 2rem;
   max-width: 400px;
@@ -289,14 +293,14 @@
 
 .upgradeContent h3 {
   margin: 0 0 1.5rem 0;
-  color: var(--text-primary);
+  color: #1e293b;
   text-align: center;
   font-size: 1.5rem;
   font-weight: 600;
 }
 
 .pricingCard {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
   border-radius: 12px;
   padding: 1.5rem;
   text-align: center;
@@ -340,7 +344,7 @@
 
 .upgradeFeatures li {
   padding: 0.5rem 0;
-  color: var(--text-secondary);
+  color: #64748b;
   font-size: 0.9rem;
 }
 
@@ -351,7 +355,7 @@
 }
 
 .checkoutButton {
-  background: var(--primary-color);
+  background: #4f46e5;
   color: white;
   border: none;
   padding: 1rem;
@@ -363,14 +367,14 @@
 }
 
 .checkoutButton:hover {
-  background: var(--primary-hover);
+  background: #4338ca;
   transform: translateY(-1px);
 }
 
 .cancelButton {
   background: none;
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
+  border: 1px solid #e2e8f0;
+  color: #64748b;
   padding: 0.75rem;
   border-radius: 8px;
   cursor: pointer;
@@ -378,8 +382,8 @@
 }
 
 .cancelButton:hover {
-  background: var(--background-secondary);
-  color: var(--text-primary);
+  background: #f8fafc;
+  color: #1e293b;
 }
 
 /* Responsive design */

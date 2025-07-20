@@ -47,7 +47,7 @@ const UserDashboard = ({ onClose }) => {
             <FaFileInvoice />
           </div>
           <div className={styles.statContent}>
-            <h4>Invoices Created</h4>
+            <h4>Invoices Left</h4>
             <p className={styles.statNumber}>{userProfile?.invoice_count || 0}</p>
           </div>
         </div>
@@ -69,7 +69,7 @@ const UserDashboard = ({ onClose }) => {
 
       {!isPremium() && (
         <div className={styles.usageSection}>
-          <h4>Usage Limit</h4>
+          <h4>Free Plan Usage</h4>
           <div className={styles.progressBar}>
             <div 
               className={styles.progressFill}
@@ -77,7 +77,7 @@ const UserDashboard = ({ onClose }) => {
             />
           </div>
           <p className={styles.usageText}>
-            {userProfile?.invoice_count || 0} of 3 free invoices used
+            {userProfile?.invoice_count || 0} of 3 invoices used this month
           </p>
           
           {remainingInvoices === 0 && (
@@ -87,7 +87,7 @@ const UserDashboard = ({ onClose }) => {
                 onClick={() => setShowUpgradeModal(true)}
                 className={styles.upgradeButton}
               >
-                <FaCrown /> Upgrade to Premium - $10 Lifetime
+                <FaCrown /> Upgrade to Premium
               </button>
             </div>
           )}
@@ -96,7 +96,7 @@ const UserDashboard = ({ onClose }) => {
 
       {!isPremium() && remainingInvoices > 0 && (
         <div className={styles.upgradePromo}>
-          <h4>Unlock Premium Features</h4>
+          <h4>🚀 Unlock Premium Features</h4>
           <ul className={styles.featureList}>
             <li>✓ Unlimited invoices</li>
             <li>✓ Custom branding & logo</li>
@@ -108,14 +108,14 @@ const UserDashboard = ({ onClose }) => {
             onClick={() => setShowUpgradeModal(true)}
             className={styles.upgradeButton}
           >
-            <FaCrown /> Upgrade Now - $10 Lifetime
+            <FaCrown /> Upgrade Now
           </button>
         </div>
       )}
 
       {isPremium() && (
         <div className={styles.premiumFeatures}>
-          <h4>Premium Features</h4>
+          <h4>✨ Premium Features Active</h4>
           <div className={styles.featureGrid}>
             <div className={styles.feature}>
               <span className={styles.featureIcon}>∞</span>
@@ -144,7 +144,7 @@ const UserDashboard = ({ onClose }) => {
             <div className={styles.pricingCard}>
               <div className={styles.price}>
                 <span className={styles.currency}>$</span>
-                <span className={styles.amount}>10</span>
+                <span className={styles.amount}>9</span>
                 <span className={styles.period}>lifetime</span>
               </div>
               <p>One-time payment, lifetime access</p>
@@ -168,7 +168,7 @@ const UserDashboard = ({ onClose }) => {
                 }}
                 className={styles.checkoutButton}
               >
-                Upgrade Now - $10
+                Upgrade Now - $9 Lifetime
               </button>
               <button 
                 onClick={() => setShowUpgradeModal(false)}
