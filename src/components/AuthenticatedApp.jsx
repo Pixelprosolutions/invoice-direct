@@ -123,14 +123,13 @@ const AuthenticatedApp = () => {
 
       {!canCreateInvoice() && (
         <div className={styles.limitBanner}>
-          <p className={styles.limitText}>
-            <span className={styles.limitIcon}>⚠️</span>
-            You've reached your free invoice limit!
+          <p>
+            You've reached your free invoice limit.
             <button
               onClick={() => setShowUserDashboard(true)}
               className={styles.upgradeLink}
             >
-              🚀 Upgrade to Premium - $10 Lifetime
+              Upgrade to Premium - $10 Lifetime
             </button>
           </p>
         </div>
