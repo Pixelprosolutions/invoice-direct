@@ -8,15 +8,6 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <div className={styles.heroText}>
-            <h1 className={styles.heroTitle}>
-              Create Professional <span className={styles.highlight}>Invoices</span> in Minutes
-            </h1>
-            <p className={styles.heroSubtitle}>
-              Simple invoice generator with professional PDF output. Add your business details, 
-              line items, and download instantly. Start with 3 free invoices.
-            </p>
-          </div>
           <div className={styles.heroBadge}>
             ✨ Simple & Professional Invoice Generator
           </div>
@@ -170,18 +161,16 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
 
       {/* Final CTA */}
       <section className={styles.finalCta}>
-        <div className={styles.container}>
-          <div className={styles.ctaContent}>
-            <h2>Ready to Create Your First Invoice?</h2>
-            <p>Join thousands of professionals who trust Invoice Direct for their invoicing needs</p>
-            <div className={styles.ctaActions}>
-              <button onClick={onSignUp} className={styles.ctaButton}>
-                <FaRocket /> Create Your First Invoice Free
-              </button>
-              <p className={styles.ctaSubtext}>
-                ✅ No credit card required &nbsp;&nbsp; ✅ 3 free invoices &nbsp;&nbsp; ✅ Ready in 2 minutes
-              </p>
-            </div>
+        <div className={styles.ctaContent}>
+          <h2>Ready to Create Your First Invoice?</h2>
+          <p>Start creating professional invoices in minutes</p>
+          <div className={styles.ctaActions}>
+            <button onClick={onSignUp} className={styles.ctaButton}>
+              <FaRocket /> Start Creating Free
+            </button>
+            <p className={styles.ctaSubtext}>
+              No credit card required • 3 free invoices • Ready in 2 minutes
+            </p>
           </div>
         </div>
       </section>

@@ -394,22 +394,22 @@
 
 /* Final CTA */
 .finalCta {
-  padding: 6rem 2rem;
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  padding: 4rem 2rem;
+  background: #f8fafc;
   text-align: center;
-  color: white;
+  border-top: 1px solid #e2e8f0;
 }
 
 .ctaContent h2 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: white;
+  color: #1e293b;
 }
 
 .ctaContent p {
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  color: #64748b;
   margin-bottom: 2.5rem;
 }
 
@@ -419,8 +419,8 @@
 }
 
 .ctaButton {
-  background: white;
-  color: #4f46e5;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
   border: none;
   padding: 1.2rem 2.5rem;
   font-size: 1.1rem;
@@ -428,7 +428,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -437,11 +437,11 @@
 
 .ctaButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
 }
 
 .ctaSubtext {
-  color: rgba(255, 255, 255, 0.8);
+  color: #64748b;
   font-size: 0.9rem;
   font-weight: 500;
 }
