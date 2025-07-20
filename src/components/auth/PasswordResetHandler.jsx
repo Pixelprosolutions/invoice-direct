@@ -47,6 +47,8 @@ const PasswordResetHandler = () => {
       setError('Invalid password reset link')
       setIsLoading(false)
     }
+  }
+  )
 
   const handlePasswordReset = async (e) => {
     e.preventDefault()
