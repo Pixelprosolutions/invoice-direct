@@ -232,7 +232,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setError(null)
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`
+        redirectTo: `${window.location.origin}/#access_token=PLACEHOLDER&type=recovery`
       })
       if (error) throw error
       return { error: null }

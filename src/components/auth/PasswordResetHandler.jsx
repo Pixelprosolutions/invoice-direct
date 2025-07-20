@@ -12,15 +12,20 @@ const PasswordResetHandler = () => {
 
   useEffect(() => {
     // Check if this is a password reset callback
-    const hashParams = new URLSearchParams(window.location.hash.substring(1))
+    const hash = window.location.hash.substring(1)
+    const hashParams = new URLSearchParams(hash)
     const accessToken = hashParams.get('access_token')
     const type = hashParams.get('type')
+    
+    console.log('Password reset check:', { hash, accessToken: accessToken ? 'present' : 'missing', type })
 
     if (type === 'recovery' && accessToken) {
       // This is a valid password reset link
+      console.log('Valid password reset link detected')
       setIsLoading(false)
     } else {
       // Invalid or missing parameters
+      console.log('Invalid password reset link')
       setError('Invalid password reset link')
       setIsLoading(false)
     }
