@@ -4,16 +4,16 @@ import { v4 as uuidv4 } from 'uuid';
 const InvoiceContext = createContext();
 
 const defaultInvoiceData = {
-  businessName: '',
-  businessAddress: '',
+  businessName: 'Your Business Name',
+  businessAddress: 'Your Business Address\nCity, State ZIP',
   contactInfo: {
-    email: '',
-    phone: ''
+    email: 'hello@yourbusiness.com',
+    phone: '+1 (555) 123-4567'
   },
-  clientName: '',
-  clientAddress: '',
-  clientEmail: '',
-  clientPhone: '',
+  clientName: 'Client Name',
+  clientAddress: 'Client Address\nCity, State ZIP',
+  clientEmail: 'client@email.com',
+  clientPhone: '+1 (555) 987-6543',
   invoiceNumber: `INV-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`,
   invoiceDate: new Date().toISOString().split('T')[0],
   dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
@@ -21,19 +21,19 @@ const defaultInvoiceData = {
   lineItems: [
     {
       id: uuidv4(),
-      description: '',
+      description: 'Web Development Services',
       quantity: 1,
-      unitPrice: 0,
+      unitPrice: 1500,
       tax: 0
     }
   ],
   bankDetails: {
-    accountName: '',
-    accountNumber: '',
-    sortCode: ''
+    accountName: 'Your Business Name',
+    accountNumber: '12345678',
+    sortCode: '12-34-56'
   },
-  notes: '',
-  terms: '',
+  notes: 'Thank you for your business! Payment is due within 30 days.',
+  terms: 'Payment is due within 30 days. Late payments may incur a 1.5% monthly service charge.',
   status: 'pending',
   design: {
     colors: {
@@ -81,9 +81,9 @@ export const InvoiceProvider = ({ children }) => {
   const addLineItem = () => {
     const newItem = {
       id: uuidv4(),
-      description: '',
+      description: 'Service or Product',
       quantity: 1,
-      unitPrice: 0,
+      unitPrice: 100,
       tax: 0
     };
 

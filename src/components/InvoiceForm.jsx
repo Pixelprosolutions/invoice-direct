@@ -26,9 +26,31 @@ const InvoiceForm = ({ onPreview }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Save functionality
-    console.log('Saving invoice:', invoiceData);
-    // You could add toast notification here
+    
+    // Basic validation
+    if (!invoiceData.businessName || !invoiceData.clientName) {
+      toast.error('Please fill in business name and client name');
+      return;
+    }
+    
+    if (!invoiceData.lineItems || invoiceData.lineItems.length === 0) {
+      toast.error('Please add at least one line item');
+      return;
+    }
+    
+    // Save to localStorage as backup
+    try {
+      localStorage.setItem('invoiceData', JSON.stringify(invoiceData));
+      toast.success('Invoice saved successfully!');
+      
+      // Trigger preview
+      if (onPreview) {
+        onPreview();
+      }
+    } catch (error) {
+      console.error('Failed to save invoice:', error);
+      toast.error('Failed to save invoice. Please try again.');
+    }
   };
 
   const handleReset = () => {

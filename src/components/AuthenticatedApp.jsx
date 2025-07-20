@@ -6,6 +6,7 @@ import InvoicePreview from './InvoicePreview'
 import InvoiceHistory from './InvoiceHistory'
 import Modal from './Modal'
 import UserDashboard from './UserDashboard'
+import MVPStatusChecker from './MVPStatusChecker'
 import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt } from 'react-icons/fa'
 
 const AuthenticatedApp = () => {
@@ -16,6 +17,7 @@ const AuthenticatedApp = () => {
 
   const handleCreateInvoice = () => {
     if (!canCreateInvoice()) {
+      toast.warning('You have reached your free invoice limit. Please upgrade to continue.');
       setShowUserDashboard(true)
       return
     }
@@ -25,6 +27,7 @@ const AuthenticatedApp = () => {
 
   const handlePreviewInvoice = () => {
     if (!canCreateInvoice()) {
+      toast.warning('You have reached your free invoice limit. Please upgrade to continue.');
       setShowUserDashboard(true)
       return
     }
@@ -52,6 +55,8 @@ const AuthenticatedApp = () => {
         )
       case 'history':
         return <InvoiceHistory setActiveView={setActiveView} />
+      case 'test':
+        return <MVPStatusChecker />
       default:
         return (
           <div className={styles.homeContent}>
@@ -87,6 +92,14 @@ const AuthenticatedApp = () => {
                 <h3>Invoice History</h3>
                 <p>View and manage your past invoices</p>
               </div>
+            </div>
+            
+            <div className={styles.actionCard} onClick={() => setActiveView('test')}>
+              <div className={styles.actionIcon}>
+                <FaFileInvoice />
+              </div>
+              <h3>Test MVP Features</h3>
+              <p>Check if all features are working properly</p>
             </div>
           </div>
         )

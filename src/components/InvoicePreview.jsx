@@ -53,12 +53,19 @@ function InvoicePreview() {
 
   const handleDownload = async () => {
     try {
+      // Show loading state
+      toast.info('Generating PDF... Please wait');
+      
       const element = document.getElementById('invoice-preview');
+      if (!element) {
+        throw new Error('Invoice preview not found');
+      }
+      
       await generatePDF(element, invoiceData.invoiceNumber);
       toast.success('Invoice PDF generated successfully!');
     } catch (error) {
       console.error('Failed to generate PDF:', error);
-      toast.error('Failed to generate PDF. Please try again.');
+      toast.error(error.message || 'Failed to generate PDF. Please try again.');
     }
   };
 
@@ -77,8 +84,14 @@ function InvoicePreview() {
 
   const handleShare = async () => {
     try {
+      toast.info('Preparing invoice for sharing...');
+      
       // Generate PDF blob
       const element = document.getElementById('invoice-preview');
+      if (!element) {
+        throw new Error('Invoice preview not found');
+      }
+      
       const pdfBlob = await generatePDF(element, invoiceData.invoiceNumber, true);
       
       // Check if Web Share API is available
@@ -96,12 +109,13 @@ function InvoicePreview() {
         toast.success('Invoice shared successfully!');
       } else {
         // Fallback if Web Share API is not available
+        toast.info('Web Share not available, downloading instead...');
         handleDownload();
       }
     } catch (error) {
       console.error('Failed to share invoice:', error);
       if (error.name !== 'AbortError') {
-        toast.error('Failed to share invoice. Downloading instead...');
+        toast.error(error.message || 'Failed to share invoice. Downloading instead...');
         handleDownload();
       }
     }

@@ -9,58 +9,72 @@ import html2pdf from 'html2pdf.js';
  */
 export const generatePDF = async (element, filename = 'invoice', returnBlob = false) => {
   if (!element) {
-    throw new Error('Element not found');
+    console.error('PDF Generation Error: Element not found');
+    throw new Error('Could not find invoice content to generate PDF. Please try again.');
   }
 
-  // Clone the element to avoid modifying the original
-  const clone = element.cloneNode(true);
-  
-  // Add print-specific styling
-  const style = document.createElement('style');
-  style.textContent = `
-    @page {
-      margin: 1cm;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      color: #000;
-      margin: 0;
-      padding: 0;
-    }
-    .invoice-preview {
-      padding: 20px;
-    }
-  `;
-  clone.appendChild(style);
-
-  // Configure html2pdf options
-  const opt = {
-    margin: [10, 10, 10, 10],
-    filename: `${filename}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { 
-      scale: 2,
-      useCORS: true,
-      letterRendering: true
-    },
-    jsPDF: { 
-      unit: 'mm', 
-      format: 'a4', 
-      orientation: 'portrait' 
-    }
-  };
-
   try {
+    // Clone the element to avoid modifying the original
+    const clone = element.cloneNode(true);
+    
+    // Add print-specific styling
+    const style = document.createElement('style');
+    style.textContent = `
+      @page {
+        margin: 1cm;
+        size: A4;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        color: #000 !important;
+        margin: 0;
+        padding: 0;
+        background: white !important;
+      }
+      .invoice-preview {
+        padding: 20px;
+        background: white !important;
+      }
+      * {
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+    `;
+    clone.appendChild(style);
+
+    // Configure html2pdf options
+    const opt = {
+      margin: [10, 10, 10, 10],
+      filename: `${filename}.pdf`,
+      image: { 
+        type: 'jpeg', 
+        quality: 0.98 
+      },
+      html2canvas: { 
+        scale: 2,
+        useCORS: true,
+        letterRendering: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff'
+      },
+      jsPDF: { 
+        unit: 'mm', 
+        format: 'a4', 
+        orientation: 'portrait',
+        compress: true
+      }
+    };
+
     if (returnBlob) {
       // Return the PDF as a Blob
-      const pdf = await html2pdf().set(opt).from(clone).outputPdf('blob');
+      const pdf = await html2pdf().set(opt).from(clone).output('blob');
       return pdf;
     } else {
       // Download the PDF
       await html2pdf().set(opt).from(clone).save();
     }
   } catch (error) {
-    console.error('Error generating PDF:', error);
-    throw error;
+    console.error('PDF Generation Error:', error);
+    throw new Error(`Failed to generate PDF: ${error.message}. Please try again or contact support.`);
   }
 };
