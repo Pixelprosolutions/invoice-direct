@@ -38,9 +38,6 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             <button onClick={onSignUp} className={styles.primaryButton}>
               <FaRocket /> Start Creating Invoices Free
             </button>
-            <button className={styles.demoButton}>
-              <FaPlay /> See How It Works
-            </button>
           </div>
           <div className={styles.heroTrust}>
             Join thousands of businesses streamlining their invoicing

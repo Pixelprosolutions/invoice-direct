@@ -48,7 +48,9 @@ function App() {
   return (
     <ErrorBoundary>
       <div className={styles.container}>
-        {!user ? (
+        {user ? (
+          <AuthenticatedApp />
+        ) : (
           <>
             <header className={styles.landingHeader}>
               <div className={styles.headerContent}>
@@ -77,8 +79,6 @@ function App() {
               onSignIn={() => handleAuthClick('signin')}
             />
           </>
-        ) : (
-          <AuthenticatedApp />
         )}
 
         {showAuthModal && (
