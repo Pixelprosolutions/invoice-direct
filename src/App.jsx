@@ -45,12 +45,12 @@ function App() {
     )
   }
 
+  // Always show homepage for non-authenticated users
+  // Only show authenticated app if user is logged in
   return (
     <ErrorBoundary>
       <div className={styles.container}>
-        {user ? (
-          <AuthenticatedApp />
-        ) : (
+        {!user ? (
           <>
             <header className={styles.landingHeader}>
               <div className={styles.headerContent}>
@@ -79,6 +79,8 @@ function App() {
               onSignIn={() => handleAuthClick('signin')}
             />
           </>
+        ) : (
+          <AuthenticatedApp />
         )}
 
         {showAuthModal && (

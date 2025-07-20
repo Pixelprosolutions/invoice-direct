@@ -201,6 +201,7 @@ export const AuthProvider = ({ children }) => {
       
       // Clear any cached data from localStorage
       localStorage.removeItem('invoiceData')
+      localStorage.removeItem('savedInvoices')
       
       // Try to sign out from Supabase, but don't block on it
       supabase.auth.signOut().catch(error => {
@@ -213,6 +214,7 @@ export const AuthProvider = ({ children }) => {
       setUser(null)
       setUserProfile(null)
       localStorage.removeItem('invoiceData')
+      localStorage.removeItem('savedInvoices')
     }
   }
 
