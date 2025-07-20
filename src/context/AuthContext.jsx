@@ -20,12 +20,18 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Get initial session
     const getInitialSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (session?.user) {
-        setUser(session.user)
-        await loadUserProfile(session.user.id)
+      try {
+        const { data: { session } } = await supabase.auth.getSession()
+        if (session?.user) {
+          setUser(session.user)
+          await loadUserProfile(session.user.id)
+        }
+      } catch (error) {
+        console.error('Error getting initial session:', error)
+        setError(error.message)
+      } finally {
+        setLoading(false)
       }
-      setLoading(false)
     }
 
     getInitialSession()
@@ -33,14 +39,20 @@ export const AuthProvider = ({ children }) => {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        if (session?.user) {
-          setUser(session.user)
-          await loadUserProfile(session.user.id)
-        } else {
-          setUser(null)
-          setUserProfile(null)
+        try {
+          if (session?.user) {
+            setUser(session.user)
+            await loadUserProfile(session.user.id)
+          } else {
+            setUser(null)
+            setUserProfile(null)
+          }
+        } catch (error) {
+          console.error('Error in auth state change:', error)
+          setError(error.message)
+        } finally {
+          setLoading(false)
         }
-        setLoading(false)
       }
     )
 
@@ -56,6 +68,16 @@ export const AuthProvider = ({ children }) => {
       // Don't set error for mock client
       if (!error.message.includes('Supabase not configured')) {
         setError(error.message)
+      }
+      // Set a default profile for development if Supabase is not configured
+      if (error.message.includes('Supabase not configured')) {
+        setUserProfile({
+          id: userId,
+          email: 'demo@example.com',
+          plan: 'free',
+          invoice_count: 0,
+          created_at: new Date().toISOString()
+        })
       }
     }
   }
