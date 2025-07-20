@@ -5,7 +5,6 @@ import ErrorBoundary from './components/ErrorBoundary'
 import AuthModal from './components/auth/AuthModal'
 import LandingPage from './components/LandingPage'
 import AuthenticatedApp from './components/AuthenticatedApp'
-import ThemeToggle from './components/ThemeToggle'
 import { FaSignInAlt } from 'react-icons/fa'
 
 function App() {
@@ -55,7 +54,6 @@ function App() {
               <div className={styles.headerContent}>
                 <h1>Invoice Direct</h1>
                 <div className={styles.headerActions}>
-                  <ThemeToggle />
                   <div className={styles.authButtons}>
                     <button
                       onClick={() => handleAuthClick('signin')}

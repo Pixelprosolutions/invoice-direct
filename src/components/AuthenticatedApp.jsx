@@ -3,7 +3,6 @@ import { useAuth } from '../context/AuthContext'
 import styles from './AuthenticatedApp.module.css'
 import InvoiceForm from './InvoiceForm'
 import InvoicePreview from './InvoicePreview'
-import ThemeToggle from './ThemeToggle'
 import Modal from './Modal'
 import UserDashboard from './UserDashboard'
 import { FaUser } from 'react-icons/fa'
@@ -27,7 +26,6 @@ const AuthenticatedApp = () => {
       <header className={styles.header}>
         <h1>Invoice Direct</h1>
         <div className={styles.headerActions}>
-          <ThemeToggle />
           <button
             onClick={() => setShowUserDashboard(true)}
             className={styles.userButton}
