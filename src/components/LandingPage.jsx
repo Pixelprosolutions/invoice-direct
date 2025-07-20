@@ -25,42 +25,42 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <div className={styles.heroBadge}>
-            🚀 Trusted by 10,000+ professionals worldwide
+            ✨ Trusted by 10,000+ professionals worldwide
           </div>
           <h1 className={styles.heroTitle}>
-            Stop Wasting Time on <span className={styles.highlight}>Invoice Creation</span>
+            Create Professional <span className={styles.highlight}>Invoices</span> in Seconds
           </h1>
           <p className={styles.heroSubtitle}>
-            Generate professional invoices in under 30 seconds. No design skills needed.
+            The fastest way to create, send, and track professional invoices. Beautiful templates, automated workflows, and powerful analytics - all in one simple platform.
             Start free with 3 invoices, then scale with unlimited access for just $9/month.
           </p>
           <div className={styles.heroActions}>
             <button onClick={onSignUp} className={styles.primaryButton}>
-              <FaRocket /> Start Free - No Credit Card Required
+              <FaRocket /> Start Creating Invoices Free
             </button>
             <button className={styles.demoButton}>
-              <FaPlay /> Watch 2-min Demo
+              <FaPlay /> See How It Works
             </button>
           </div>
           <div className={styles.heroTrust}>
-            <span>Join 500+ businesses already using Invoice Direct</span>
+            Join thousands of businesses streamlining their invoicing
           </div>
           <div className={styles.heroStats}>
             <div className={styles.stat}>
-              <strong>10,000+</strong>
+              <strong>50,000+</strong>
               <span>Invoices Generated</span>
             </div>
             <div className={styles.stat}>
-              <strong>$2.5M+</strong>
-              <span>Processed</span>
+              <strong>$10M+</strong>
+              <span>Revenue Processed</span>
             </div>
             <div className={styles.stat}>
               <strong>4.8/5</strong>
-              <span>User Rating</span>
+              <span>Customer Rating</span>
             </div>
             <div className={styles.stat}>
-              <strong>30 sec</strong>
-              <span>Avg. Creation Time</span>
+              <strong>2 min</strong>
+              <span>Average Setup</span>
             </div>
           </div>
         </div>
@@ -99,36 +99,36 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
       <section className={styles.problemSolution}>
         <div className={styles.container}>
           <div className={styles.problemSection}>
-            <h2>Tired of Complicated Invoicing?</h2>
+            <h2>Invoicing Shouldn't Be This Hard</h2>
             <div className={styles.problemList}>
               <div className={styles.problemItem}>
-                <span className={styles.problemIcon}>😤</span>
-                <span>Spending hours on invoice design and formatting</span>
+                <span className={styles.problemIcon}>⏰</span>
+                <span>Hours wasted on manual invoice creation and formatting</span>
               </div>
               <div className={styles.problemItem}>
                 <span className={styles.problemIcon}>💸</span>
-                <span>Losing money on delayed or forgotten invoices</span>
+                <span>Lost revenue from delayed payments and follow-ups</span>
               </div>
               <div className={styles.problemItem}>
-                <span className={styles.problemIcon}>📊</span>
-                <span>No clear overview of your business finances</span>
+                <span className={styles.problemIcon}>🤯</span>
+                <span>Juggling multiple tools and spreadsheets</span>
               </div>
             </div>
           </div>
           <div className={styles.solutionSection}>
-            <h2>Invoice Direct Solves This</h2>
+            <h2>We Make It Simple</h2>
             <div className={styles.solutionList}>
               <div className={styles.solutionItem}>
                 <span className={styles.solutionIcon}>⚡</span>
-                <span>Create professional invoices in 30 seconds</span>
+                <span>Generate beautiful invoices in under 2 minutes</span>
               </div>
               <div className={styles.solutionItem}>
-                <span className={styles.solutionIcon}>💰</span>
-                <span>Get paid faster with automated reminders</span>
+                <span className={styles.solutionIcon}>🚀</span>
+                <span>Get paid 40% faster with smart automation</span>
               </div>
               <div className={styles.solutionItem}>
                 <span className={styles.solutionIcon}>📈</span>
-                <span>Track all payments and revenue in one place</span>
+                <span>Complete visibility into your business finances</span>
               </div>
             </div>
           </div>
@@ -140,7 +140,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2>Everything You Need to Get Paid Faster</h2>
-            <p>Professional invoicing tools that save you time and help you get paid quicker</p>
+            <p>Powerful features designed to streamline your entire invoicing workflow</p>
           </div>
           
           <div className={styles.featuresGrid}>
@@ -148,48 +148,48 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
               <div className={styles.featureIcon}>
                 <FaClock />
               </div>
-              <h3>30-Second Creation</h3>
-              <p>Generate professional invoices faster than making coffee. Our streamlined process gets you from start to send in seconds.</p>
+              <h3>Lightning Fast Setup</h3>
+              <p>Create your first invoice in under 2 minutes. Our intuitive interface guides you through every step effortlessly.</p>
             </div>
             
             <div className={styles.feature}>
               <div className={styles.featureIcon}>
                 <FaPalette />
               </div>
-              <h3>Beautiful Templates</h3>
-              <p>Choose from professionally designed templates that make your business look established and trustworthy.</p>
+              <h3>Professional Templates</h3>
+              <p>Stunning, customizable templates that reflect your brand and impress your clients from the first glance.</p>
             </div>
             
             <div className={styles.feature}>
               <div className={styles.featureIcon}>
                 <FaUsers />
               </div>
-              <h3>Smart Client Management</h3>
-              <p>Save client details once, reuse forever. Build a database of customers for lightning-fast repeat invoicing.</p>
+              <h3>Client Management</h3>
+              <p>Organize your clients effortlessly. Save details once and create repeat invoices with just a few clicks.</p>
             </div>
             
             <div className={styles.feature}>
               <div className={styles.featureIcon}>
                 <FaDownload />
               </div>
-              <h3>Instant PDF Export</h3>
-              <p>Download professional PDFs instantly or send directly to clients via email with one click.</p>
+              <h3>One-Click Delivery</h3>
+              <p>Send invoices instantly via email or download professional PDFs. Your clients will love the experience.</p>
             </div>
             
             <div className={styles.feature}>
               <div className={styles.featureIcon}>
                 <FaChartLine />
               </div>
-              <h3>Payment Tracking</h3>
-              <p>Never lose track of who owes what. Monitor payment status and send automated reminders.</p>
+              <h3>Smart Analytics</h3>
+              <p>Track payments, monitor cash flow, and get insights that help you make better business decisions.</p>
             </div>
             
             <div className={styles.feature}>
               <div className={styles.featureIcon}>
                 <FaMobile />
               </div>
-              <h3>Works Everywhere</h3>
-              <p>Create invoices on any device - desktop, tablet, or mobile. Your business never stops, neither do we.</p>
+              <h3>Mobile Ready</h3>
+              <p>Create and manage invoices from anywhere. Fully responsive design that works perfectly on all devices.</p>
             </div>
           </div>
         </div>
@@ -199,27 +199,27 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
       <section className={styles.howItWorks}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
-            <h2>Get Your First Invoice Done in 3 Simple Steps</h2>
-            <p>No learning curve. No complicated setup. Just results.</p>
+            <h2>Start Invoicing in 3 Simple Steps</h2>
+            <p>No complex setup required. Get started in minutes, not hours.</p>
           </div>
           
           <div className={styles.stepsGrid}>
             <div className={styles.step}>
               <div className={styles.stepNumber}>1</div>
-              <h3>Add Your Details</h3>
-              <p>Enter your business info and client details. We'll save everything for next time.</p>
+              <h3>Set Up Your Profile</h3>
+              <p>Add your business information once. We'll automatically include it in all your invoices.</p>
             </div>
             
             <div className={styles.step}>
               <div className={styles.stepNumber}>2</div>
-              <h3>Choose Template</h3>
-              <p>Pick from our professional templates and customize colors to match your brand.</p>
+              <h3>Create Your Invoice</h3>
+              <p>Add line items, set payment terms, and customize the design to match your brand perfectly.</p>
             </div>
             
             <div className={styles.step}>
               <div className={styles.stepNumber}>3</div>
-              <h3>Send & Get Paid</h3>
-              <p>Download PDF or send directly to your client. Track when they view and pay.</p>
+              <h3>Send & Track</h3>
+              <p>Send instantly via email or download as PDF. Monitor payment status and get paid faster.</p>
             </div>
           </div>
         </div>
@@ -229,15 +229,15 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
       <section className={styles.testimonials}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
-            <h2>What Our Users Say</h2>
-            <p>Join thousands of professionals who've streamlined their invoicing</p>
+            <h2>Loved by Thousands of Professionals</h2>
+            <p>See why businesses choose Invoice Direct for their invoicing needs</p>
           </div>
           
           <div className={styles.testimonialsGrid}>
             <div className={styles.testimonial}>
               <div className={styles.testimonialContent}>
                 <FaQuoteLeft className={styles.quoteIcon} />
-                <p>"Invoice Direct saved me 5 hours per week. I can now focus on my actual work instead of paperwork."</p>
+                <p>"This tool has completely transformed how I handle invoicing. What used to take me hours now takes minutes. Absolutely game-changing!"</p>
               </div>
               <div className={styles.testimonialAuthor}>
                 <div className={styles.authorInfo}>
@@ -253,7 +253,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             <div className={styles.testimonial}>
               <div className={styles.testimonialContent}>
                 <FaQuoteLeft className={styles.quoteIcon} />
-                <p>"My clients love the professional look. I've been paid 40% faster since switching to Invoice Direct."</p>
+                <p>"The professional templates make such a difference. My clients are impressed and I'm getting paid faster than ever before."</p>
               </div>
               <div className={styles.testimonialAuthor}>
                 <div className={styles.authorInfo}>
@@ -269,7 +269,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             <div className={styles.testimonial}>
               <div className={styles.testimonialContent}>
                 <FaQuoteLeft className={styles.quoteIcon} />
-                <p>"Simple, fast, and professional. Everything I needed in an invoicing tool without the complexity."</p>
+                <p>"Finally, an invoicing tool that just works. Clean, simple, and incredibly powerful. Couldn't be happier with my choice."</p>
               </div>
               <div className={styles.testimonialAuthor}>
                 <div className={styles.authorInfo}>
@@ -290,7 +290,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2>Choose Your Plan</h2>
-            <p>Start free, upgrade when you're ready. No hidden fees, cancel anytime.</p>
+            <p>Start free and upgrade when you need more. Simple, transparent pricing.</p>
           </div>
           
           <div className={styles.pricingCards}>
@@ -302,7 +302,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
                   <span className={styles.amount}>0</span>
                   <span className={styles.period}>/month</span>
                 </div>
-                <p className={styles.pricingSubtext}>Perfect for trying us out</p>
+                <p className={styles.pricingSubtext}>Perfect for getting started</p>
               </div>
               <ul className={styles.featuresList}>
                 <li><FaCheck /> 3 invoices per month</li>
@@ -312,7 +312,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
                 <li><FaCheck /> Basic analytics</li>
               </ul>
               <button onClick={onSignUp} className={styles.pricingButton}>
-                Start Free Forever
+                Get Started Free
               </button>
               <p className={styles.noCard}>No credit card required</p>
             </div>
@@ -326,7 +326,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
                   <span className={styles.amount}>9</span>
                   <span className={styles.period}>/month</span>
                 </div>
-                <p className={styles.pricingSubtext}>For serious professionals</p>
+                <p className={styles.pricingSubtext}>For growing businesses</p>
               </div>
               <ul className={styles.featuresList}>
                 <li><FaCheck /> <strong>Unlimited invoices</strong></li>
@@ -339,14 +339,14 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
                 <li><FaCheck /> Export to Excel/CSV</li>
               </ul>
               <button onClick={onSignUp} className={styles.pricingButton}>
-                Start 14-Day Free Trial
+                Start Free Trial
               </button>
               <p className={styles.noCard}>Cancel anytime, no questions asked</p>
             </div>
           </div>
           
           <div className={styles.pricingFooter}>
-            <p>💡 <strong>Pro tip:</strong> Most users upgrade after creating their 2nd invoice. Start free and see why!</p>
+            <p>💡 <strong>Pro tip:</strong> Most users upgrade after their first week. Start free and experience the difference!</p>
           </div>
         </div>
       </section>
@@ -356,38 +356,38 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2>Frequently Asked Questions</h2>
-            <p>Everything you need to know about Invoice Direct</p>
+            <p>Got questions? We've got answers to help you get started.</p>
           </div>
           
           <div className={styles.faqGrid}>
             <div className={styles.faqItem}>
-              <h3>How quickly can I create my first invoice?</h3>
-              <p>Most users create their first professional invoice in under 2 minutes. Our streamlined process guides you through each step.</p>
+              <h3>How fast can I create my first invoice?</h3>
+              <p>Most users create their first professional invoice in under 2 minutes. Our intuitive interface makes the process incredibly simple.</p>
             </div>
             
             <div className={styles.faqItem}>
-              <h3>Can I customize the invoice templates?</h3>
-              <p>Absolutely! Add your logo, change colors, modify layouts, and personalize every aspect to match your brand.</p>
+              <h3>Can I customize invoices with my branding?</h3>
+              <p>Yes! Upload your logo, customize colors, and modify templates to perfectly match your brand identity.</p>
             </div>
             
             <div className={styles.faqItem}>
-              <h3>Is my data secure?</h3>
-              <p>Yes. We use bank-level encryption and never store payment information. Your data is backed up automatically and kept private.</p>
+              <h3>Is my business data secure and private?</h3>
+              <p>Absolutely. We use enterprise-grade security with bank-level encryption. Your data is automatically backed up and always private.</p>
             </div>
             
             <div className={styles.faqItem}>
-              <h3>Can I track if clients have viewed my invoices?</h3>
-              <p>With our Professional plan, you get detailed analytics showing when invoices are viewed, downloaded, and paid.</p>
+              <h3>Can I track invoice status and payments?</h3>
+              <p>Yes! Track when invoices are sent, viewed, and paid. Get real-time updates and never lose track of outstanding payments.</p>
             </div>
             
             <div className={styles.faqItem}>
-              <h3>What payment methods can I accept?</h3>
-              <p>You can add payment instructions for bank transfers, PayPal, Stripe, or any payment method you prefer.</p>
+              <h3>What payment methods can I include?</h3>
+              <p>Include payment instructions for bank transfers, PayPal, Stripe, or any payment method your business accepts.</p>
             </div>
             
             <div className={styles.faqItem}>
-              <h3>Can I cancel anytime?</h3>
-              <p>Yes! Cancel your subscription anytime with one click. No questions asked, no cancellation fees.</p>
+              <h3>What if I need to cancel my subscription?</h3>
+              <p>You can cancel anytime with just one click. No questions asked, no hidden fees, and you keep access until your billing period ends.</p>
             </div>
           </div>
         </div>
@@ -397,28 +397,28 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
       <section className={styles.finalCta}>
         <div className={styles.container}>
           <div className={styles.ctaContent}>
-            <h2>Ready to Get Paid Faster?</h2>
-            <p>Join 10,000+ professionals who've already streamlined their invoicing with Invoice Direct</p>
+            <h2>Ready to Transform Your Invoicing?</h2>
+            <p>Join thousands of professionals who've already streamlined their business with Invoice Direct</p>
             <div className={styles.ctaStats}>
               <div className={styles.ctaStat}>
-                <strong>30 seconds</strong>
-                <span>Average creation time</span>
+                <strong>2 minutes</strong>
+                <span>Average setup time</span>
               </div>
               <div className={styles.ctaStat}>
                 <strong>40% faster</strong>
                 <span>Payment collection</span>
               </div>
               <div className={styles.ctaStat}>
-                <strong>5 hours</strong>
+                <strong>10 hours</strong>
                 <span>Saved per week</span>
               </div>
             </div>
             <div className={styles.ctaActions}>
               <button onClick={onSignUp} className={styles.ctaButton}>
-                <FaRocket /> Start Free - Create Your First Invoice Now
+                <FaRocket /> Start Creating Professional Invoices Free
               </button>
               <p className={styles.ctaSubtext}>
-                ✅ No credit card required &nbsp;&nbsp; ✅ 3 free invoices &nbsp;&nbsp; ✅ Setup in 2 minutes
+                ✅ No credit card required &nbsp;&nbsp; ✅ 3 free invoices &nbsp;&nbsp; ✅ Ready in 2 minutes
               </p>
             </div>
           </div>
