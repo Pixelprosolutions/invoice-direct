@@ -1,16 +1,11 @@
 import React, { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import styles from './UserDashboard.module.css'
-import { FaUser, FaSignOutAlt, FaCrown, FaFileInvoice, FaChartLine } from 'react-icons/fa'
+import { FaUser, FaCrown, FaFileInvoice, FaChartLine } from 'react-icons/fa'
 
 const UserDashboard = ({ onClose }) => {
-  const { user, userProfile, signOut, isPremium, getRemainingInvoices } = useAuth()
+  const { user, userProfile, isPremium, getRemainingInvoices } = useAuth()
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
-
-  const handleSignOut = async () => {
-    await signOut()
-    onClose()
-  }
 
   const remainingInvoices = getRemainingInvoices()
   const usagePercentage = userProfile ? 
@@ -19,7 +14,7 @@ const UserDashboard = ({ onClose }) => {
   return (
     <div className={styles.dashboard}>
       <div className={styles.header}>
-        <div className={styles.userInfo}>
+        <div className={styles.userInfo} style={{ width: '100%', justifyContent: 'center' }}>
           <div className={styles.avatar}>
             <FaUser />
           </div>
@@ -36,9 +31,6 @@ const UserDashboard = ({ onClose }) => {
             </div>
           </div>
         </div>
-        <button onClick={handleSignOut} className={styles.signOutButton}>
-          <FaSignOutAlt />
-        </button>
       </div>
 
       <div className={styles.stats}>

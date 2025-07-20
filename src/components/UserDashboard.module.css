@@ -11,9 +11,7 @@
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: block;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #e2e8f0;
@@ -71,23 +69,6 @@
   font-weight: 500;
 }
 
-.signOutButton {
-  background: none;
-  border: 1px solid #e2e8f0;
-  color: #64748b;
-  padding: 0.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.signOutButton:hover {
-  background: #f8fafc;
-  color: #1e293b;
-}
 
 .stats {
   display: grid;
