@@ -1,0 +1,98 @@
+.customizer {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
+}
+
+.customizerHeader {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.customizerHeader h3 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+}
+
+.tab:hover {
+  color: #4f46e5;
+  background: #f9fafb;
+}
+
+.tab.active {
+  color: #4f46e5;
+  background: #f5f3ff;
+}
+
+.customizerContent {
+  padding: 1.5rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .tabs {
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  .tab {
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .customizer {
+    background: #1f2937;
+  }
+
+  .customizerHeader {
+    border-bottom-color: #374151;
+  }
+
+  .customizerHeader h3 {
+    color: #f3f4f6;
+  }
+
+  .tab {
+    color: #9ca3af;
+  }
+
+  .tab:hover {
+    color: #6366f1;
+    background: #374151;
+  }
+
+  .tab.active {
+    color: #6366f1;
+    background: #312e81;
+  }
+}

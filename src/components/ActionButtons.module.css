@@ -1,0 +1,254 @@
+/* Container Styles */
+.actionButtonsContainer {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding: 1.5rem;
+  perspective: 1000px;
+}
+
+/* Base Button Styles */
+.actionButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  padding: 0.875rem 1.75rem;
+  border: none;
+  border-radius: 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) translateZ(0);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  background: none;
+}
+
+.buttonContent {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  z-index: 3;
+  color: white;
+  mix-blend-mode: luminosity;
+  transition: all 0.3s ease;
+}
+
+/* Background Effects */
+.background {
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  border-radius: inherit;
+  z-index: 1;
+  transform: translateZ(-1px);
+}
+
+.tiles {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0.5px;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.tile {
+  background: inherit;
+  transition: all 0.4s ease;
+}
+
+/* Shine Effect */
+.shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 75%
+  );
+  background-size: 200% 200%;
+  z-index: 2;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+/* Button States */
+.actionButton:hover {
+  transform: perspective(1000px) translateZ(10px);
+  box-shadow: 
+    0 5px 15px -5px rgba(0, 0, 0, 0.3),
+    0 10px 30px -10px rgba(0, 0, 0, 0.2);
+}
+
+.actionButton:hover .buttonContent {
+  transform: translateY(-2px);
+}
+
+.actionButton:hover .shine {
+  opacity: 1;
+  background-position: 200% 200%;
+}
+
+.actionButton:hover .tiles {
+  opacity: 1;
+}
+
+.actionButton:hover .tile:nth-child(1) { transform: translateY(-2px) translateX(-2px); }
+.actionButton:hover .tile:nth-child(2) { transform: translateY(-2px) translateX(2px); }
+.actionButton:hover .tile:nth-child(3) { transform: translateY(2px) translateX(-2px); }
+.actionButton:hover .tile:nth-child(4) { transform: translateY(2px) translateX(2px); }
+
+.actionButton:active {
+  transform: perspective(1000px) translateZ(-5px);
+  box-shadow: 
+    0 2px 8px -2px rgba(0, 0, 0, 0.2),
+    0 5px 15px -5px rgba(0, 0, 0, 0.1);
+}
+
+.actionButton.active .buttonContent {
+  transform: scale(0.95);
+}
+
+/* Icon Styles */
+.icon {
+  font-size: 1.25rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.actionButton:hover .icon {
+  transform: scale(1.15) translateY(-1px);
+}
+
+/* Button Variants */
+.emailButton {
+  background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+}
+
+.emailButton::before {
+  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+}
+
+.shareButton {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+.shareButton::before {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.printButton {
+  background: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
+}
+
+.printButton::before {
+  background: linear-gradient(135deg, #0d9488 0%, #115e59 100%);
+}
+
+.downloadButton {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+}
+
+.downloadButton::before {
+  background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+}
+
+/* Focus Styles */
+.actionButton:focus-visible {
+  outline: none;
+  box-shadow: 
+    0 0 0 2px white,
+    0 0 0 4px var(--primary-color);
+}
+
+/* Loading State */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.actionButton.loading {
+  cursor: wait;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.actionButton.loading .icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .actionButtonsContainer {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .actionButton {
+    min-width: 140px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .icon {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .actionButtonsContainer {
+    gap: 0.75rem;
+  }
+
+  .actionButton {
+    min-width: 120px;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .buttonContent {
+    gap: 0.625rem;
+  }
+
+  .icon {
+    font-size: 1.1rem;
+  }
+}
+
+/* Dark Mode Enhancements */
+@media (prefers-color-scheme: dark) {
+  .actionButton {
+    box-shadow: 
+      0 4px 12px -2px rgba(0, 0, 0, 0.3),
+      0 8px 24px -4px rgba(0, 0, 0, 0.2);
+  }
+
+  .actionButton:hover {
+    box-shadow: 
+      0 6px 18px -3px rgba(0, 0, 0, 0.4),
+      0 12px 36px -6px rgba(0, 0, 0, 0.3);
+  }
+
+  .shine {
+    background: linear-gradient(
+      45deg,
+      transparent 25%,
+      rgba(255, 255, 255, 0.15) 50%,
+      transparent 75%
+    );
+  }
+}

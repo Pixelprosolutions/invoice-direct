@@ -1,0 +1,70 @@
+.spacingControl {
+  position: relative;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  color: #374151;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 300px;
+}
+
+.slider {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: #e5e7eb;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #4f46e5;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.numberInput {
+  width: 60px;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  text-align: center;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .label {
+    color: #f3f4f6;
+  }
+
+  .slider {
+    background: #4b5563;
+  }
+
+  .slider::-webkit-slider-thumb {
+    background: #6366f1;
+  }
+
+  .numberInput {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f3f4f6;
+  }
+}

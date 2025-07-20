@@ -1,0 +1,202 @@
+.lineItemsContainer {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.lineItemsTable {
+  width: 100%;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.lineItemsHeader {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr 1fr 0.5fr;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--gray-100);
+  border-bottom: 1px solid var(--gray-200);
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.lineItemsList {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.lineItem {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr 1fr 0.5fr;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--gray-200);
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.lineItem:hover {
+  background-color: var(--gray-50);
+}
+
+.lineItem:last-child {
+  border-bottom: none;
+}
+
+.lineItem input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.lineItem input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.description {
+  font-weight: 500;
+}
+
+.quantity, .unitPrice, .tax {
+  text-align: center;
+}
+
+.amount {
+  text-align: right;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.removeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--gray-100);
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.removeButton:hover {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.removeButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.addItemRow {
+  padding: 1rem;
+  border-top: 1px solid var(--gray-200);
+  background-color: var(--gray-50);
+}
+
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px dashed var(--gray-400);
+  border-radius: 6px;
+  background-color: transparent;
+  color: var(--gray-600);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.addButton:hover {
+  background-color: var(--gray-100);
+  border-color: var(--gray-500);
+  color: var(--gray-800);
+}
+
+.totals {
+  padding: 1rem;
+  border-top: 1px solid var(--gray-200);
+  background-color: var(--gray-50);
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+.totalLabel {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.totalValue {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.grandTotal {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 2px solid var(--gray-300);
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.grandTotal .totalLabel,
+.grandTotal .totalValue {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+  .lineItemsHeader {
+    display: none;
+  }
+  
+  .lineItem {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  
+  .lineItem > div {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+  }
+  
+  .lineItem > div::before {
+    content: attr(class);
+    text-transform: capitalize;
+    font-weight: 500;
+    color: var(--gray-600);
+  }
+  
+  .actions {
+    justify-content: flex-end;
+  }
+  
+  .actions::before {
+    content: '';
+  }
+}

@@ -1,0 +1,134 @@
+.toggleContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.themeToggle {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 14px;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Track Styles */
+.toggleTrack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+}
+
+/* Thumb Styles */
+.toggleThumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.dark .toggleThumb {
+  transform: translateX(24px);
+  background: #ffffff;
+}
+
+/* Icon Styles */
+.icon {
+  width: 12px;
+  height: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+}
+
+.sunIcon {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.moonIcon {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.activeIcon {
+  width: 12px;
+  height: 12px;
+  color: var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+.dark .activeIcon {
+  color: #4f46e5;
+}
+
+/* Hover Effects */
+.themeToggle:hover .toggleThumb {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.themeToggle:hover .toggleTrack {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Focus States */
+.themeToggle:focus {
+  outline: none;
+}
+
+.themeToggle:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+/* Animation for Icon Switch */
+@keyframes iconRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.themeToggle:active .activeIcon {
+  animation: iconRotate 0.3s ease;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .themeToggle {
+    width: 48px;
+    height: 24px;
+  }
+  
+  .toggleThumb {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .dark .toggleThumb {
+    transform: translateX(24px);
+  }
+  
+  .icon,
+  .activeIcon {
+    width: 10px;
+    height: 10px;
+  }
+}

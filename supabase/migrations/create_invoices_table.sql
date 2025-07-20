@@ -1,0 +1,56 @@
+/*
+  # Create invoices table for invoice management
+
+  1. New Tables
+    - `invoices`
+      - `id` (uuid, primary key, auto-generated)
+      - `user_id` (uuid, references auth.users, not null)
+      - `invoice_data` (jsonb, stores complete invoice information)
+      - `status` (text, default 'draft', check constraint)
+      - `created_at` (timestamptz, default now)
+      - `updated_at` (timestamptz, default now)
+
+  2. Security
+    - Enable RLS on `invoices` table
+    - Add policies for users to manage their own invoices only
+
+  3. Functions
+    - `increment_invoice_count()` function to update user's invoice count
+*/
+
+-- Create invoices table
+CREATE TABLE IF NOT EXISTS invoices (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  invoice_data JSONB NOT NULL,
+  status TEXT NOT NULL DEFAULT 'draft' CHECK (status IN ('draft', 'sent', 'paid', 'overdue')),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
+);
+
+-- Set up Row Level Security (RLS)
+ALTER TABLE invoices ENABLE ROW LEVEL SECURITY;
+
+-- Create policy for users to manage their own invoices
+CREATE POLICY "Users can view own invoices" ON invoices
+  FOR SELECT USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can insert own invoices" ON invoices
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update own invoices" ON invoices
+  FOR UPDATE USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete own invoices" ON invoices
+  FOR DELETE USING (auth.uid() = user_id);
+
+-- Create function to increment invoice count
+CREATE OR REPLACE FUNCTION increment_invoice_count(user_id UUID)
+RETURNS void AS $$
+BEGIN
+  UPDATE profiles 
+  SET invoice_count = invoice_count + 1,
+      updated_at = NOW()
+  WHERE id = user_id;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
