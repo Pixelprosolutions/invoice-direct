@@ -6,13 +6,13 @@ import InvoicePreview from './InvoicePreview'
 import InvoiceHistory from './InvoiceHistory'
 import Modal from './Modal'
 import UserDashboard from './UserDashboard'
-import { FaUser, FaHome, FaFileInvoice, FaHistory } from 'react-icons/fa'
+import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt } from 'react-icons/fa'
 
 const AuthenticatedApp = () => {
   const [activeView, setActiveView] = useState('home')
   const [showPreview, setShowPreview] = useState(false)
   const [showUserDashboard, setShowUserDashboard] = useState(false)
-  const { user, canCreateInvoice, getRemainingInvoices } = useAuth()
+  const { user, canCreateInvoice, getRemainingInvoices, signOut } = useAuth()
 
   const handleCreateInvoice = () => {
     if (!canCreateInvoice()) {
@@ -30,6 +30,10 @@ const AuthenticatedApp = () => {
     }
     
     setShowPreview(true)
+  }
+
+  const handleSignOut = async () => {
+    await signOut()
   }
 
   const renderContent = () => {
@@ -117,6 +121,13 @@ const AuthenticatedApp = () => {
           >
             <FaUser />
             <span className={styles.userEmail}>{user.email}</span>
+          </button>
+          <button
+            onClick={handleSignOut}
+            className={styles.logoutButton}
+            title="Sign Out"
+          >
+            <FaSignOutAlt />
           </button>
         </div>
       </header>
