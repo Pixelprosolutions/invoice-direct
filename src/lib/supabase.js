@@ -65,21 +65,37 @@ export const createUserProfile = async (userId, email) => {
 
 export const getUserProfile = async (userId) => {
   try {
+    // Add timeout to prevent hanging
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 5000)
+    
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', userId)
+      .abortSignal(controller.signal)
       .single()
 
+    clearTimeout(timeoutId)
+
     if (error) {
+      if (error.code === 'PGRST116') {
+        // No rows returned - profile doesn't exist
+        console.log('Profile not found for user:', userId)
+        return null
+      }
       console.error('Profile fetch error:', error)
-      throw error
+      return null
     }
     
     return data
   } catch (error) {
+    if (error.name === 'AbortError') {
+      console.error('Profile fetch timed out')
+      return null
+    }
     console.error('getUserProfile failed:', error)
-    throw error
+    return null
   }
 }
 

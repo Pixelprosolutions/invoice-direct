@@ -70,32 +70,33 @@ export const AuthProvider = ({ children }) => {
 
   const loadUserProfile = async (userId) => {
     try {
-      // Add timeout to prevent infinite loading
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Profile load timeout')), 10000)
-      )
-      
-      const profile = await Promise.race([
-        getUserProfile(userId),
-        timeoutPromise
-      ])
+      const profile = await getUserProfile(userId)
       
       if (profile) {
         setUserProfile(profile)
-      }
-    } catch (error) {
-      console.error('Error loading user profile:', error)
-      
-      // Set a default profile for development or when there are issues
-      if (error.message.includes('Supabase not configured') || error.message.includes('timeout')) {
+      } else {
+        // Create a default profile if none exists
+        console.log('No profile found, creating default profile')
         setUserProfile({
           id: userId,
-          email: 'demo@example.com',
+          email: user?.email || 'user@example.com',
           plan: 'free',
           invoice_count: 0,
           created_at: new Date().toISOString()
         })
       }
+      setLoading(false)
+    } catch (error) {
+      console.error('Error loading user profile:', error)
+      
+      // Always set a fallback profile to prevent app from breaking
+      setUserProfile({
+        id: userId,
+        email: user?.email || 'user@example.com',
+        plan: 'free',
+        invoice_count: 0,
+        created_at: new Date().toISOString()
+      })
       
       setLoading(false)
     }
