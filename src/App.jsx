@@ -12,7 +12,7 @@ function App() {
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [authMode, setAuthMode] = useState('signin')
 
-  const { user, loading } = useAuth()
+  const { user, loading, error } = useAuth()
 
   const handleAuthClick = (mode = 'signin') => {
     setAuthMode(mode)
