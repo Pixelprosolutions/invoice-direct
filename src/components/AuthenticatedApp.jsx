@@ -34,11 +34,11 @@ const AuthenticatedApp = () => {
 
   const handleSignOut = async () => {
     try {
-      await signOut()
-      // The App.jsx will automatically redirect to landing page
-      // when user becomes null due to AuthContext state change
+      signOut()
     } catch (error) {
       console.error('Logout failed:', error)
+      // Force reload as fallback
+      window.location.reload()
     }
   }
 

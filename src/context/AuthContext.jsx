@@ -194,9 +194,6 @@ export const AuthProvider = ({ children }) => {
   const signOut = async () => {
     try {
       setError(null)
-      setLoading(true)
-      const { error } = await supabase.auth.signOut()
-      if (error) throw error
       
       // Clear all local state
       setUser(null)
@@ -205,10 +202,17 @@ export const AuthProvider = ({ children }) => {
       // Clear any cached data from localStorage
       localStorage.removeItem('invoiceData')
       
+      // Try to sign out from Supabase, but don't block on it
+      supabase.auth.signOut().catch(error => {
+        console.warn('Supabase signout failed:', error.message)
+      })
+      
     } catch (error) {
-      setError(error.message)
-    } finally {
-      setLoading(false)
+      console.warn('Logout error:', error.message)
+      // Even if there's an error, clear local state
+      setUser(null)
+      setUserProfile(null)
+      localStorage.removeItem('invoiceData')
     }
   }
 
