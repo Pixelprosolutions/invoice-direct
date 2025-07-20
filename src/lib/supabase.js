@@ -65,6 +65,18 @@ export const createUserProfile = async (userId, email) => {
 
 export const getUserProfile = async (userId) => {
   try {
+    // Check if this is the test account
+    const testUser = await supabase.auth.getUser()
+    if (testUser.data?.user?.email === 'hello@pixelpro.solutions') {
+      return {
+        id: userId,
+        email: 'hello@pixelpro.solutions',
+        plan: 'premium',
+        invoice_count: 0,
+        created_at: new Date().toISOString()
+      }
+    }
+    
     // Add timeout to prevent hanging
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 5000)

@@ -220,11 +220,19 @@ export const AuthProvider = ({ children }) => {
   }
 
   const isPremium = () => {
+    // Test account for development - remove in production
+    if (user?.email === 'hello@pixelpro.solutions') {
+      return true
+    }
     return userProfile?.plan === 'premium'
   }
 
   const getRemainingInvoices = () => {
     if (!userProfile) return 0
+    // Test account for development - remove in production
+    if (user?.email === 'hello@pixelpro.solutions') {
+      return Infinity
+    }
     if (userProfile.plan === 'premium') return Infinity
     return Math.max(0, 3 - userProfile.invoice_count)
   }
