@@ -145,40 +145,40 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
               <div className={styles.featureIcon}>
                 <FaClock />
               </div>
-              <h3>Lightning Fast Setup</h3>
-              <p>Create your first invoice in under 2 minutes. Our intuitive interface guides you through every step effortlessly.</p>
+              <h3>Quick Invoice Creation</h3>
+              <p>Simple form-based invoice creation with all the essential fields you need to get paid professionally.</p>
+            </div>
+            
+            <div className={styles.feature}>
+              <div className={styles.featureIcon}>
+                <FaFileInvoiceDollar />
+              </div>
+              <h3>Professional PDF Output</h3>
+              <p>Generate clean, professional-looking invoices that you can download as PDF or print directly.</p>
             </div>
             
             <div className={styles.feature}>
               <div className={styles.featureIcon}>
                 <FaPalette />
               </div>
-              <h3>Professional Templates</h3>
-              <p>Stunning, customizable templates that reflect your brand and impress your clients from the first glance.</p>
-            </div>
-            
-            <div className={styles.feature}>
-              <div className={styles.featureIcon}>
-                <FaUsers />
-              </div>
-              <h3>Client Management</h3>
-              <p>Organize your clients effortlessly. Save details once and create repeat invoices with just a few clicks.</p>
+              <h3>Basic Customization</h3>
+              <p>Add your business details, logo, and customize colors to match your brand identity.</p>
             </div>
             
             <div className={styles.feature}>
               <div className={styles.featureIcon}>
                 <FaDownload />
               </div>
-              <h3>One-Click Delivery</h3>
-              <p>Send invoices instantly via email or download professional PDFs. Your clients will love the experience.</p>
+              <h3>Easy Download & Share</h3>
+              <p>Download your invoices as PDF files or share them directly with your clients via email.</p>
             </div>
             
             <div className={styles.feature}>
               <div className={styles.featureIcon}>
-                <FaChartLine />
+                <FaShieldAlt />
               </div>
-              <h3>Smart Analytics</h3>
-              <p>Track payments, monitor cash flow, and get insights that help you make better business decisions.</p>
+              <h3>Secure & Private</h3>
+              <p>Your data is stored securely with user authentication. Only you can access your invoice information.</p>
             </div>
             
             <div className={styles.feature}>
@@ -186,7 +186,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
                 <FaMobile />
               </div>
               <h3>Mobile Ready</h3>
-              <p>Create and manage invoices from anywhere. Fully responsive design that works perfectly on all devices.</p>
+              <p>Works perfectly on desktop, tablet, and mobile devices. Create invoices from anywhere.</p>
             </div>
           </div>
         </div>
@@ -303,10 +303,10 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
               </div>
               <ul className={styles.featuresList}>
                 <li><FaCheck /> 3 invoices per month</li>
-                <li><FaCheck /> Professional templates</li>
+                <li><FaCheck /> Basic invoice template</li>
                 <li><FaCheck /> PDF download</li>
-                <li><FaCheck /> Email support</li>
-                <li><FaCheck /> Basic analytics</li>
+                <li><FaCheck /> Add your logo</li>
+                <li><FaCheck /> Basic customization</li>
               </ul>
               <button onClick={onSignUp} className={styles.pricingButton}>
                 Get Started Free
@@ -317,33 +317,31 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             <div className={`${styles.pricingCard} ${styles.popular}`}>
               <div className={styles.popularBadge}>🔥 Most Popular</div>
               <div className={styles.pricingHeader}>
-                <h3>Professional</h3>
+                <h3>Premium</h3>
                 <div className={styles.price}>
                   <span className={styles.currency}>$</span>
-                  <span className={styles.amount}>9</span>
-                  <span className={styles.period}>/month</span>
+                  <span className={styles.amount}>10</span>
+                  <span className={styles.period}>lifetime</span>
                 </div>
-                <p className={styles.pricingSubtext}>For growing businesses</p>
+                <p className={styles.pricingSubtext}>One-time payment</p>
               </div>
               <ul className={styles.featuresList}>
                 <li><FaCheck /> <strong>Unlimited invoices</strong></li>
-                <li><FaCheck /> All premium templates</li>
-                <li><FaCheck /> Custom branding & logo</li>
-                <li><FaCheck /> Advanced analytics</li>
-                <li><FaCheck /> Payment tracking</li>
-                <li><FaCheck /> Automated reminders</li>
+                <li><FaCheck /> Custom branding</li>
+                <li><FaCheck /> Remove watermarks</li>
+                <li><FaCheck /> Invoice history</li>
+                <li><FaCheck /> Advanced customization</li>
                 <li><FaCheck /> Priority support</li>
-                <li><FaCheck /> Export to Excel/CSV</li>
               </ul>
               <button onClick={onSignUp} className={styles.pricingButton}>
                 Start Free Trial
               </button>
-              <p className={styles.noCard}>Cancel anytime, no questions asked</p>
+              <p className={styles.noCard}>Start with 3 free invoices</p>
             </div>
           </div>
           
           <div className={styles.pricingFooter}>
-            <p>💡 <strong>Pro tip:</strong> Most users upgrade after their first week. Start free and experience the difference!</p>
+            <p>💡 <strong>Pro tip:</strong> Start free and upgrade when you need unlimited invoices!</p>
           </div>
         </div>
       </section>
@@ -358,33 +356,33 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
           
           <div className={styles.faqGrid}>
             <div className={styles.faqItem}>
-              <h3>How fast can I create my first invoice?</h3>
-              <p>Most users create their first professional invoice in under 2 minutes. Our intuitive interface makes the process incredibly simple.</p>
+              <h3>How do I create my first invoice?</h3>
+              <p>Simply fill out the invoice form with your business details, client information, and line items. Then download as PDF or share directly.</p>
             </div>
             
             <div className={styles.faqItem}>
               <h3>Can I customize invoices with my branding?</h3>
-              <p>Yes! Upload your logo, customize colors, and modify templates to perfectly match your brand identity.</p>
+              <p>Yes! You can upload your logo and customize colors to match your brand. Premium users get additional customization options.</p>
             </div>
             
             <div className={styles.faqItem}>
-              <h3>Is my business data secure and private?</h3>
-              <p>Absolutely. We use enterprise-grade security with bank-level encryption. Your data is automatically backed up and always private.</p>
+              <h3>Is my data secure?</h3>
+              <p>Yes! We use Supabase for secure data storage with user authentication. Your invoice data is private and only accessible by you.</p>
             </div>
             
             <div className={styles.faqItem}>
-              <h3>Can I track invoice status and payments?</h3>
-              <p>Yes! Track when invoices are sent, viewed, and paid. Get real-time updates and never lose track of outstanding payments.</p>
+              <h3>Can I save my invoices?</h3>
+              <p>Premium users can save and access their invoice history. Free users can download their invoices as PDF files for their records.</p>
             </div>
             
             <div className={styles.faqItem}>
-              <h3>What payment methods can I include?</h3>
-              <p>Include payment instructions for bank transfers, PayPal, Stripe, or any payment method your business accepts.</p>
+              <h3>What formats can I export invoices in?</h3>
+              <p>Currently, you can download invoices as PDF files, which is the most common format for professional invoicing.</p>
             </div>
             
             <div className={styles.faqItem}>
-              <h3>What if I need to cancel my subscription?</h3>
-              <p>You can cancel anytime with just one click. No questions asked, no hidden fees, and you keep access until your billing period ends.</p>
+              <h3>What happens after I use my 3 free invoices?</h3>
+              <p>You can upgrade to Premium for unlimited invoices, or wait until next month when your free quota resets.</p>
             </div>
           </div>
         </div>
@@ -398,21 +396,21 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             <p>Join thousands of professionals who've already streamlined their business with Invoice Direct</p>
             <div className={styles.ctaStats}>
               <div className={styles.ctaStat}>
-                <strong>2 minutes</strong>
-                <span>Average setup time</span>
+                <strong>Simple</strong>
+                <span>Easy to use</span>
               </div>
               <div className={styles.ctaStat}>
-                <strong>40% faster</strong>
-                <span>Payment collection</span>
+                <strong>Professional</strong>
+                <span>Clean PDF output</span>
               </div>
               <div className={styles.ctaStat}>
-                <strong>10 hours</strong>
-                <span>Saved per week</span>
+                <strong>Secure</strong>
+                <span>Your data is safe</span>
               </div>
             </div>
             <div className={styles.ctaActions}>
               <button onClick={onSignUp} className={styles.ctaButton}>
-                <FaRocket /> Start Creating Professional Invoices Free
+                <FaRocket /> Create Your First Invoice Free
               </button>
               <p className={styles.ctaSubtext}>
                 ✅ No credit card required &nbsp;&nbsp; ✅ 3 free invoices &nbsp;&nbsp; ✅ Ready in 2 minutes
