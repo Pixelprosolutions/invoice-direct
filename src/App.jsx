@@ -15,8 +15,9 @@ function App() {
   const { user, loading, error } = useAuth()
 
   // Check if this is a password reset callback
-  const isPasswordReset = window.location.hash.includes('type=recovery') || 
-                          window.location.pathname.includes('reset-password')
+  const isPasswordReset = window.location.pathname.includes('reset-password') ||
+                          window.location.hash.includes('type=recovery') ||
+                          window.location.search.includes('type=recovery')
 
   const handleAuthClick = (mode = 'signin') => {
     setAuthMode(mode)

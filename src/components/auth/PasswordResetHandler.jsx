@@ -11,17 +11,35 @@ const PasswordResetHandler = () => {
   const { supabase } = useAuth()
 
   useEffect(() => {
-    // Check if this is a password reset callback
-    const hash = window.location.hash.substring(1)
-    const hashParams = new URLSearchParams(hash)
-    const accessToken = hashParams.get('access_token')
-    const type = hashParams.get('type')
+    // Check if this is a password reset callback from URL params or hash
+    const urlParams = new URLSearchParams(window.location.search)
+    const hashParams = new URLSearchParams(window.location.hash.substring(1))
     
-    console.log('Password reset check:', { hash, accessToken: accessToken ? 'present' : 'missing', type })
+    const accessToken = urlParams.get('access_token') || hashParams.get('access_token')
+    const type = urlParams.get('type') || hashParams.get('type')
+    
+    console.log('Password reset check:', { 
+      search: window.location.search,
+      hash: window.location.hash,
+      accessToken: accessToken ? 'present' : 'missing', 
+      type 
+    })
 
     if (type === 'recovery' && accessToken) {
       // This is a valid password reset link
       console.log('Valid password reset link detected')
+      
+      // Set the session with the access token
+      supabase.auth.setSession({
+        access_token: accessToken,
+        refresh_token: urlParams.get('refresh_token') || hashParams.get('refresh_token')
+      }).then(() => {
+        console.log('Session set for password reset')
+      }).catch(err => {
+        console.error('Failed to set session:', err)
+        setError('Failed to authenticate reset link')
+      })
+      
       setIsLoading(false)
     } else {
       // Invalid or missing parameters
@@ -29,7 +47,6 @@ const PasswordResetHandler = () => {
       setError('Invalid password reset link')
       setIsLoading(false)
     }
-  }, [])
 
   const handlePasswordReset = async (e) => {
     e.preventDefault()

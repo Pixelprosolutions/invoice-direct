@@ -231,8 +231,12 @@ export const AuthProvider = ({ children }) => {
   const resetPassword = async (email) => {
     try {
       setError(null)
+      
+      // Get the current origin dynamically
+      const redirectTo = `${window.location.origin}/reset-password`
+      
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/#access_token=PLACEHOLDER&type=recovery`
+        redirectTo: redirectTo
       })
       if (error) throw error
       return { error: null }
