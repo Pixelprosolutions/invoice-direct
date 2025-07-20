@@ -6,6 +6,8 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 console.log('Supabase Config Check:')
 console.log('URL:', supabaseUrl ? 'Present' : 'Missing')
 console.log('Key:', supabaseAnonKey ? 'Present' : 'Missing')
+console.log('Full URL:', supabaseUrl)
+console.log('Key starts with:', supabaseAnonKey ? supabaseAnonKey.substring(0, 20) + '...' : 'Missing')
 
 // Create a mock client if environment variables are missing (for development)
 let supabase = null

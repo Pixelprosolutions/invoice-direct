@@ -8,6 +8,7 @@ import InvoiceHistory from './InvoiceHistory'
 import Modal from './Modal'
 import UserDashboard from './UserDashboard'
 import MVPStatusChecker from './MVPStatusChecker'
+import ConfigChecker from './ConfigChecker'
 import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt } from 'react-icons/fa'
 
 const AuthenticatedApp = () => {
@@ -58,6 +59,8 @@ const AuthenticatedApp = () => {
         return <InvoiceHistory setActiveView={setActiveView} />
       case 'test':
         return <MVPStatusChecker />
+      case 'config':
+        return <ConfigChecker />
       default:
         return (
           <div className={styles.homeContent}>
@@ -101,6 +104,14 @@ const AuthenticatedApp = () => {
               </div>
               <h3>Test MVP Features</h3>
               <p>Check if all features are working properly</p>
+            </div>
+            
+            <div className={styles.actionCard} onClick={() => setActiveView('config')}>
+              <div className={styles.actionIcon}>
+                <FaFileInvoice />
+              </div>
+              <h3>Check Supabase Config</h3>
+              <p>Verify database and authentication setup</p>
             </div>
           </div>
         )

@@ -32,24 +32,39 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
           return
         }
         
+        console.log('🔄 Starting signup process...')
         const { error } = await signUp(email, password)
+        console.log('📊 Signup result:', error ? 'Failed' : 'Success')
+        
         if (!error) {
           setLocalError('')
-          // Show success message or redirect
+          setLocalError('Account created successfully! Please check your email for verification.')
           onClose()
+        } else {
+          console.error('❌ Signup error:', error)
+          setLocalError(error.message || 'Failed to create account')
         }
       } else if (mode === 'signin') {
+        console.log('🔄 Starting signin process...')
         const { error } = await signIn(email, password)
+        console.log('📊 Signin result:', error ? 'Failed' : 'Success')
+        
         if (!error) {
           onClose()
+        } else {
+          console.error('❌ Signin error:', error)
+          setLocalError(error.message || 'Failed to sign in')
         }
       } else if (mode === 'reset') {
         const { error } = await resetPassword(email)
         if (!error) {
           setResetEmailSent(true)
+        } else {
+          setLocalError(error.message || 'Failed to send reset email')
         }
       }
     } catch (err) {
+      console.error('❌ Auth error:', err)
       setLocalError(err.message)
     } finally {
       setIsSubmitting(false)

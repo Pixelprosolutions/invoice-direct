@@ -156,14 +156,19 @@ export const AuthProvider = ({ children }) => {
       setError(null)
       setLoading(true)
       
+      console.log('🔄 Attempting signup for:', email)
+      
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
       })
 
+      console.log('📊 Signup response:', { data, error })
+
       if (error) throw error
       return { data, error: null }
     } catch (error) {
+      console.error('❌ Signup failed:', error)
       setError(error.message)
       return { data: null, error }
     } finally {
@@ -176,14 +181,19 @@ export const AuthProvider = ({ children }) => {
       setError(null)
       setLoading(true)
       
+      console.log('🔄 Attempting signin for:', email)
+      
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
 
+      console.log('📊 Signin response:', { data, error })
+
       if (error) throw error
       return { data, error: null }
     } catch (error) {
+      console.error('❌ Signin failed:', error)
       setError(error.message)
       return { data: null, error }
     } finally {
