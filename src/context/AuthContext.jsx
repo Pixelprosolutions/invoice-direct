@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
-import { supabase, createUserProfile, getUserProfile } from '../lib/supabase'
+import { supabase, getUserProfile } from '../lib/supabase'
 
 const AuthContext = createContext()
 
@@ -21,15 +21,24 @@ export const AuthProvider = ({ children }) => {
     // Get initial session
     const getInitialSession = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession()
+        const { data: { session }, error } = await supabase.auth.getSession()
+        
+        if (error) {
+          console.error('Error getting session:', error)
+          setError(error.message)
+          setLoading(false)
+          return
+        }
+        
         if (session?.user) {
           setUser(session.user)
           await loadUserProfile(session.user.id)
+        } else {
+          setLoading(false)
         }
       } catch (error) {
         console.error('Error getting initial session:', error)
         setError(error.message)
-      } finally {
         setLoading(false)
       }
     }
@@ -39,6 +48,7 @@ export const AuthProvider = ({ children }) => {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('Auth state change:', event, session?.user?.email)
         try {
           if (session?.user) {
             setUser(session.user)
@@ -49,7 +59,6 @@ export const AuthProvider = ({ children }) => {
           }
         } catch (error) {
           console.error('Error in auth state change:', error)
-          setError(error.message)
         } finally {
           setLoading(false)
         }
@@ -61,16 +70,24 @@ export const AuthProvider = ({ children }) => {
 
   const loadUserProfile = async (userId) => {
     try {
-      const profile = await getUserProfile(userId)
-      setUserProfile(profile)
+      // Add timeout to prevent infinite loading
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Profile load timeout')), 10000)
+      )
+      
+      const profile = await Promise.race([
+        getUserProfile(userId),
+        timeoutPromise
+      ])
+      
+      if (profile) {
+        setUserProfile(profile)
+      }
     } catch (error) {
       console.error('Error loading user profile:', error)
-      // Don't set error for mock client
-      if (!error.message.includes('Supabase not configured')) {
-        setError(error.message)
-      }
-      // Set a default profile for development if Supabase is not configured
-      if (error.message.includes('Supabase not configured')) {
+      
+      // Set a default profile for development or when there are issues
+      if (error.message.includes('Supabase not configured') || error.message.includes('timeout')) {
         setUserProfile({
           id: userId,
           email: 'demo@example.com',
@@ -79,6 +96,8 @@ export const AuthProvider = ({ children }) => {
           created_at: new Date().toISOString()
         })
       }
+      
+      setLoading(false)
     }
   }
 

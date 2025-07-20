@@ -3,19 +3,24 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
+console.log('Supabase Config Check:')
+console.log('URL:', supabaseUrl ? 'Present' : 'Missing')
+console.log('Key:', supabaseAnonKey ? 'Present' : 'Missing')
+
 // Create a mock client if environment variables are missing (for development)
 let supabase = null
 
 if (supabaseUrl && supabaseAnonKey) {
+  console.log('✅ Creating real Supabase client')
   supabase = createClient(supabaseUrl, supabaseAnonKey)
 } else {
-  console.warn('⚠️ Supabase environment variables missing. Using mock client for development.')
-  console.warn('📝 Please create a .env file with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY')
+  console.warn('⚠️ Supabase environment variables missing. Using mock client.')
+  console.warn('📝 Create .env file with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY')
   
   // Mock client for development
   supabase = {
     auth: {
-      getSession: () => Promise.resolve({ data: { session: null } }),
+      getSession: () => Promise.resolve({ data: { session: null }, error: null }),
       onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
       signUp: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
       signInWithPassword: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
@@ -24,9 +29,14 @@ if (supabaseUrl && supabaseAnonKey) {
     },
     from: () => ({
       insert: () => ({ select: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }) }),
-      select: () => ({ eq: () => ({ single: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }) }) }),
+      select: () => ({ 
+        eq: () => ({ 
+          single: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
+          order: () => Promise.resolve({ data: [], error: null })
+        }),
+        order: () => Promise.resolve({ data: [], error: null })
+      }),
       update: () => ({ eq: () => ({ select: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }) }) }),
-      order: () => Promise.resolve({ data: [], error: null })
     }),
     rpc: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } })
   }
@@ -54,14 +64,23 @@ export const createUserProfile = async (userId, email) => {
 }
 
 export const getUserProfile = async (userId) => {
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', userId)
-    .single()
+  try {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single()
 
-  if (error) throw error
-  return data
+    if (error) {
+      console.error('Profile fetch error:', error)
+      throw error
+    }
+    
+    return data
+  } catch (error) {
+    console.error('getUserProfile failed:', error)
+    throw error
+  }
 }
 
 export const updateUserProfile = async (userId, updates) => {

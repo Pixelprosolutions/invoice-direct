@@ -23,7 +23,25 @@ function App() {
     return (
       <div className={styles.loadingContainer}>
         <div className={styles.spinner}></div>
-        <p>Loading...</p>
+        <p>Loading Invoice Direct...</p>
+        {error && (
+          <div style={{ marginTop: '1rem', color: '#ef4444', textAlign: 'center' }}>
+            <p>Connection issue: {error}</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              style={{ 
+                padding: '0.5rem 1rem', 
+                background: '#4f46e5', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}
+            >
+              Retry
+            </button>
+          </div>
+        )}
       </div>
     )
   }
