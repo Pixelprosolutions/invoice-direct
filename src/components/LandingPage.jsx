@@ -8,6 +8,15 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
+          <div className={styles.heroText}>
+            <h1 className={styles.heroTitle}>
+              Create Professional <span className={styles.highlight}>Invoices</span> in Minutes
+            </h1>
+            <p className={styles.heroSubtitle}>
+              Simple invoice generator with professional PDF output. Add your business details, 
+              line items, and download instantly. Start with 3 free invoices.
+            </p>
+          </div>
           <div className={styles.heroBadge}>
             ✨ Simple & Professional Invoice Generator
           </div>
@@ -41,6 +50,25 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
               <div className={styles.previewLine}></div>
               <div className={styles.previewLine}></div>
               <div className={styles.previewTable}>
+        <div className={styles.heroVisual}>
+          <div className={styles.invoicePreview}>
+            <div className={styles.previewHeader}>
+              <div className={styles.previewLogo}></div>
+              <div className={styles.previewTitle}>INVOICE</div>
+            </div>
+            <div className={styles.previewContent}>
+              <div className={styles.previewLine}></div>
+              <div className={styles.previewLine}></div>
+              <div className={styles.previewLine}></div>
+              <div className={styles.previewTable}>
+                <div className={styles.tableLine}></div>
+                <div className={styles.tableLine}></div>
+                <div className={styles.tableLine}></div>
+              </div>
+              <div className={styles.previewTotal}></div>
+            </div>
+          </div>
+        </div>
                 <div className={styles.tableLine}></div>
                 <div className={styles.tableLine}></div>
                 <div className={styles.tableLine}></div>
