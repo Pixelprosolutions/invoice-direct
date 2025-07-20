@@ -72,11 +72,6 @@ export const AuthProvider = ({ children }) => {
 
       if (error) throw error
 
-      // Create user profile after successful signup
-      if (data.user) {
-        await createUserProfile(data.user.id, email)
-      }
-
       return { data, error: null }
     } catch (error) {
       setError(error.message)
