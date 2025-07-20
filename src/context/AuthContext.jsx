@@ -194,10 +194,21 @@ export const AuthProvider = ({ children }) => {
   const signOut = async () => {
     try {
       setError(null)
+      setLoading(true)
       const { error } = await supabase.auth.signOut()
       if (error) throw error
+      
+      // Clear all local state
+      setUser(null)
+      setUserProfile(null)
+      
+      // Clear any cached data from localStorage
+      localStorage.removeItem('invoiceData')
+      
     } catch (error) {
       setError(error.message)
+    } finally {
+      setLoading(false)
     }
   }
 
