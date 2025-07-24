@@ -1,0 +1,281 @@
+.businessInfoForm {
+  padding: 2rem;
+}
+
+.formSection {
+  margin-bottom: 3rem;
+}
+
+.formSection:last-child {
+  margin-bottom: 0;
+}
+
+.formSection h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem 0;
+  color: #1e293b;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.75rem;
+}
+
+.sectionIcon {
+  color: #4f46e5;
+  width: 20px;
+  height: 20px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup.fullWidth {
+  grid-column: span 2;
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.formGroup input {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  background: white;
+  color: #1e293b;
+}
+
+.formGroup input::placeholder {
+  color: #9ca3af;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.formGroup input:hover:not(:focus) {
+  border-color: #9ca3af;
+}
+
+.logoSection {
+  margin-bottom: 2rem;
+}
+
+.logoPreview {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.logoImage {
+  max-width: 200px;
+  max-height: 100px;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.logoActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.changeLogo {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.changeLogo:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+.removeLogo {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.removeLogo:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.logoUpload {
+  margin-bottom: 1rem;
+}
+
+.logoUploadArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.logoUploadArea:hover {
+  border-color: #4f46e5;
+  background: #f1f5f9;
+}
+
+.uploadIcon {
+  color: #4f46e5;
+  width: 48px;
+  height: 48px;
+}
+
+.logoUploadArea h4 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.logoUploadArea p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.logoTips {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.logoTips h4 {
+  margin: 0 0 1rem 0;
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.logoTips ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #64748b;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.logoTips li {
+  margin-bottom: 0.5rem;
+}
+
+.logoTips li:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .businessInfoForm {
+    padding: 1.5rem;
+  }
+  
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .formGroup.fullWidth {
+    grid-column: span 1;
+  }
+  
+  .logoPreview {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .logoActions {
+    flex-direction: row;
+    gap: 1rem;
+  }
+  
+  .logoUploadArea {
+    padding: 2rem;
+  }
+  
+  .uploadIcon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .businessInfoForm {
+    padding: 1rem;
+  }
+  
+  .formSection h3 {
+    font-size: 1rem;
+  }
+  
+  .logoUploadArea {
+    padding: 1.5rem;
+  }
+  
+  .logoActions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .changeLogo,
+  .removeLogo {
+    justify-content: center;
+  }
+}
