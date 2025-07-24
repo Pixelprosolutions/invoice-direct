@@ -49,8 +49,8 @@ const InvoiceForm = ({ onPreview }) => {
         onPreview();
       }
     } catch (error) {
-      console.error('Failed to save invoice:', error);
-      toast.error('Failed to save invoice. Please try again.');
+      console.error('Failed to save invoice:', error.message || error);
+      toast.error(`Failed to save invoice: ${error.message || 'Please try again.'}`);
     }
   };
 
