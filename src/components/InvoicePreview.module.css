@@ -43,7 +43,8 @@
 
 .statusPaid {
   background-color: rgba(16, 185, 129, 0.1);
-  color: #10B981;
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .statusPending {
