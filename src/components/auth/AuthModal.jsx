@@ -41,13 +41,13 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
           setLocalError('Account created successfully! Please check your email for verification.')
           onClose()
         } else {
-          console.error('❌ Signup error:', error)
+          console.error('❌ Signup failed:', error.message || error)
           setLocalError(error.message || 'Failed to create account')
         }
       } else if (mode === 'signin') {
         console.log('🔄 Starting signin process...')
         const { error } = await signIn(email, password)
-        console.log('📊 Signin result:', error ? 'Failed' : 'Success')
+        console.log('�� Signin result:', error ? 'Failed' : 'Success')
         
         if (!error) {
           onClose()
