@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { FaPlus, FaEdit, FaTrash, FaEye, FaPhone, FaEnvelope, FaMapMarkerAlt, FaSearch } from 'react-icons/fa'
+import { FaPlus, FaEdit, FaTrash, FaEye, FaPhone, FaEnvelope, FaMapMarkerAlt, FaSearch, FaUsers } from 'react-icons/fa'
 import Modal from './Modal'
 import AddEditClient from './AddEditClient'
 import ClientDetails from './ClientDetails'
