@@ -154,6 +154,12 @@ const AuthenticatedApp = () => {
             >
               <FaUsers /> Clients
             </button>
+            <button
+              className={`${styles.navButton} ${activeView === 'business' ? styles.active : ''}`}
+              onClick={() => setActiveView('business')}
+            >
+              <FaBuilding /> Business
+            </button>
           </nav>
         </div>
         <div className={styles.headerActions}>
