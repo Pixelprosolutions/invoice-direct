@@ -268,33 +268,11 @@
   color: var(--gray-500);
 }
 
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-  .preview {
-    background-color: var(--gray-800);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
-  }
-  
-  .itemsTable th {
-    background-color: var(--gray-700);
-    border-bottom: 2px solid var(--gray-600);
-  }
-  
-  .itemsTable td {
-    border-bottom: 1px solid var(--gray-700);
-  }
-  
-  .totalRow td {
-    border-top: 2px solid var(--gray-600);
-  }
-  
-  .paymentInstructions {
-    background-color: var(--gray-700);
-  }
-  
-  .footer {
-    border-top: 1px solid var(--gray-700);
-  }
+/* Light, user-friendly theme */
+.preview {
+  background-color: #ffffff;
+  color: #1e293b;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 /* Print styles */
