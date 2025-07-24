@@ -193,7 +193,7 @@ export const AuthProvider = ({ children }) => {
       if (error) throw error
       return { data, error: null }
     } catch (error) {
-      console.error('❌ Signin failed:', error)
+      console.error('❌ Signin failed:', error.message || error)
       setError(error.message)
       return { data: null, error }
     } finally {
