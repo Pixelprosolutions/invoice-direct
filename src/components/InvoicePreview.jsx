@@ -37,8 +37,8 @@ function InvoicePreview() {
           
           toast.success('Invoice saved successfully!');
         } catch (error) {
-          console.error('Failed to save invoice:', error);
-          toast.error('Failed to save invoice data.');
+          console.error('Failed to save invoice:', error.message || error);
+          toast.error(`Failed to save invoice: ${error.message || 'Database connection issue'}`);
         }
       }
     };
