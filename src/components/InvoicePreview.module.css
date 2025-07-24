@@ -206,9 +206,10 @@
 }
 
 .itemsTable td {
-  padding: 0.75rem;
-  border-bottom: 1px solid #E5E7EB;
-  color: #1F2937;
+  padding: 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
+  vertical-align: top;
 }
 
 .itemsTable tfoot td {
