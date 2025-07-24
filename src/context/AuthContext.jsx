@@ -320,7 +320,8 @@ export const AuthProvider = ({ children }) => {
     canCreateInvoice,
     isPremium,
     getRemainingInvoices,
-    refreshProfile
+    refreshProfile,
+    devLogin
   }
 
   return (
