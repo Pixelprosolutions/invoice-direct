@@ -48,7 +48,8 @@
 
 .statusPending {
   background-color: rgba(245, 158, 11, 0.1);
-  color: #F59E0B;
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 .statusOverdue {
