@@ -47,12 +47,12 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
       } else if (mode === 'signin') {
         console.log('🔄 Starting signin process...')
         const { error } = await signIn(email, password)
-        console.log('�� Signin result:', error ? 'Failed' : 'Success')
+        console.log('📊 Signin result:', error ? 'Failed' : 'Success')
         
         if (!error) {
           onClose()
         } else {
-          console.error('❌ Signin error:', error)
+          console.error('❌ Signin failed:', error.message || error)
           setLocalError(error.message || 'Failed to sign in')
         }
       } else if (mode === 'reset') {
