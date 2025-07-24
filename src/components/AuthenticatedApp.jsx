@@ -61,6 +61,8 @@ const AuthenticatedApp = () => {
         return <InvoiceHistory setActiveView={setActiveView} />
       case 'clients':
         return <ClientManagement />
+      case 'business':
+        return <BusinessProfile />
       case 'test':
         return <MVPStatusChecker />
       case 'config':
