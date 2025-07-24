@@ -138,11 +138,17 @@ const AuthenticatedApp = () => {
             >
               <FaFileInvoice /> Create
             </button>
-            <button 
+            <button
               className={`${styles.navButton} ${activeView === 'history' ? styles.active : ''}`}
               onClick={() => setActiveView('history')}
             >
               <FaHistory /> History
+            </button>
+            <button
+              className={`${styles.navButton} ${activeView === 'clients' ? styles.active : ''}`}
+              onClick={() => setActiveView('clients')}
+            >
+              <FaUsers /> Clients
             </button>
           </nav>
         </div>
