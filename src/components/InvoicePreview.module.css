@@ -194,12 +194,15 @@
 }
 
 .itemsTable th {
-  background-color: #F3F4F6;
-  padding: 0.75rem;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  padding: 1rem;
   text-align: left;
   font-weight: 600;
-  color: #4B5563;
-  border-bottom: 2px solid #E5E7EB;
+  color: #374151;
+  border-bottom: 2px solid #e2e8f0;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .itemsTable td {
