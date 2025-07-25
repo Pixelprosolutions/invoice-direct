@@ -882,10 +882,49 @@ html {
 
 .pricingNote {
   text-align: center;
-  font-size: 0.95rem;
+  margin-top: 2rem;
+}
+
+.pricingNote p {
+  font-size: 1.05rem;
   color: #64748b;
-  margin: 0;
+  margin: 1rem 0;
   font-weight: 500;
+}
+
+.savingsBadge {
+  display: inline-block;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.savingsText {
+  font-size: 1.1rem;
+}
+
+.guaranteeBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: #10b981;
+  font-weight: 600;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 /* FAQ Section */
