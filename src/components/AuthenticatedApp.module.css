@@ -173,6 +173,8 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
+  min-height: calc(100vh - 200px);
+  padding-bottom: 6rem; /* Space for floating action button */
 }
 
 .homeContent {
@@ -290,15 +292,25 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
+    width: 100%;
   }
 
   .navigation {
     order: 2;
+    width: 100%;
   }
 
   .header {
     padding: 1rem;
     position: relative;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .headerActions {
+    justify-content: flex-end;
+    width: 100%;
   }
 
   .logo {
@@ -306,8 +318,9 @@
   }
 
   .navButton {
-    padding: 0.625rem 0.875rem;
-    font-size: 0.8rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 8px;
   }
 
   .quickActions {
@@ -319,9 +332,14 @@
     padding: 1rem;
   }
 
+  .limitBanner p {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
   .upgradeLink {
     display: block;
-    margin: 0.5rem auto 0;
+    margin: 0;
     width: fit-content;
   }
 
@@ -358,11 +376,20 @@
   .navigation {
     width: 100%;
     justify-content: space-around;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .navigation::-webkit-scrollbar {
+    display: none;
   }
 
   .navButton {
     flex: 1;
     justify-content: center;
+    min-width: 60px;
+    white-space: nowrap;
   }
 
   .userButton {
@@ -373,10 +400,29 @@
   .userEmail {
     display: none;
   }
-  
+
   .logoutButton {
     width: 36px;
     height: 36px;
     padding: 0.625rem;
+  }
+
+  .actionCard {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .actionIcon {
+    width: 56px;
+    height: 56px;
+    font-size: 1.25rem;
+  }
+
+  .homeContent {
+    gap: 2rem;
+  }
+
+  .quickActions {
+    gap: 1rem;
   }
 }
