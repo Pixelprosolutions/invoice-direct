@@ -1687,24 +1687,49 @@ html {
 /* Extra small screens */
 @media (max-width: 360px) {
   .hero {
-    padding: 2.5rem 0.75rem;
-    padding-top: 60px;
+    padding: 1.25rem 0.75rem 2.5rem;
+    padding-top: 70px;
+    gap: 1.5rem;
+  }
+
+  .heroBadge {
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
   }
 
   .heroTitle {
     font-size: clamp(1.5rem, 10vw, 2rem);
+    margin-bottom: 0.5rem;
   }
 
-  .appDemo {
-    max-width: 280px;
-    transform: scale(0.75);
+  .heroSubtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
   }
 
-  .primaryButton,
-  .secondaryButton {
+  .primaryButton {
     max-width: 280px;
     padding: 0.75rem 1rem;
     font-size: 0.85rem;
+  }
+
+  .secondaryButton {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8rem;
+  }
+
+  .ctaNote {
+    font-size: 0.75rem;
+  }
+
+  .appDemo {
+    transform: scale(0.5);
+    margin: -4rem auto -3rem;
+  }
+
+  .heroVisual {
+    margin-bottom: -2rem;
   }
 
   .ctaButton {
