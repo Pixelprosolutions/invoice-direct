@@ -333,6 +333,16 @@ export const AuthProvider = ({ children }) => {
     setLoading(false)
   }
 
+  const forceSignOut = () => {
+    console.log('🔄 Force sign out - clearing all session data')
+    setUser(null)
+    setUserProfile(null)
+    setError(null)
+    localStorage.removeItem('invoiceData')
+    localStorage.removeItem('savedInvoices')
+    localStorage.removeItem('dev-user-id')
+  }
+
   const value = {
     user,
     userProfile,
@@ -346,7 +356,8 @@ export const AuthProvider = ({ children }) => {
     isPremium,
     getRemainingInvoices,
     refreshProfile,
-    devLogin
+    devLogin,
+    forceSignOut
   }
 
   return (
