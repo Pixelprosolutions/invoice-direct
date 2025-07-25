@@ -135,11 +135,13 @@ const InvoiceHistory = ({ setActiveView }) => {
                 <div className={styles.detailItem}>
                   <span className={styles.detailLabel}>Amount</span>
                   <span className={styles.detailValue}>
-                    {new Intl.NumberFormat('en-US', { 
-                      style: 'currency', 
-                      currency: 'USD' 
-                    }).format(invoice.lineItems.reduce((sum, item) => 
-                      sum + (item.quantity * item.unitPrice * (1 + item.tax / 100)), 0)
+                    {new Intl.NumberFormat('en-US', {
+                      style: 'currency',
+                      currency: 'USD'
+                    }).format(
+                      invoice.lineItems?.reduce((sum, item) =>
+                        sum + (parseFloat(item.total) || 0), 0
+                      ) || 0
                     )}
                   </span>
                 </div>
