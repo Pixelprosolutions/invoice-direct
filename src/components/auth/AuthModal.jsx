@@ -286,15 +286,30 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
         ) : (
           <form onSubmit={handleSubmit} className={styles.authForm}>
             <div className={styles.formGroup}>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="Enter your email"
-              />
+              <label htmlFor="email">Email Address</label>
+              <div className={`${styles.inputWrapper} ${fieldErrors.email ? styles.inputError : ''} ${isEmailValid && email ? styles.inputValid : ''}`}>
+                <FaEnvelope className={styles.inputIcon} />
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value)
+                    validateField('email', e.target.value)
+                  }}
+                  onBlur={(e) => validateField('email', e.target.value)}
+                  required
+                  placeholder="Enter your email address"
+                  className={fieldErrors.email ? styles.errorInput : ''}
+                />
+                {isEmailValid && email && <FaCheck className={styles.validIcon} />}
+              </div>
+              {fieldErrors.email && (
+                <span className={styles.fieldError}>
+                  <FaExclamationTriangle />
+                  {fieldErrors.email}
+                </span>
+              )}
             </div>
 
             {mode !== 'reset' && (
