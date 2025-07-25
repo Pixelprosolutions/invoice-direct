@@ -1151,10 +1151,10 @@ html {
 
 .ctaFeatures {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
   margin-bottom: 3rem;
-  max-width: 600px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1164,12 +1164,26 @@ html {
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   opacity: 1;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   color: white;
   text-align: center;
+  padding: 0.5rem;
+  min-height: 60px;
+}
+
+@media (max-width: 768px) {
+  .ctaFeatures {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 400px;
+  }
+
+  .ctaFeature {
+    font-size: 1.05rem;
+  }
 }
 
 .ctaFeatureIcon {
