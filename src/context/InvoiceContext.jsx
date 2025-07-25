@@ -255,7 +255,9 @@ export const InvoiceProvider = ({ children }) => {
       updateLineItem,
       removeLineItem,
       appliedTemplate,
-      applyTemplate
+      applyTemplate,
+      loadInvoice,
+      deleteInvoice
     }}>
       {children}
     </InvoiceContext.Provider>
