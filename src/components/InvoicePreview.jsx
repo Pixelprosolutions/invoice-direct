@@ -125,7 +125,7 @@ function InvoicePreview() {
     };
 
     saveInvoiceData();
-  }, [user, invoiceData, refreshProfile]);
+  }, [invoiceId]); // Only run when the invoice identity changes
 
   // Early return if data isn't loaded yet
   if (!invoiceData) {
