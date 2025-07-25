@@ -42,8 +42,25 @@ const InvoiceForm = ({ onPreview }) => {
     // Save to localStorage as backup
     try {
       localStorage.setItem('invoiceData', JSON.stringify(invoiceData));
+
+      // Also save to invoice history for Quick Actions
+      const savedInvoices = JSON.parse(localStorage.getItem('savedInvoices') || '[]');
+      const invoiceRecord = {
+        id: Date.now().toString(),
+        invoiceData: { ...invoiceData },
+        date: new Date().toISOString(),
+        lastModified: new Date().toISOString()
+      };
+
+      // Add to history (keep last 50 invoices)
+      savedInvoices.push(invoiceRecord);
+      if (savedInvoices.length > 50) {
+        savedInvoices.shift(); // Remove oldest
+      }
+
+      localStorage.setItem('savedInvoices', JSON.stringify(savedInvoices));
       toast.success('Invoice saved successfully!');
-      
+
       // Trigger preview
       if (onPreview) {
         onPreview();
