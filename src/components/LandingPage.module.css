@@ -463,6 +463,11 @@ html {
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
   animation: fadeInBounce 2s ease-out;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .floatingBadge:nth-child(2) {
