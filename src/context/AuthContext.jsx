@@ -246,6 +246,32 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  const signInWithGoogle = async () => {
+    try {
+      setError(null)
+      setLoading(true)
+
+      console.log('🔄 Attempting Google signin')
+
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/`
+        }
+      })
+
+      console.log('📊 Google signin response:', { data, error })
+
+      if (error) throw error
+      return { data, error: null }
+    } catch (error) {
+      console.error('❌ Google signin failed:', error.message || error)
+      setError(error.message)
+      return { data: null, error }
+    } finally {
+      setLoading(false)
+    }
+  }
   const resetPassword = async (email) => {
     try {
       setError(null)
@@ -368,6 +394,7 @@ export const AuthProvider = ({ children }) => {
     error,
     signUp,
     signIn,
+    signInWithGoogle,
     signOut,
     resetPassword,
     canCreateInvoice,
