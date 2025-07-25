@@ -281,35 +281,21 @@ function InvoicePreview() {
             </tfoot>
           </table>
 
-          {(invoiceData.bankDetails?.accountName || 
-            invoiceData.bankDetails?.sortCode || 
-            invoiceData.bankDetails?.accountNumber) && (
-            <div className={styles.paymentDetails}>
-              <h3>Payment Details</h3>
-              {invoiceData.bankDetails?.accountName && <p>Account Name: {invoiceData.bankDetails.accountName}</p>}
-              {invoiceData.bankDetails?.sortCode && <p>Sort Code: {invoiceData.bankDetails.sortCode}</p>}
-              {invoiceData.bankDetails?.accountNumber && <p>Account Number: {invoiceData.bankDetails.accountNumber}</p>}
-              {invoiceData.paymentInstructions && (
-                <div className={styles.paymentInstructions}>
-                  <p>{invoiceData.paymentInstructions}</p>
-                </div>
-              )}
-            </div>
-          )}
+          {/* Compact Footer Section */}
+          <div className={styles.footerSection}>
+            {invoiceData.notes && (
+              <div className={styles.notes}>
+                <h3>Notes</h3>
+                <p>{invoiceData.notes}</p>
+              </div>
+            )}
 
-          {invoiceData.notes && (
-            <div className={styles.notes}>
-              <h3>Notes</h3>
-              <p>{invoiceData.notes}</p>
-            </div>
-          )}
-
-          {invoiceData.terms && (
-            <div className={styles.terms}>
-              <h3>Terms & Conditions</h3>
-              <p>{invoiceData.terms}</p>
-            </div>
-          )}
+            {invoiceData.paymentInstructions && (
+              <div className={styles.paymentInstructions}>
+                <p>{invoiceData.paymentInstructions}</p>
+              </div>
+            )}
+          </div>
 
           <div className={styles.footer}>
             {invoiceData.customFooter ? (
