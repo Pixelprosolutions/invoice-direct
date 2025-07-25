@@ -249,22 +249,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
               </div>
             )}
 
-            {/* Dev Login Button */}
-            <div className={styles.devLoginSection}>
-              <button
-                type="button"
-                onClick={() => {
-                  devLogin()
-                  onClose()
-                }}
-                className={styles.devLoginButton}
-              >
-                🔧 Dev Login (Skip Auth)
-              </button>
-              <p className={styles.devLoginText}>
-                For development/testing - bypasses authentication
-              </p>
-            </div>
+
 
             <button 
               type="submit" 
