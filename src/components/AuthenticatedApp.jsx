@@ -30,7 +30,11 @@ const AuthenticatedApp = () => {
   const [showMobileFeatures, setShowMobileFeatures] = useState(false)
   const [showQuickInvoice, setShowQuickInvoice] = useState(false)
   const [showPaymentStatus, setShowPaymentStatus] = useState(false)
-  const { user, canCreateInvoice, getRemainingInvoices, signOut } = useAuth()
+  const { user, canCreateInvoice, getRemainingInvoices, signOut, forceSignOut } = useAuth()
+
+  // Check if current user is valid for database operations
+  const isValidUser = user && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(user.id)
+  const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY
 
   const handleCreateInvoice = () => {
     if (!canCreateInvoice()) {
