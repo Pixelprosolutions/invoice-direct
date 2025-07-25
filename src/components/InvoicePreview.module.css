@@ -227,10 +227,10 @@
 .totalRow td {
   font-weight: 700 !important;
   font-size: 1.125rem;
-  border-top: 2px solid #4f46e5;
+  border-top: 2px solid var(--primary-color, #4f46e5);
   border-bottom: none;
-  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-  color: #4f46e5;
+  background: linear-gradient(135deg, var(--primary-color, #f8fafc), var(--secondary-color, #f1f5f9));
+  color: white;
 }
 
 .paymentDetails, .notes, .terms {
