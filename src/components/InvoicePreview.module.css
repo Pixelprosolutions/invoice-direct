@@ -179,10 +179,14 @@
 }
 
 .clientInfo h3, .invoiceInfo h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 700;
   margin-bottom: 0.75rem;
-  color: #1F2937;
+  color: var(--primary-color, #1F2937);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--primary-color, #1F2937);
+  padding-bottom: 0.25rem;
 }
 
 .infoRow {
