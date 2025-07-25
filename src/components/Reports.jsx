@@ -18,7 +18,8 @@ import {
   FaFileExport,
   FaChartLine,
   FaChartPie,
-  FaWallet
+  FaWallet,
+  FaArrowLeft
 } from 'react-icons/fa';
 
 const Reports = () => {
