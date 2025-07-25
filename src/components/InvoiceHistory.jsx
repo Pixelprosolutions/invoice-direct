@@ -102,8 +102,12 @@ const InvoiceHistory = ({ setActiveView, onNavigateHome }) => {
               <div className={styles.invoiceCardHeader}>
                 <h3>Invoice #{invoice.invoiceData?.invoiceNumber || invoice.invoiceNumber || 'N/A'}</h3>
                 <div className={styles.invoiceActions}>
-                  <button 
-                    onClick={() => handleViewInvoice(invoice)}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleViewInvoice(invoice);
+                    }}
                     className={styles.actionButton}
                     title="View Invoice"
                   >
