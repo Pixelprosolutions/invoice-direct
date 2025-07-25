@@ -6,7 +6,7 @@ import PaymentTermsForm from './PaymentTermsForm'
 import TaxSettingsForm from './TaxSettingsForm'
 import styles from './BusinessProfile.module.css'
 
-const BusinessProfile = () => {
+const BusinessProfile = ({ onNavigateHome }) => {
   const [activeTab, setActiveTab] = useState('business')
   const [businessData, setBusinessData] = useState({
     // Business Information
