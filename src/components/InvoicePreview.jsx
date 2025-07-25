@@ -34,6 +34,15 @@ function InvoicePreview() {
   // Save invoice and increment count when component mounts
   useEffect(() => {
     const saveInvoiceData = async () => {
+      // Prevent duplicate saves
+      if (!user || !invoiceData || !invoiceId) return;
+
+      // Check if we've already saved this exact invoice
+      if (hasSaved.current && savedInvoiceId.current === invoiceId) {
+        console.log('📝 Invoice already saved, skipping duplicate save');
+        return;
+      }
+
       if (user && invoiceData) {
         try {
           // Check if Supabase is configured
