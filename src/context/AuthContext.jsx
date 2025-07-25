@@ -309,6 +309,21 @@ export const AuthProvider = ({ children }) => {
     if (!user) return
 
     try {
+      // First check localStorage for premium upgrade (demo mode)
+      const localProfile = localStorage.getItem('userProfile')
+      if (localProfile) {
+        try {
+          const parsedProfile = JSON.parse(localProfile)
+          if (parsedProfile.id === user.id) {
+            setUserProfile(parsedProfile)
+            return
+          }
+        } catch (e) {
+          console.warn('Error parsing local profile:', e)
+        }
+      }
+
+      // Fallback to Supabase profile
       const profile = await getUserProfile(user.id)
       setUserProfile(profile || {
         id: user.id,
