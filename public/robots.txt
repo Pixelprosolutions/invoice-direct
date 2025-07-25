@@ -1,0 +1,80 @@
+# Invoice Direct - Robots.txt
+# Professional Invoice Software for Freelancers & Small Businesses
+# https://invoicedirect.app
+
+User-agent: *
+Allow: /
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /dashboard/
+Disallow: /user/
+Disallow: /account/
+Disallow: /payment/
+Disallow: /webhook/
+
+# Disallow temp and system files
+Disallow: /tmp/
+Disallow: /.env
+Disallow: /config/
+Disallow: /logs/
+Disallow: /*.log$
+Disallow: /backup/
+
+# Disallow duplicate content
+Disallow: /*?utm_*
+Disallow: /*?ref=*
+Disallow: /*?source=*
+Disallow: /*?campaign=*
+Disallow: /search?*
+Disallow: /*?print=*
+
+# Allow important static resources
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /assets/
+Allow: /favicon.ico
+Allow: /logo.png
+Allow: /og-image.jpg
+Allow: /twitter-image.jpg
+Allow: /app-screenshot.jpg
+
+# Sitemap location
+Sitemap: https://invoicedirect.app/sitemap.xml
+
+# Crawl delay (be respectful)
+Crawl-delay: 1
+
+# Host preference
+Host: invoicedirect.app

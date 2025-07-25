@@ -136,10 +136,7 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
                 <FaLock />
                 <span>256-bit SSL Encryption</span>
               </div>
-              <div className={styles.securityBadge}>
-                <FaShieldAlt />
-                <span>30-day Money-back Guarantee</span>
-              </div>
+
             </div>
 
             <button 

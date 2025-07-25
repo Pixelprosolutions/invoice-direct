@@ -834,18 +834,17 @@ html {
     0 0 0 2px rgba(79, 70, 229, 0.2);
 }
 
-.popularBadge {
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+.recommendedText {
+  display: inline-block;
+  background: #4f46e5;
   color: white;
-  padding: 0.75rem 2rem;
-  border-radius: 25px;
-  font-size: 1rem;
-  font-weight: 700;
-  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
 }
 
 .pricingHeader {
@@ -938,14 +937,52 @@ html {
 
 .pricingNote {
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 4rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.pricingNote p {
-  font-size: 1.15rem;
+.dealHighlight {
+  background: rgba(16, 185, 129, 0.05);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.limitedTimeOffer {
+  margin-top: 1.5rem;
+}
+
+.limitedLabel {
+  display: inline-block;
+  background: #f59e0b;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+.offerDetails {
+  font-size: 1.25rem;
   color: #1e293b;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   font-weight: 600;
+}
+
+.regularPrice {
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0.5rem 0;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  opacity: 0.7;
 }
 
 .savingsBadge {
@@ -1033,7 +1070,7 @@ html {
 /* Final CTA */
 .finalCta {
   padding: 6rem 2rem;
-  background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #8b5cf6 100%);
   color: white;
   text-align: center;
   position: relative;
@@ -1047,7 +1084,16 @@ html {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+  animation: bgShift 20s ease-in-out infinite;
+}
+
+@keyframes bgShift {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
 }
 
 .ctaContent {
@@ -1061,16 +1107,18 @@ html {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50px;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   font-weight: 700;
   margin-bottom: 2rem;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 8px 25px rgba(79, 70, 229, 0.2),
+    0 4px 15px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .ctaBadgeIcon {
@@ -1097,15 +1145,16 @@ html {
   margin-right: auto;
   line-height: 1.7;
   font-weight: 500;
+  color: white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .ctaFeatures {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
   margin-bottom: 3rem;
-  max-width: 600px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1113,12 +1162,28 @@ html {
 .ctaFeature {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   opacity: 1;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   color: white;
+  text-align: center;
+  padding: 0.5rem;
+  min-height: 60px;
+}
+
+@media (max-width: 768px) {
+  .ctaFeatures {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 400px;
+  }
+
+  .ctaFeature {
+    font-size: 1.05rem;
+  }
 }
 
 .ctaFeatureIcon {
@@ -1294,63 +1359,158 @@ html {
   }
 }
 
+/* Enhanced Tablet responsiveness */
+@media (max-width: 1024px) {
+  .hero {
+    padding: 5rem 2rem;
+    padding-top: 80px;
+    gap: 3rem;
+  }
+
+  .heroTitle {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+  }
+
+  .appDemo {
+    max-width: 100%;
+    transform: scale(0.95);
+  }
+
+  .pricingCards {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
     padding: 3rem 1.5rem;
-    padding-top: 80px;
-    gap: 2.5rem;
+    padding-top: 90px;
+    gap: 0;
+    min-height: 80vh;
+    justify-content: center;
+    align-items: center;
   }
-  
+
+  .heroContent {
+    order: 1;
+    max-width: 100%;
+  }
+
+  .heroVisual {
+    display: none; /* Completely hide the app demo on mobile */
+  }
+
+  .heroBadge {
+    font-size: 0.9rem;
+    padding: 0.875rem 1.75rem;
+    margin-bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
   .heroTitle {
-    font-size: clamp(2rem, 8vw, 3rem);
+    font-size: clamp(2.25rem, 8vw, 3rem);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    max-width: 100%;
   }
-  
+
   .heroSubtitle {
     font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    color: #64748b;
   }
-  
+
   .heroActions {
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
-  }
-  
-  .heroTrust {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-  }
-  
-  .primaryButton,
-  .secondaryButton {
+    gap: 1.25rem;
+    margin-bottom: 2rem;
     width: 100%;
+  }
+
+  .primaryButton {
+    width: 100%;
+    max-width: 360px;
     justify-content: center;
+    padding: 1.125rem 1.75rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
   }
-  
-  .heroStats {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 1.5rem;
+
+  .ctaNote {
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+    color: #10b981;
+    font-weight: 600;
   }
-  
+
+  .heroSecondary {
+    margin-top: 0;
+  }
+
+  .secondaryButton {
+    font-size: 0.9rem;
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: none;
+    color: #64748b;
+    text-decoration: underline;
+  }
+
   .benefitsGrid,
   .featuresGrid {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .pricingCards {
     grid-template-columns: 1fr;
     gap: 2rem;
+    max-width: 400px;
+    margin: 0 auto;
   }
-  
+
   .pricingCard.popular {
     transform: none;
   }
-  
+
   .testimonials {
     grid-template-columns: 1fr;
+  }
+
+  .trustBadges {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .faqGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .finalCta {
+    padding: 4rem 1.5rem;
+  }
+
+  .dealHighlight {
+    padding: 2rem 1.5rem;
+  }
+
+  .footer {
+    padding: 2.5rem 1.5rem 2rem;
   }
   
   .trustBadges {
@@ -1424,51 +1584,182 @@ html {
 }
 
 @media (max-width: 480px) {
-  .heroTitle {
-    font-size: clamp(1.75rem, 8vw, 2.5rem);
+  .hero {
+    padding: 2.5rem 1rem;
+    padding-top: 80px;
+    min-height: 75vh;
+    gap: 0;
   }
-  
+
+  .heroBadge {
+    font-size: 0.85rem;
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .heroTitle {
+    font-size: clamp(2rem, 9vw, 2.5rem);
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+  }
+
   .heroSubtitle {
     font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 2.25rem;
+    max-width: 100%;
   }
-  
-  .primaryButton,
-  .secondaryButton {
+
+  .primaryButton {
+    max-width: 320px;
     padding: 1rem 1.5rem;
     font-size: 1rem;
   }
-  
+
+  .secondaryButton {
+    font-size: 0.85rem;
+    padding: 0.625rem 1rem;
+  }
+
+  .ctaNote {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .heroVisual {
+    display: none; /* Keep hidden on small mobile */
+  }
+
   .benefit,
+  .feature,
   .testimonial,
   .faqItem {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem 1rem;
   }
-  
+
   .pricingCard {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem 1rem;
   }
-  
+
   .sectionHeader h2 {
     font-size: clamp(1.5rem, 6vw, 2rem);
   }
-  
+
   .amount {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
   }
-  
+
   .ctaButton {
-    min-width: 280px;
-    padding: 1.25rem 2rem;
-    font-size: 1.1rem;
+    min-width: 250px;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
   }
-  
+
   .heroStats {
     padding: 1rem;
+  }
+
+  .benefits,
+  .features,
+  .socialProof,
+  .pricing,
+  .faq {
+    padding: 3rem 1rem;
+  }
+
+  .finalCta {
+    padding: 4rem 1rem;
+  }
+
+  .dealHighlight {
+    padding: 1.5rem 1rem;
+  }
+
+  .footer {
+    padding: 2rem 1rem;
   }
   
   .invoicePreview {
     padding: 1.5rem;
     max-width: 320px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+  .hero {
+    padding: 2rem 1rem;
+    padding-top: 75px;
+    min-height: 70vh;
+  }
+
+  .heroBadge {
+    font-size: 0.8rem;
+    padding: 0.625rem 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.75rem, 10vw, 2.25rem);
+    margin-bottom: 1rem;
+  }
+
+  .heroSubtitle {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .primaryButton {
+    max-width: 300px;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .secondaryButton {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8rem;
+  }
+
+  .ctaNote {
+    font-size: 0.8rem;
+  }
+
+  .heroVisual {
+    display: none; /* Keep hidden on extra small screens */
+  }
+
+  .ctaButton {
+    min-width: 220px;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .benefits,
+  .features,
+  .socialProof,
+  .pricing,
+  .faq {
+    padding: 2.5rem 0.75rem;
+  }
+
+  .finalCta {
+    padding: 3rem 0.75rem;
+  }
+
+  .dealHighlight {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .pricingCard {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .benefit,
+  .feature,
+  .testimonial,
+  .faqItem {
+    padding: 1.25rem 0.75rem;
   }
 }
 
@@ -1596,4 +1887,69 @@ html {
   .container {
     background: white !important;
   }
+}
+
+/* Footer */
+.footer {
+  background: #1e293b;
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-top: 1px solid #334155;
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.3), transparent);
+  pointer-events: none;
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footerContent p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.footerContent a {
+  color: #4f46e5;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.footerContent a:hover {
+  color: #6366f1;
+  text-decoration: none;
+}
+
+.footerContent a::after {
+  content: '↗';
+  font-size: 0.75rem;
+  opacity: 0.7;
+  transition: transform 0.2s ease;
+}
+
+.footerContent a:hover::after {
+  transform: translate(1px, -1px);
 }
