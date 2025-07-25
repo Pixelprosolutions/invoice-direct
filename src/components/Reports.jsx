@@ -641,10 +641,21 @@ const Reports = ({ onNavigateHome }) => {
   return (
     <div className={styles.reports}>
       <div className={styles.header}>
-        <h1>
-          <FaChartBar /> Business Reports
-        </h1>
-        <p>Analyze your business performance with detailed insights</p>
+        <div className="title-row">
+          <button
+            onClick={onNavigateHome}
+            className="back-button"
+            title="Back to Home"
+          >
+            <FaArrowLeft />
+          </button>
+          <div>
+            <h1>
+              <FaChartBar /> Business Reports
+            </h1>
+            <p>Analyze your business performance with detailed insights</p>
+          </div>
+        </div>
       </div>
 
       <div className={styles.reportTabs}>
