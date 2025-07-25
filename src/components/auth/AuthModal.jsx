@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import Modal from '../Modal'
 import styles from './AuthModal.module.css'
-import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa'
+import { FaEye, FaEyeSlash, FaSpinner, FaCheck, FaExclamationTriangle, FaEnvelope, FaLock, FaUserPlus, FaSignInAlt, FaShieldAlt } from 'react-icons/fa'
 
 const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
   const [mode, setMode] = useState(initialMode)
