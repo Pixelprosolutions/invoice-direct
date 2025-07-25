@@ -1,0 +1,248 @@
+.paymentTermsForm {
+  padding: 2rem;
+}
+
+.formSection {
+  margin-bottom: 3rem;
+}
+
+.formSection:last-child {
+  margin-bottom: 0;
+}
+
+.formSection h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem 0;
+  color: #1e293b;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.75rem;
+}
+
+.sectionIcon {
+  color: #4f46e5;
+  width: 20px;
+  height: 20px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup.fullWidth {
+  grid-column: span 2;
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  background: white;
+  color: #1e293b;
+  font-family: inherit;
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: #9ca3af;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.formGroup input:hover:not(:focus),
+.formGroup select:hover:not(:focus),
+.formGroup textarea:hover:not(:focus) {
+  border-color: #9ca3af;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.inputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputPrefix {
+  position: absolute;
+  left: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.inputGroup input {
+  padding-left: 2rem;
+}
+
+.paymentMethodsSection {
+  margin-top: 2rem;
+}
+
+.paymentMethodsSection h4 {
+  margin: 0 0 1rem 0;
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.methodsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.methodOption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.methodOption:hover {
+  border-color: #4f46e5;
+  background: #f8fafc;
+}
+
+.methodOption input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #4f46e5;
+  margin: 0;
+}
+
+.methodLabel {
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.bankNote {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+}
+
+.warningIcon {
+  color: #f59e0b;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.bankNote p {
+  margin: 0;
+  color: #92400e;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.instructionTips {
+  margin-top: 1.5rem;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.instructionTips h4 {
+  margin: 0 0 1rem 0;
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.instructionTips ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #64748b;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.instructionTips li {
+  margin-bottom: 0.5rem;
+}
+
+.instructionTips li:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .paymentTermsForm {
+    padding: 1.5rem;
+  }
+  
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .formGroup.fullWidth {
+    grid-column: span 1;
+  }
+  
+  .methodsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .paymentTermsForm {
+    padding: 1rem;
+  }
+  
+  .formSection h3 {
+    font-size: 1rem;
+  }
+  
+  .methodOption {
+    padding: 0.625rem;
+  }
+  
+  .methodLabel {
+    font-size: 0.8rem;
+  }
+}

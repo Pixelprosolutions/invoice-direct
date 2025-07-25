@@ -5,16 +5,31 @@ import styles from './AuthenticatedApp.module.css'
 import InvoiceForm from './InvoiceForm'
 import InvoicePreview from './InvoicePreview'
 import InvoiceHistory from './InvoiceHistory'
+import ClientManagement from './ClientManagement'
+import BusinessProfile from './BusinessProfile'
+import TemplateManager from './TemplateManager'
+import QuickActions from './QuickActions'
+import MobileFeaturesHub from './MobileFeaturesHub'
+import QuickInvoiceForm from './QuickInvoiceForm'
+import PaymentStatusUpdater from './PaymentStatusUpdater'
+import PaymentTracking from './PaymentTracking'
+import Reports from './Reports'
+import OverdueAlerts from './OverdueAlerts'
+import AppStatusChecker from './AppStatusChecker'
+import FloatingActionButton from './FloatingActionButton'
 import Modal from './Modal'
 import UserDashboard from './UserDashboard'
 import MVPStatusChecker from './MVPStatusChecker'
 import ConfigChecker from './ConfigChecker'
-import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt } from 'react-icons/fa'
+import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile, FaCreditCard, FaChartBar, FaCog } from 'react-icons/fa'
 
 const AuthenticatedApp = () => {
   const [activeView, setActiveView] = useState('home')
   const [showPreview, setShowPreview] = useState(false)
   const [showUserDashboard, setShowUserDashboard] = useState(false)
+  const [showMobileFeatures, setShowMobileFeatures] = useState(false)
+  const [showQuickInvoice, setShowQuickInvoice] = useState(false)
+  const [showPaymentStatus, setShowPaymentStatus] = useState(false)
   const { user, canCreateInvoice, getRemainingInvoices, signOut } = useAuth()
 
   const handleCreateInvoice = () => {
@@ -57,6 +72,18 @@ const AuthenticatedApp = () => {
         )
       case 'history':
         return <InvoiceHistory setActiveView={setActiveView} />
+      case 'clients':
+        return <ClientManagement />
+      case 'business':
+        return <BusinessProfile />
+      case 'templates':
+        return <TemplateManager />
+      case 'payments':
+        return <PaymentTracking />
+      case 'reports':
+        return <Reports />
+      case 'status':
+        return <AppStatusChecker />
       case 'test':
         return <MVPStatusChecker />
       case 'config':
@@ -80,6 +107,12 @@ const AuthenticatedApp = () => {
               )}
             </div>
 
+            {/* Quick Actions Section */}
+            <QuickActions
+              onCreateInvoice={handleCreateInvoice}
+              onSetActiveView={setActiveView}
+            />
+
             <div className={styles.quickActions}>
               <div className={styles.actionCard} onClick={handleCreateInvoice}>
                 <div className={styles.actionIcon}>
@@ -95,6 +128,46 @@ const AuthenticatedApp = () => {
                 </div>
                 <h3>Invoice History</h3>
                 <p>View and manage your past invoices</p>
+              </div>
+
+              <div className={styles.actionCard} onClick={() => setActiveView('clients')}>
+                <div className={styles.actionIcon}>
+                  <FaUsers />
+                </div>
+                <h3>Manage Clients</h3>
+                <p>Add and organize your client information</p>
+              </div>
+
+              <div className={styles.actionCard} onClick={() => setActiveView('templates')}>
+                <div className={styles.actionIcon}>
+                  <FaPalette />
+                </div>
+                <h3>Invoice Templates</h3>
+                <p>Choose professional designs for your invoices</p>
+              </div>
+
+              <div className={styles.actionCard} onClick={() => setShowMobileFeatures(true)}>
+                <div className={styles.actionIcon}>
+                  <FaMobile />
+                </div>
+                <h3>Mobile Features</h3>
+                <p>Quick invoice creation and mobile-optimized tools</p>
+              </div>
+
+              <div className={styles.actionCard} onClick={() => setActiveView('payments')}>
+                <div className={styles.actionIcon}>
+                  <FaCreditCard />
+                </div>
+                <h3>Payment Tracking</h3>
+                <p>Monitor payment status and send reminders</p>
+              </div>
+
+              <div className={styles.actionCard} onClick={() => setActiveView('reports')}>
+                <div className={styles.actionIcon}>
+                  <FaChartBar />
+                </div>
+                <h3>App Status Check</h3>
+                <p>Check features and populate test data</p>
               </div>
             </div>
             
@@ -124,23 +197,62 @@ const AuthenticatedApp = () => {
         <div className={styles.headerLeft}>
           <h1 onClick={() => setActiveView('home')} className={styles.logo}>Invoice Direct</h1>
           <nav className={styles.navigation}>
-            <button 
+            <button
               className={`${styles.navButton} ${activeView === 'home' ? styles.active : ''}`}
               onClick={() => setActiveView('home')}
             >
-              <FaHome /> Home
+              <FaHome />
+              <span className={styles.navText}>Home</span>
             </button>
-            <button 
+            <button
               className={`${styles.navButton} ${activeView === 'create' ? styles.active : ''}`}
               onClick={handleCreateInvoice}
             >
-              <FaFileInvoice /> Create
+              <FaFileInvoice />
+              <span className={styles.navText}>Create</span>
             </button>
-            <button 
+            <button
               className={`${styles.navButton} ${activeView === 'history' ? styles.active : ''}`}
               onClick={() => setActiveView('history')}
             >
-              <FaHistory /> History
+              <FaHistory />
+              <span className={styles.navText}>History</span>
+            </button>
+            <button
+              className={`${styles.navButton} ${activeView === 'clients' ? styles.active : ''}`}
+              onClick={() => setActiveView('clients')}
+            >
+              <FaUsers />
+              <span className={styles.navText}>Clients</span>
+            </button>
+            <button
+              className={`${styles.navButton} ${activeView === 'payments' ? styles.active : ''}`}
+              onClick={() => setActiveView('payments')}
+            >
+              <FaCreditCard />
+              <span className={styles.navText}>Payments</span>
+            </button>
+            <button
+              className={`${styles.navButton} ${activeView === 'reports' ? styles.active : ''}`}
+              onClick={() => setActiveView('reports')}
+            >
+              <FaChartBar />
+              <span className={styles.navText}>Reports</span>
+            </button>
+
+            <button
+              className={`${styles.navButton} ${activeView === 'templates' ? styles.active : ''}`}
+              onClick={() => setActiveView('templates')}
+            >
+              <FaPalette />
+              <span className={styles.navText}>Templates</span>
+            </button>
+            <button
+              className={`${styles.navButton} ${activeView === 'business' ? styles.active : ''}`}
+              onClick={() => setActiveView('business')}
+            >
+              <FaBuilding />
+              <span className={styles.navText}>Business</span>
             </button>
           </nav>
         </div>
@@ -148,10 +260,9 @@ const AuthenticatedApp = () => {
           <button
             onClick={() => setShowUserDashboard(true)}
             className={styles.userButton}
-            title="User Dashboard"
+            title={`User Dashboard - ${user.email}`}
           >
             <FaUser />
-            <span className={styles.userEmail}>{user.email}</span>
           </button>
           <button
             onClick={handleSignOut}
@@ -177,6 +288,8 @@ const AuthenticatedApp = () => {
         </div>
       )}
 
+      <OverdueAlerts onNavigateToPayments={() => setActiveView('payments')} />
+
       <main className={styles.main}>
         {renderContent()}
       </main>
@@ -192,6 +305,37 @@ const AuthenticatedApp = () => {
           <UserDashboard onClose={() => setShowUserDashboard(false)} />
         </Modal>
       )}
+
+      {showMobileFeatures && (
+        <Modal onClose={() => setShowMobileFeatures(false)}>
+          <MobileFeaturesHub onClose={() => setShowMobileFeatures(false)} />
+        </Modal>
+      )}
+
+      {showQuickInvoice && (
+        <Modal onClose={() => setShowQuickInvoice(false)}>
+          <QuickInvoiceForm
+            onClose={() => setShowQuickInvoice(false)}
+            onComplete={() => {
+              setShowQuickInvoice(false);
+              setActiveView('create');
+            }}
+          />
+        </Modal>
+      )}
+
+      {showPaymentStatus && (
+        <Modal onClose={() => setShowPaymentStatus(false)}>
+          <PaymentStatusUpdater onClose={() => setShowPaymentStatus(false)} />
+        </Modal>
+      )}
+
+      <FloatingActionButton
+        onQuickInvoice={() => setShowQuickInvoice(true)}
+        onPhotoExpense={() => setShowQuickInvoice(true)}
+        onPaymentStatus={() => setShowPaymentStatus(true)}
+        onMobileHub={() => setShowMobileFeatures(true)}
+      />
     </div>
   )
 }

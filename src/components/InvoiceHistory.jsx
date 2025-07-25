@@ -28,21 +28,22 @@ const InvoiceHistory = ({ setActiveView }) => {
   }, []);
 
   const handleViewInvoice = (invoice) => {
-    loadInvoice(invoice);
+    loadInvoice(invoice.invoiceData || invoice);
     setActiveView('create');
-    toast.info(`Loaded invoice #${invoice.invoiceNumber}`);
+    toast.info(`Loaded invoice #${invoice.invoiceData?.invoiceNumber || invoice.invoiceNumber || 'N/A'}`);
   };
 
   const handleDuplicateInvoice = (invoice) => {
+    const invoiceData = invoice.invoiceData || invoice;
     const duplicatedInvoice = {
-      ...invoice,
-      invoiceNumber: `${invoice.invoiceNumber}-copy`,
+      ...invoiceData,
+      invoiceNumber: `${invoiceData.invoiceNumber || 'INV'}-copy`,
       invoiceDate: format(new Date(), 'yyyy-MM-dd')
     };
-    
+
     loadInvoice(duplicatedInvoice);
     setActiveView('create');
-    toast.info(`Duplicated invoice #${invoice.invoiceNumber}`);
+    toast.info(`Duplicated invoice #${invoiceData.invoiceNumber || 'N/A'}`);
   };
 
   const handleDeleteInvoice = (invoiceId) => {
@@ -90,7 +91,7 @@ const InvoiceHistory = ({ setActiveView }) => {
           {invoices.map((invoice) => (
             <div key={invoice.id} className={styles.invoiceCard}>
               <div className={styles.invoiceCardHeader}>
-                <h3>Invoice #{invoice.invoiceNumber}</h3>
+                <h3>Invoice #{invoice.invoiceData?.invoiceNumber || invoice.invoiceNumber || 'N/A'}</h3>
                 <div className={styles.invoiceActions}>
                   <button 
                     onClick={() => handleViewInvoice(invoice)}
@@ -120,30 +121,35 @@ const InvoiceHistory = ({ setActiveView }) => {
                 <div className={styles.detailItem}>
                   <span className={styles.detailLabel}>Client</span>
                   <span className={styles.detailValue}>
-                    {invoice.clientName || 'Unnamed Client'}
+                    {invoice.invoiceData?.clientName || invoice.clientName || 'Unnamed Client'}
                   </span>
                 </div>
                 <div className={styles.detailItem}>
                   <span className={styles.detailLabel}>Date</span>
                   <span className={styles.detailValue}>
-                    {format(new Date(invoice.invoiceDate), 'MMM dd, yyyy')}
+                    {(invoice.invoiceData?.invoiceDate || invoice.invoiceDate) ?
+                      format(new Date(invoice.invoiceData?.invoiceDate || invoice.invoiceDate), 'MMM dd, yyyy') :
+                      'No date'
+                    }
                   </span>
                 </div>
                 <div className={styles.detailItem}>
                   <span className={styles.detailLabel}>Amount</span>
                   <span className={styles.detailValue}>
-                    {new Intl.NumberFormat('en-US', { 
-                      style: 'currency', 
-                      currency: 'USD' 
-                    }).format(invoice.lineItems.reduce((sum, item) => 
-                      sum + (item.quantity * item.unitPrice * (1 + item.tax / 100)), 0)
+                    {new Intl.NumberFormat('en-US', {
+                      style: 'currency',
+                      currency: 'USD'
+                    }).format(
+                      (invoice.invoiceData?.lineItems || invoice.lineItems || []).reduce((sum, item) =>
+                        sum + (parseFloat(item.total) || 0), 0
+                      )
                     )}
                   </span>
                 </div>
                 <div className={styles.detailItem}>
                   <span className={styles.detailLabel}>Status</span>
-                  <span className={`${styles.status} ${styles[invoice.status || 'pending']}`}>
-                    {invoice.status || 'Pending'}
+                  <span className={`${styles.status} ${styles[(invoice.invoiceData?.status || invoice.status || 'pending')]}`}>
+                    {(invoice.invoiceData?.status || invoice.status || 'Pending').charAt(0).toUpperCase() + (invoice.invoiceData?.status || invoice.status || 'pending').slice(1)}
                   </span>
                 </div>
               </div>

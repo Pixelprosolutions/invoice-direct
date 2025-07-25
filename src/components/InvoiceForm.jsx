@@ -6,7 +6,7 @@ import styles from './InvoiceForm.module.css';
 import { FaSave, FaEye, FaUndo } from 'react-icons/fa';
 
 const InvoiceForm = ({ onPreview }) => {
-  const { invoiceData, updateInvoiceData, resetInvoiceData } = useInvoice();
+  const { invoiceData, updateInvoiceData, resetInvoiceData, appliedTemplate } = useInvoice();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,15 +42,32 @@ const InvoiceForm = ({ onPreview }) => {
     // Save to localStorage as backup
     try {
       localStorage.setItem('invoiceData', JSON.stringify(invoiceData));
+
+      // Also save to invoice history for Quick Actions
+      const savedInvoices = JSON.parse(localStorage.getItem('savedInvoices') || '[]');
+      const invoiceRecord = {
+        id: Date.now().toString(),
+        invoiceData: { ...invoiceData },
+        date: new Date().toISOString(),
+        lastModified: new Date().toISOString()
+      };
+
+      // Add to history (keep last 50 invoices)
+      savedInvoices.push(invoiceRecord);
+      if (savedInvoices.length > 50) {
+        savedInvoices.shift(); // Remove oldest
+      }
+
+      localStorage.setItem('savedInvoices', JSON.stringify(savedInvoices));
       toast.success('Invoice saved successfully!');
-      
+
       // Trigger preview
       if (onPreview) {
         onPreview();
       }
     } catch (error) {
-      console.error('Failed to save invoice:', error);
-      toast.error('Failed to save invoice. Please try again.');
+      console.error('Failed to save invoice:', error.message || error);
+      toast.error(`Failed to save invoice: ${error.message || 'Please try again.'}`);
     }
   };
 
@@ -63,7 +80,14 @@ const InvoiceForm = ({ onPreview }) => {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.formHeader}>
-        <h2>Invoice Details</h2>
+        <div className={styles.headerContent}>
+          <h2>Invoice Details</h2>
+          {appliedTemplate && (
+            <div className={styles.templateIndicator}>
+              <span>📋 Using template: <strong>{appliedTemplate.name}</strong></span>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className={styles.formSection}>
