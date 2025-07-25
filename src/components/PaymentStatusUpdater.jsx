@@ -157,9 +157,6 @@ const PaymentStatusUpdater = ({ onClose }) => {
         <h2>
           <FaCreditCard /> Payment Status
         </h2>
-        <button className={styles.closeButton} onClick={onClose}>
-          <FaTimes />
-        </button>
       </div>
 
       <div className={styles.controls}>
