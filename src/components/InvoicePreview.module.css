@@ -235,13 +235,13 @@
 .itemsTable th {
   background: linear-gradient(135deg, var(--primary-color, #f8fafc), var(--secondary-color, #f1f5f9));
   color: white;
-  padding: 1rem;
+  padding: 0.75rem;
   text-align: left;
-  font-weight: 600;
-  border-bottom: 2px solid var(--primary-color, #e2e8f0);
-  font-size: 0.875rem;
+  font-weight: 700;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  border: none;
 }
 
 .itemsTable td {
