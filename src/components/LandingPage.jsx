@@ -435,7 +435,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
                   <span>SSL Secured</span>
                 </div>
                 <div className={styles.securityBadge}>
-                  <FaShield className={styles.securityIcon} />
+                  <FaShieldAlt className={styles.securityIcon} />
                   <span>GDPR Compliant</span>
                 </div>
               </div>
