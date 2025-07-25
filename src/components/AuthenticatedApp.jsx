@@ -21,8 +21,9 @@ import Modal from './Modal'
 import UserDashboard from './UserDashboard'
 import MVPStatusChecker from './MVPStatusChecker'
 import ConfigChecker from './ConfigChecker'
+import DatabaseSetupChecker from './DatabaseSetupChecker'
 import StripeCheckout from './StripeCheckout'
-import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile, FaCreditCard, FaChartBar, FaCog, FaCamera, FaCrown, FaPlus, FaRocket, FaGem } from 'react-icons/fa'
+import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile, FaCreditCard, FaChartBar, FaCog, FaCamera, FaCrown, FaPlus, FaRocket, FaGem, FaDatabase } from 'react-icons/fa'
 
 const AuthenticatedApp = () => {
   const [activeView, setActiveView] = useState('home')
