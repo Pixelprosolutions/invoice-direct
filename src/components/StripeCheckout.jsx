@@ -64,16 +64,16 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
         throw new Error('User not authenticated')
       }
       
-      const session = await createCheckoutSession(
+      const checkoutSession = await createCheckoutSession(
         product.priceId,
         user.email,
         user.id,
         session.access_token
       )
       
-      if (session.url) {
+      if (checkoutSession.url) {
         // Redirect to Stripe Checkout
-        window.location.href = session.url
+        window.location.href = checkoutSession.url
       } else {
         throw new Error('No checkout URL received')
       }
