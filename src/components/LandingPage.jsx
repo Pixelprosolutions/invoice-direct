@@ -337,7 +337,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
               <button onClick={onSignUp} className={styles.pricingButton}>
                 Upgrade to Professional
               </button>
-              <p className={styles.pricingNote}>⚡ 30-day money-back guarantee</p>
+
             </div>
           </div>
           
@@ -346,10 +346,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
               <span className={styles.savingsText}>💰 Save $39/year with lifetime deal!</span>
             </div>
             <p>🎉 <strong>Limited Time:</strong> Get Professional for life at just $10. Regular price $49/year.</p>
-            <div className={styles.guaranteeBadge}>
-              <FaShieldAlt />
-              <span>30-day money-back guarantee • Cancel anytime</span>
-            </div>
+
           </div>
         </div>
       </section>
@@ -419,10 +416,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
               <FaCheck className={styles.ctaFeatureIcon} />
               <span>Setup in 2 minutes</span>
             </div>
-            <div className={styles.ctaFeature}>
-              <FaShieldAlt className={styles.ctaFeatureIcon} />
-              <span>30-day money-back guarantee</span>
-            </div>
+
           </div>
 
           <div className={styles.ctaActions}>
