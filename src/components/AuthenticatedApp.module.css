@@ -373,23 +373,7 @@
     font-size: 0.65rem;
   }
 
-  .dropdownToggle {
-    flex-direction: column !important;
-    gap: 0.25rem !important;
-  }
 
-  .dropdownMenu {
-    position: fixed;
-    top: auto;
-    bottom: 70px;
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 200px;
-  }
-
-  .navDropdown:hover .dropdownMenu {
-    transform: translateX(-50%);
-  }
 
   .quickActions {
     grid-template-columns: 1fr;
