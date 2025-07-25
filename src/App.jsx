@@ -75,6 +75,16 @@ function App() {
                 <h1>Invoice Direct</h1>
                 <div className={styles.headerActions}>
                   <div className={styles.authButtons}>
+                    {!isSupabaseConfigured && (
+                      <button
+                        onClick={devLogin}
+                        className={styles.devButton}
+                        title="Development mode - click to continue without database"
+                      >
+                        <FaCode />
+                        Continue (Dev Mode)
+                      </button>
+                    )}
                     <button
                       onClick={() => handleAuthClick('signin')}
                       className={styles.signInButton}
