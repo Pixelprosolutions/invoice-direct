@@ -230,7 +230,7 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
         </div>
 
         <div className={styles.footer}>
-          <p>Questions? Contact support at <a href="mailto:support@invoicedirect.app">support@invoicedirect.app</a></p>
+          <p>Questions? Contact support at <a href="mailto:support@invoice.direct">support@invoice.direct</a></p>
         </div>
       </div>
     </div>
