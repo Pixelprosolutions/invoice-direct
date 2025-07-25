@@ -278,6 +278,21 @@ const AuthenticatedApp = () => {
         </div>
       </header>
 
+      {isSupabaseConfigured && !isValidUser && (
+        <div className={styles.errorBanner}>
+          <p>
+            <strong>Session Error:</strong> Your current session is not compatible with the database.
+            Please sign in with a valid account.
+            <button
+              onClick={forceSignOut}
+              className={styles.signOutLink}
+            >
+              Sign Out & Continue →
+            </button>
+          </p>
+        </div>
+      )}
+
       {!isSupabaseConfigured && (
         <div className={styles.devBanner}>
           <p>
