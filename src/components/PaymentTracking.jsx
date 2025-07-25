@@ -222,9 +222,18 @@ const PaymentTracking = ({ onNavigateHome }) => {
   return (
     <div className={styles.paymentTracking}>
       <div className={styles.header}>
-        <h1>
-          <FaCreditCard /> Payment Tracking
-        </h1>
+        <div className="title-row">
+          <button
+            onClick={onNavigateHome}
+            className="back-button"
+            title="Back to Home"
+          >
+            <FaArrowLeft />
+          </button>
+          <h1>
+            <FaCreditCard /> Payment Tracking
+          </h1>
+        </div>
         {overdueCount > 0 && (
           <div className={styles.overdueAlert}>
             <FaBell className={styles.alertIcon} />
