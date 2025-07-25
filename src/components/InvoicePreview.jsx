@@ -108,6 +108,11 @@ function InvoicePreview() {
 
               savedInvoices.push(invoiceRecord);
               localStorage.setItem('savedInvoices', JSON.stringify(savedInvoices));
+
+              // Mark as saved to prevent duplicates
+              hasSaved.current = true;
+              savedInvoiceId.current = invoiceId;
+
               toast.success('Invoice saved locally (database not configured)');
             } catch (localError) {
               toast.error('Failed to save invoice locally');
