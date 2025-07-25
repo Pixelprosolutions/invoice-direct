@@ -740,12 +740,13 @@ html {
   align-items: center;
   gap: 1rem;
   color: #4f46e5;
-  font-weight: 600;
-  font-size: 1.05rem;
+  font-weight: 700;
+  font-size: 1.1rem;
   padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 12px;
   transition: all 0.3s ease;
+  border: 1px solid rgba(79, 70, 229, 0.1);
 }
 
 .trustBadge:hover {
