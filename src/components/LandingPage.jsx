@@ -89,27 +89,56 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
           </div>
         </div>
         <div className={styles.heroVisual}>
-          <div className={styles.invoicePreview}>
-            <div className={styles.previewHeader}>
-              <div className={styles.previewLogo}></div>
-              <div className={styles.previewTitle}>INVOICE</div>
-            </div>
-            <div className={styles.previewContent}>
-              <div className={styles.previewLine}></div>
-              <div className={styles.previewLine}></div>
-              <div className={styles.previewLine}></div>
-              <div className={styles.previewTable}>
-                <div className={styles.tableLine}></div>
-                <div className={styles.tableLine}></div>
-                <div className={styles.tableLine}></div>
+          <div className={styles.appDemo}>
+            <div className={styles.demoHeader}>
+              <div className={styles.browserBar}>
+                <div className={styles.browserDots}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <div className={styles.urlBar}>app.invoicedirect.com</div>
               </div>
-              <div className={styles.previewTotal}></div>
+            </div>
+            <div className={styles.demoContent}>
+              <div className={styles.demoSidebar}>
+                <div className={styles.sidebarItem}>📄 Create Invoice</div>
+                <div className={styles.sidebarItem}>📊 Dashboard</div>
+                <div className={styles.sidebarItem}>👥 Clients</div>
+                <div className={styles.sidebarItem}>💰 Payments</div>
+              </div>
+              <div className={styles.demoMain}>
+                <div className={styles.demoForm}>
+                  <div className={styles.formSection}>
+                    <h4>Invoice Details</h4>
+                    <div className={styles.formField}></div>
+                    <div className={styles.formField}></div>
+                  </div>
+                  <div className={styles.formSection}>
+                    <h4>Bill To</h4>
+                    <div className={styles.formField}></div>
+                    <div className={styles.formField}></div>
+                  </div>
+                  <div className={styles.invoiceItems}>
+                    <div className={styles.itemRow}>
+                      <span>Design Services</span>
+                      <span>$2,500.00</span>
+                    </div>
+                    <div className={styles.itemRow}>
+                      <span>Development</span>
+                      <span>$3,200.00</span>
+                    </div>
+                    <div className={styles.totalRow}>
+                      <strong>Total: $5,700.00</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className={styles.floatingElements}>
-            <div className={styles.floatingIcon}><FaCheck /></div>
-            <div className={styles.floatingIcon}><FaDownload /></div>
-            <div className={styles.floatingIcon}><FaCloudDownloadAlt /></div>
+          <div className={styles.demoFloating}>
+            <div className={styles.floatingBadge}>✓ Auto-saved</div>
+            <div className={styles.floatingBadge}>📧 Email sent</div>
           </div>
         </div>
       </section>
