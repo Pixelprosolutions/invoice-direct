@@ -253,10 +253,21 @@ export const AuthProvider = ({ children }) => {
 
       console.log('🔄 Attempting Google signin')
 
+      // Check if we're in development mode without Supabase configured
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+      
+      if (!supabaseUrl || !supabaseKey) {
+        throw new Error('Google sign-in requires Supabase configuration. Please set up your environment variables.')
+      }
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/`
+          redirectTo: `${window.location.origin}/`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
         }
       })
 
@@ -290,6 +301,25 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  const resendConfirmation = async (email) => {
+    try {
+      setError(null)
+      
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email: email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`
+        }
+      })
+      
+      if (error) throw error
+      return { error: null }
+    } catch (error) {
+      setError(error.message)
+      return { error }
+    }
+  }
   const canCreateInvoice = () => {
     if (!userProfile) return true // New users should be able to create invoices
     if (userProfile.plan === 'premium') return true
@@ -397,6 +427,7 @@ export const AuthProvider = ({ children }) => {
     signInWithGoogle,
     signOut,
     resetPassword,
+    resendConfirmation,
     canCreateInvoice,
     isPremium,
     getRemainingInvoices,
