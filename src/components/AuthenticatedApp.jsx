@@ -213,37 +213,6 @@ const AuthenticatedApp = () => {
                 </div>
               </div>
 
-              {/* Mobile Features Section */}
-              <div className={styles.navigationSection}>
-                <h3 className={styles.sectionTitle}>
-                  <FaMobile className={styles.sectionIcon} />
-                  Mobile Features
-                </h3>
-                <div className={styles.sectionCards}>
-                  <div className={styles.actionCard} onClick={() => setShowQuickInvoice(true)}>
-                    <div className={styles.actionIcon}>
-                      <FaBolt />
-                    </div>
-                    <h4>Quick Invoice</h4>
-                    <p>Create invoices in seconds with simplified form</p>
-                  </div>
-                  <div className={styles.actionCard} onClick={() => setShowQuickInvoice(true)}>
-                    <div className={styles.actionIcon}>
-                      <FaCamera />
-                    </div>
-                    <h4>Photo Expenses</h4>
-                    <p>Capture receipts and add to invoices instantly</p>
-                  </div>
-                  <div className={styles.actionCard} onClick={() => setShowPaymentStatus(true)}>
-                    <div className={styles.actionIcon}>
-                      <FaCreditCard />
-                    </div>
-                    <h4>Payment Status</h4>
-                    <p>Update payment status with quick actions</p>
-                  </div>
-                </div>
-              </div>
-
               {/* Settings Section */}
               <div className={styles.navigationSection}>
                 <h3 className={styles.sectionTitle}>
@@ -277,6 +246,37 @@ const AuthenticatedApp = () => {
                     </div>
                     <h4>Business</h4>
                     <p>Company profile settings</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile Features Section */}
+              <div className={styles.navigationSection}>
+                <h3 className={styles.sectionTitle}>
+                  <FaMobile className={styles.sectionIcon} />
+                  Mobile Features
+                </h3>
+                <div className={styles.sectionCards}>
+                  <div className={styles.actionCard} onClick={() => setShowQuickInvoice(true)}>
+                    <div className={styles.actionIcon}>
+                      <FaBolt />
+                    </div>
+                    <h4>Quick Invoice</h4>
+                    <p>Create invoices in seconds with simplified form</p>
+                  </div>
+                  <div className={styles.actionCard} onClick={() => setShowQuickInvoice(true)}>
+                    <div className={styles.actionIcon}>
+                      <FaCamera />
+                    </div>
+                    <h4>Photo Expenses</h4>
+                    <p>Capture receipts and add to invoices instantly</p>
+                  </div>
+                  <div className={styles.actionCard} onClick={() => setShowPaymentStatus(true)}>
+                    <div className={styles.actionIcon}>
+                      <FaCreditCard />
+                    </div>
+                    <h4>Payment Status</h4>
+                    <p>Update payment status with quick actions</p>
                   </div>
                 </div>
               </div>
