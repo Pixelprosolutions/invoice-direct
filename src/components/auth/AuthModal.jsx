@@ -303,7 +303,36 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className={styles.authForm}>
+          <div className={styles.authForm}>
+            {/* Google Sign-In Button */}
+            {(mode === 'signin' || mode === 'signup') && (
+              <>
+                <button
+                  type="button"
+                  onClick={handleGoogleSignIn}
+                  disabled={isSubmitting || loading}
+                  className={styles.googleButton}
+                >
+                  {isSubmitting && loading ? (
+                    <>
+                      <FaSpinner className={styles.spinner} />
+                      Connecting...
+                    </>
+                  ) : (
+                    <>
+                      <FaGoogle />
+                      Continue with Google
+                    </>
+                  )}
+                </button>
+
+                <div className={styles.divider}>
+                  <span>or</span>
+                </div>
+              </>
+            )}
+
+            <form onSubmit={handleSubmit} className={styles.emailForm}>
             <div className={styles.formGroup}>
               <label htmlFor="email">Email Address</label>
               <div className={`${styles.inputWrapper} ${fieldErrors.email ? styles.inputError : ''} ${isEmailValid && email ? styles.inputValid : ''}`}>
@@ -456,6 +485,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
               )}
             </button>
           </form>
+          </div>
         )}
 
         {!resetEmailSent && (
