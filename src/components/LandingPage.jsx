@@ -35,7 +35,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             ✨ #1 Free Invoice Generator for Small Businesses
           </div>
           <h1 className={styles.heroTitle}>
-            Create Professional <span className={styles.highlight}>Invoices</span> in Under 60 Seconds
+            Create Professional Invoices in Under 60 Seconds
           </h1>
           <p className={styles.heroSubtitle}>
             Join 50,000+ freelancers and small businesses who trust Invoice Direct. Generate stunning invoices, 
