@@ -10,11 +10,16 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [localError, setLocalError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [resetEmailSent, setResetEmailSent] = useState(false)
   const [confirmationEmailSent, setConfirmationEmailSent] = useState(false)
   const [needsEmailConfirmation, setNeedsEmailConfirmation] = useState(false)
+  const [passwordStrength, setPasswordStrength] = useState(0)
+  const [isEmailValid, setIsEmailValid] = useState(false)
+  const [fieldErrors, setFieldErrors] = useState({})
+  const [showSuccess, setShowSuccess] = useState(false)
 
   const { signIn, signUp, resetPassword, resendConfirmation, error, loading, devLogin } = useAuth()
 
@@ -36,7 +41,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
         
         console.log('🔄 Starting signup process...')
         const { error } = await signUp(email, password)
-        console.log('📊 Signup result:', error ? 'Failed' : 'Success')
+        console.log('�� Signup result:', error ? 'Failed' : 'Success')
         
         if (!error) {
           setLocalError('')
