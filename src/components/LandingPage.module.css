@@ -1665,31 +1665,52 @@ html {
 
 /* Footer */
 .footer {
-  background: #1e293b;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #8b5cf6 100%);
   color: white;
-  padding: 2rem;
+  padding: 3rem 2rem 2rem;
   text-align: center;
-  border-top: 1px solid #334155;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .footerContent {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .footerContent p {
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-  opacity: 0.8;
+  margin: 0.75rem 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .footerContent a {
-  color: #10b981;
+  color: #fbbf24;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .footerContent a:hover {
-  color: #34d399;
+  color: #f59e0b;
   text-decoration: underline;
+  transform: translateY(-1px);
 }
