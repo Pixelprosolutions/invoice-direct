@@ -11,7 +11,7 @@ import ActionButtons from './ActionButtons';
 import Watermark from './Watermark';
 
 function InvoicePreview() {
-  const { invoiceData } = useInvoice();
+  const { invoiceData, appliedTemplate } = useInvoice();
   const { user, userProfile, refreshProfile } = useAuth();
   
   // Ensure lineItems exists before calculating totals
