@@ -5,7 +5,7 @@ import AddEditClient from './AddEditClient'
 import ClientDetails from './ClientDetails'
 import styles from './ClientManagement.module.css'
 
-const ClientManagement = () => {
+const ClientManagement = ({ onNavigateHome }) => {
   const [clients, setClients] = useState([])
   const [filteredClients, setFilteredClients] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
