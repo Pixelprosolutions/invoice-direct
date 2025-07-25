@@ -227,6 +227,9 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             </div>
             
             <div className={styles.testimonial}>
+              <div className={styles.testimonialRating}>
+                <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
+              </div>
               <div className={styles.testimonialContent}>
                 <p>"The best invoice generator I've used. Clean interface, powerful features, and the $10 lifetime deal is incredible value."</p>
               </div>
@@ -235,8 +238,11 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
                 <span>Marketing Consultant</span>
               </div>
             </div>
-            
+
             <div className={styles.testimonial}>
+              <div className={styles.testimonialRating}>
+                <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
+              </div>
               <div className={styles.testimonialContent}>
                 <p>"Perfect for my small business. Professional invoices, easy client management, and excellent payment tracking. Highly recommended!"</p>
               </div>
