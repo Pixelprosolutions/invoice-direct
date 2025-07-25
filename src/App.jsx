@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth } from './context/AuthContext'
 import styles from './App.module.css'
 import ErrorBoundary from './components/ErrorBoundary'
@@ -8,6 +8,7 @@ import AuthenticatedApp from './components/AuthenticatedApp'
 import PasswordResetHandler from './components/auth/PasswordResetHandler'
 import PaymentWebhookHandler from './components/PaymentWebhookHandler'
 import { FaSignInAlt, FaCode } from 'react-icons/fa'
+import { initializeSEO } from './utils/seoHelpers'
 
 function App() {
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -27,6 +28,11 @@ function App() {
     setAuthMode(mode)
     setShowAuthModal(true)
   }
+
+  // Initialize SEO optimizations
+  useEffect(() => {
+    initializeSEO()
+  }, [])
 
   // Show password reset handler if it's a password reset callback
   if (isPasswordReset) {
