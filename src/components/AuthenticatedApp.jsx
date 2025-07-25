@@ -71,7 +71,7 @@ const AuthenticatedApp = () => {
       case 'create':
         return (
           <section className={styles.formSection}>
-            <InvoiceForm onPreview={handlePreviewInvoice} />
+            <InvoiceForm onPreview={handlePreviewInvoice} onNavigateHome={() => setActiveView('home')} />
           </section>
         )
       case 'history':
