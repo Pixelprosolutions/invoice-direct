@@ -6,15 +6,19 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 console.log('Supabase Config Check:')
 console.log('URL:', supabaseUrl ? 'Present' : 'Missing')
 console.log('Key:', supabaseAnonKey ? 'Present' : 'Missing')
-console.log('Full URL:', supabaseUrl)
-console.log('Key starts with:', supabaseAnonKey ? supabaseAnonKey.substring(0, 20) + '...' : 'Missing')
 
 // Create a mock client if environment variables are missing (for development)
 let supabase = null
 
 if (supabaseUrl && supabaseAnonKey) {
   console.log('✅ Creating real Supabase client')
-  supabase = createClient(supabaseUrl, supabaseAnonKey)
+  supabase = createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true
+    }
+  })
 } else {
   console.warn('⚠️ Supabase environment variables missing. Using mock client.')
   console.warn('📝 Create .env file with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY')
