@@ -475,6 +475,10 @@ html {
   animation-delay: 1s;
 }
 
+.floatingBadge span {
+  padding-left: 0.1875rem;
+}
+
 @keyframes fadeInBounce {
   0% { opacity: 0; transform: translateY(20px) scale(0.8); }
   50% { transform: translateY(-5px) scale(1.05); }
