@@ -38,7 +38,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             Professional Invoice Software for Freelancers & Small Businesses
           </h1>
           <p className={styles.heroSubtitle}>
-            Create stunning invoices in minutes with our powerful invoice generator. Join 50,000+ professionals who use Invoice Direct for invoice management, payment tracking, and client billing. Get paid 40% faster with professional invoice templates.
+            Create stunning invoices in minutes with our powerful invoice generator. Professional invoice management, payment tracking, and client billing made simple. Get paid faster with professional invoice templates.
           </p>
           <div className={styles.heroActions}>
             <button onClick={onSignUp} className={styles.primaryButton}>
