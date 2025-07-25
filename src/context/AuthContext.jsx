@@ -372,6 +372,7 @@ export const AuthProvider = ({ children }) => {
     signIn,
     signOut,
     resetPassword,
+    resendConfirmation,
     canCreateInvoice,
     isPremium,
     getRemainingInvoices,
