@@ -15,6 +15,7 @@ import PaymentStatusUpdater from './PaymentStatusUpdater'
 import PaymentTracking from './PaymentTracking'
 import Reports from './Reports'
 import OverdueAlerts from './OverdueAlerts'
+import AppStatusChecker from './AppStatusChecker'
 import FloatingActionButton from './FloatingActionButton'
 import Modal from './Modal'
 import UserDashboard from './UserDashboard'
@@ -81,6 +82,8 @@ const AuthenticatedApp = () => {
         return <PaymentTracking />
       case 'reports':
         return <Reports />
+      case 'status':
+        return <AppStatusChecker />
       case 'test':
         return <MVPStatusChecker />
       case 'config':
@@ -163,8 +166,8 @@ const AuthenticatedApp = () => {
                 <div className={styles.actionIcon}>
                   <FaChartBar />
                 </div>
-                <h3>Business Reports</h3>
-                <p>Monthly income, expenses, and client analytics</p>
+                <h3>App Status Check</h3>
+                <p>Check features and populate test data</p>
               </div>
             </div>
             
