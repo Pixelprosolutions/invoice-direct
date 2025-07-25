@@ -15,7 +15,7 @@ import {
   FaFilter,
   FaDownload,
   FaPrint,
-  FaRefresh,
+  FaRedo,
   FaTrendUp,
   FaMoneyBillWave,
   FaWallet,
