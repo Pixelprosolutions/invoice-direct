@@ -298,7 +298,7 @@ const RevenueDashboard = () => {
             onClick={() => setRefreshKey(prev => prev + 1)}
             title="Refresh data"
           >
-            <FaRefresh />
+            <FaRedo />
           </button>
         </div>
       </div>
