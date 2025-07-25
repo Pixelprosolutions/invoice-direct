@@ -10,6 +10,9 @@ import BusinessProfile from './BusinessProfile'
 import TemplateManager from './TemplateManager'
 import QuickActions from './QuickActions'
 import MobileFeaturesHub from './MobileFeaturesHub'
+import QuickInvoiceForm from './QuickInvoiceForm'
+import PaymentStatusUpdater from './PaymentStatusUpdater'
+import FloatingActionButton from './FloatingActionButton'
 import Modal from './Modal'
 import UserDashboard from './UserDashboard'
 import MVPStatusChecker from './MVPStatusChecker'
@@ -21,6 +24,8 @@ const AuthenticatedApp = () => {
   const [showPreview, setShowPreview] = useState(false)
   const [showUserDashboard, setShowUserDashboard] = useState(false)
   const [showMobileFeatures, setShowMobileFeatures] = useState(false)
+  const [showQuickInvoice, setShowQuickInvoice] = useState(false)
+  const [showPaymentStatus, setShowPaymentStatus] = useState(false)
   const { user, canCreateInvoice, getRemainingInvoices, signOut } = useAuth()
 
   const handleCreateInvoice = () => {
@@ -258,6 +263,31 @@ const AuthenticatedApp = () => {
           <MobileFeaturesHub onClose={() => setShowMobileFeatures(false)} />
         </Modal>
       )}
+
+      {showQuickInvoice && (
+        <Modal onClose={() => setShowQuickInvoice(false)}>
+          <QuickInvoiceForm
+            onClose={() => setShowQuickInvoice(false)}
+            onComplete={() => {
+              setShowQuickInvoice(false);
+              setActiveView('create');
+            }}
+          />
+        </Modal>
+      )}
+
+      {showPaymentStatus && (
+        <Modal onClose={() => setShowPaymentStatus(false)}>
+          <PaymentStatusUpdater onClose={() => setShowPaymentStatus(false)} />
+        </Modal>
+      )}
+
+      <FloatingActionButton
+        onQuickInvoice={() => setShowQuickInvoice(true)}
+        onPhotoExpense={() => setShowQuickInvoice(true)}
+        onPaymentStatus={() => setShowPaymentStatus(true)}
+        onMobileHub={() => setShowMobileFeatures(true)}
+      />
     </div>
   )
 }
