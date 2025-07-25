@@ -103,9 +103,9 @@ const TemplateManager = () => {
   }
 
   const handleApplyTemplate = (template) => {
-    // Save as current invoice template
-    localStorage.setItem('currentInvoiceTemplate', JSON.stringify(template))
-    toast.success(`Template "${template.name}" applied to new invoices`)
+    // Apply template using context
+    applyTemplate(template)
+    toast.success(`Template "${template.name}" applied! Check the Create tab to see the changes.`)
   }
 
   const getIconForCategory = (categoryId) => {
