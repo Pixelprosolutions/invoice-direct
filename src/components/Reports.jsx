@@ -22,7 +22,7 @@ import {
   FaArrowLeft
 } from 'react-icons/fa';
 
-const Reports = () => {
+const Reports = ({ onNavigateHome }) => {
   const [invoices, setInvoices] = useState([]);
   const [activeReport, setActiveReport] = useState('revenue');
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
