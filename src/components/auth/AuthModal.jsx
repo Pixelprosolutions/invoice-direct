@@ -140,12 +140,55 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
           <div className={styles.successMessage}>
             <h3>Check your email</h3>
             <p>We've sent a password reset link to {email}</p>
-            <button 
+            <button
               onClick={() => switchMode('signin')}
               className={styles.linkButton}
             >
               Back to Sign In
             </button>
+          </div>
+        ) : needsEmailConfirmation ? (
+          <div className={styles.confirmationMessage}>
+            <h3>Email Confirmation Required</h3>
+            <p>Your account needs email verification before you can sign in.</p>
+            <p>Please check your email at <strong>{email}</strong> for a confirmation link.</p>
+
+            {confirmationEmailSent ? (
+              <div className={styles.resendSuccess}>
+                <p>✅ Confirmation email sent! Check your inbox and spam folder.</p>
+              </div>
+            ) : (
+              <div className={styles.resendSection}>
+                <p>Didn't receive the email?</p>
+                <button
+                  onClick={handleResendConfirmation}
+                  className={styles.resendButton}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <FaSpinner className={styles.spinner} />
+                      Sending...
+                    </>
+                  ) : (
+                    'Resend Confirmation Email'
+                  )}
+                </button>
+              </div>
+            )}
+
+            <div className={styles.confirmationFooter}>
+              <button
+                onClick={() => {
+                  setNeedsEmailConfirmation(false)
+                  setConfirmationEmailSent(false)
+                  setLocalError('')
+                }}
+                className={styles.linkButton}
+              >
+                Back to Sign In
+              </button>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className={styles.authForm}>
