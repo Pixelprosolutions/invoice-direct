@@ -174,10 +174,10 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
             <div className={styles.savings}>
               <div className={styles.savingsHeader}>
                 <span className={styles.savingsIcon}>💰</span>
-                <span className={styles.savingsLabel}>Save $39/year</span>
+               <span className={styles.savingsLabel}>Beta Launch Special</span>
               </div>
               <div className={styles.pricingDetails}>
-                <span className={styles.betaPrice}>Beta Launch Special: $10 lifetime</span>
+               <span className={styles.betaPrice}>$10 lifetime access</span>
                 <span className={styles.originalPrice}>Regular price: $49/year after beta</span>
               </div>
               <div className={styles.urgencyText}>
