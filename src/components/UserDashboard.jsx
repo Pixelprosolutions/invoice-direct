@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import styles from './UserDashboard.module.css'
-import { FaUser, FaCrown, FaFileInvoice, FaChartLine } from 'react-icons/fa'
+import { FaUser, FaCrown, FaFileInvoice, FaChartLine, FaCheckCircle, FaTimes } from 'react-icons/fa'
+import { toast } from 'react-toastify'
+import StripeCheckout from './StripeCheckout'
 
 const UserDashboard = ({ onClose }) => {
   const { user, userProfile, isPremium, getRemainingInvoices } = useAuth()
