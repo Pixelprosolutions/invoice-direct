@@ -279,10 +279,12 @@
 }
 
 .paymentDetails h3, .notes h3, .terms h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: #1F2937;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color, #1F2937);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .paymentDetails p, .notes p, .terms p {
