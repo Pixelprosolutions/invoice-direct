@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaFileInvoice, FaTrash, FaCopy, FaEye, FaPlus } from 'react-icons/fa';
+import { FaFileInvoice, FaTrash, FaCopy, FaEye, FaPlus, FaArrowLeft } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 import { useInvoice } from '../context/InvoiceContext';
