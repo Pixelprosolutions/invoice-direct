@@ -81,7 +81,17 @@ const InvoiceForm = ({ onPreview, onNavigateHome }) => {
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.formHeader}>
         <div className={styles.headerContent}>
-          <h2>Invoice Details</h2>
+          <div className="title-row">
+            <button
+              type="button"
+              onClick={onNavigateHome}
+              className="back-button"
+              title="Back to Home"
+            >
+              <FaArrowLeft />
+            </button>
+            <h2>Invoice Details</h2>
+          </div>
           {appliedTemplate && (
             <div className={styles.templateIndicator}>
               <span>📋 Using template: <strong>{appliedTemplate.name}</strong></span>
