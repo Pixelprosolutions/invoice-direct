@@ -209,10 +209,10 @@
 }
 
 .clientName {
-  font-weight: 600;
-  font-size: 1.125rem;
-  color: #1F2937;
-  margin-bottom: 0.5rem;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--primary-color, #1F2937);
+  margin-bottom: 0.25rem;
 }
 
 .clientAddress {
