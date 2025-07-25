@@ -84,12 +84,33 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
     }
   }
 
+  const handleResendConfirmation = async () => {
+    setIsSubmitting(true)
+    setLocalError('')
+
+    try {
+      const { error } = await resendConfirmation(email)
+      if (!error) {
+        setConfirmationEmailSent(true)
+        setLocalError('')
+      } else {
+        setLocalError(error.message || 'Failed to resend confirmation email')
+      }
+    } catch (err) {
+      setLocalError(err.message || 'Failed to resend confirmation email')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const resetForm = () => {
     setEmail('')
     setPassword('')
     setConfirmPassword('')
     setLocalError('')
     setResetEmailSent(false)
+    setConfirmationEmailSent(false)
+    setNeedsEmailConfirmation(false)
   }
 
   const switchMode = (newMode) => {
