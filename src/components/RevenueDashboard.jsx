@@ -16,7 +16,7 @@ import {
   FaDownload,
   FaPrint,
   FaRedo,
-  FaTrendUp,
+
   FaMoneyBillWave,
   FaWallet,
   FaHandHoldingUsd
