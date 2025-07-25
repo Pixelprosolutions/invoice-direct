@@ -1601,3 +1601,34 @@ html {
     background: white !important;
   }
 }
+
+/* Footer */
+.footer {
+  background: #1e293b;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  border-top: 1px solid #334155;
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footerContent p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.footerContent a {
+  color: #10b981;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footerContent a:hover {
+  color: #34d399;
+  text-decoration: underline;
+}
