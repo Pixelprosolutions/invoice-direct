@@ -109,8 +109,12 @@ const InvoiceHistory = ({ setActiveView, onNavigateHome }) => {
                   >
                     <FaEye />
                   </button>
-                  <button 
-                    onClick={() => handleDuplicateInvoice(invoice)}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleDuplicateInvoice(invoice);
+                    }}
                     className={styles.actionButton}
                     title="Duplicate Invoice"
                   >
