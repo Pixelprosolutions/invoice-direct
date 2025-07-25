@@ -472,9 +472,10 @@ html {
 
 /* Benefits Section */
 .benefits {
-  padding: 8rem 2rem;
-  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  padding: 5rem 2rem;
+  background: #ffffff;
   position: relative;
+  border-top: 1px solid #e2e8f0;
 }
 
 .benefits::before {
