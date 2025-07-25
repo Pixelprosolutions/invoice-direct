@@ -52,26 +52,35 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
       
       if (!supabaseUrl || !supabaseKey) {
         toast.info('Stripe integration ready! Using demo payment for development.')
-        handleDemoPayment()
+        await handleDemoPayment()
         return
       }
 
       toast.info('Creating checkout session...')
       
-      // Get the user's session token
-      const { data: { session } } = await supabase.auth.getSession()
-      if (!session?.access_token) {
-        throw new Error('User not authenticated')
-      }
-      
-      const checkoutSession = await createCheckoutSession(
-        product.priceId,
-        user.email,
-        user.id,
-        session.access_token
+      // Add timeout to prevent infinite loading
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Request timeout')), 10000)
       )
+
+      const sessionPromise = (async () => {
+        // Get the user's session token
+        const { data: { session } } = await supabase.auth.getSession()
+        if (!session?.access_token) {
+          throw new Error('User not authenticated')
+        }
+        
+        return await createCheckoutSession(
+          product.priceId,
+          user.email,
+          user.id,
+          session.access_token
+        )
+      })()
+
+      const checkoutSession = await Promise.race([sessionPromise, timeoutPromise])
       
-      if (checkoutSession.url) {
+      if (checkoutSession?.url) {
         // Redirect to Stripe Checkout
         window.location.href = checkoutSession.url
       } else {
@@ -80,10 +89,20 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
       
     } catch (error) {
       console.error('Stripe checkout failed:', error)
-      toast.error('Payment system error. Using demo payment instead.')
+      
+      if (error.message === 'Request timeout') {
+        toast.error('Payment system is taking too long. Using demo payment instead.')
+      } else {
+        toast.error('Payment system error. Using demo payment instead.')
+      }
+      
       // Fallback to demo payment
-      handleDemoPayment()
-      setIsProcessing(false)
+      await handleDemoPayment()
+    } finally {
+      // Only set processing to false if we're not redirecting to Stripe
+      if (!window.location.href.includes('stripe.com')) {
+        setIsProcessing(false)
+      }
     }
   }
 
