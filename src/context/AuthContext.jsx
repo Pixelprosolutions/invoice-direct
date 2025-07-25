@@ -226,26 +226,21 @@ export const AuthProvider = ({ children }) => {
       // Clear all local state
       setUser(null)
       setUserProfile(null)
-          redirectTo: `${window.location.origin}/`,
-          queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          }
-        }
-      })
-
-      console.log('📊 Google signin response:', { data, error })
-
+      
+      // Sign out from Supabase
+      const { error } = await supabase.auth.signOut()
       if (error) throw error
-      return { data, error: null }
+      
+      return { error: null }
     } catch (error) {
-      console.error('❌ Google signin failed:', error.message || error)
+      console.error('❌ Signout failed:', error.message || error)
       setError(error.message)
-      return { data: null, error }
+      return { error }
     } finally {
       setLoading(false)
     }
   }
+
   const resetPassword = async (email) => {
     try {
       setError(null)
