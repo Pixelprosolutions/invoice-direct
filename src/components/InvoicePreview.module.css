@@ -196,12 +196,12 @@
 }
 
 .itemsTable th {
-  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  background: linear-gradient(135deg, var(--primary-color, #f8fafc), var(--secondary-color, #f1f5f9));
+  color: white;
   padding: 1rem;
   text-align: left;
   font-weight: 600;
-  color: #374151;
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 2px solid var(--primary-color, #e2e8f0);
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
