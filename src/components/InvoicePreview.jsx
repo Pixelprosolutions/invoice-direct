@@ -152,7 +152,20 @@ function InvoicePreview() {
       </div>
       
       <div className={styles.previewWrapper}>
-        <div id="invoice-preview" className={styles.preview}>
+        <div
+          id="invoice-preview"
+          className={styles.preview}
+          style={{
+            '--primary-color': invoiceData.design?.colors?.primary || '#4F46E5',
+            '--secondary-color': invoiceData.design?.colors?.secondary || '#6366F1',
+            '--accent-color': invoiceData.design?.colors?.accent || '#10B981',
+            '--text-color': invoiceData.design?.colors?.text || '#1F2937',
+            '--background-color': invoiceData.design?.colors?.background || '#FFFFFF',
+            '--font-family': invoiceData.design?.fonts?.body || 'Inter',
+            '--header-font': invoiceData.design?.fonts?.header || 'Inter',
+            '--accent-font': invoiceData.design?.fonts?.accent || 'Inter'
+          }}
+        >
           <div className={styles.invoiceHeader}>
             {invoiceData.logo && (
               <div className={styles.logo}>
