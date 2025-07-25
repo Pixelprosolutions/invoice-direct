@@ -170,25 +170,9 @@ const AuthenticatedApp = () => {
                 <div className={styles.actionIcon}>
                   <FaChartBar />
                 </div>
-                <h3>App Status Check</h3>
-                <p>Check features and populate test data</p>
+                <h3>Reports & Analytics</h3>
+                <p>View detailed revenue and expense reports</p>
               </div>
-            </div>
-            
-            <div className={styles.actionCard} onClick={() => setActiveView('test')}>
-              <div className={styles.actionIcon}>
-                <FaFileInvoice />
-              </div>
-              <h3>Test MVP Features</h3>
-              <p>Check if all features are working properly</p>
-            </div>
-            
-            <div className={styles.actionCard} onClick={() => setActiveView('config')}>
-              <div className={styles.actionIcon}>
-                <FaFileInvoice />
-              </div>
-              <h3>Check Supabase Config</h3>
-              <p>Verify database and authentication setup</p>
             </div>
           </div>
         )
