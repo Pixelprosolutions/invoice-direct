@@ -1640,6 +1640,63 @@ html {
   }
 }
 
+/* Extra small screens */
+@media (max-width: 360px) {
+  .hero {
+    padding: 2.5rem 0.75rem;
+    padding-top: 60px;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.5rem, 10vw, 2rem);
+  }
+
+  .appDemo {
+    max-width: 280px;
+    transform: scale(0.75);
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    max-width: 280px;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .ctaButton {
+    min-width: 220px;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .benefits,
+  .features,
+  .socialProof,
+  .pricing,
+  .faq {
+    padding: 2.5rem 0.75rem;
+  }
+
+  .finalCta {
+    padding: 3rem 0.75rem;
+  }
+
+  .dealHighlight {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .pricingCard {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .benefit,
+  .feature,
+  .testimonial,
+  .faqItem {
+    padding: 1.25rem 0.75rem;
+  }
+}
+
 /* Performance optimizations */
 @media (prefers-reduced-motion: reduce) {
   *,
