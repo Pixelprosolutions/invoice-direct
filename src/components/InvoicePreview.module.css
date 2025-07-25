@@ -105,12 +105,18 @@
   text-align: right;
 }
 
+.businessInfo {
+  text-align: left;
+}
+
 .businessInfo h1 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   color: var(--primary-color, #1F2937);
   font-family: var(--header-font, 'Inter');
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .businessInfo p {
