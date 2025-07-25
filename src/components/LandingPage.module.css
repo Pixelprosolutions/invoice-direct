@@ -1891,12 +1891,12 @@ html {
 
 /* Footer */
 .footer {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #8b5cf6 100%);
+  background: #1e293b;
   color: white;
-  padding: 3rem 2rem 2rem;
+  padding: 3rem 2rem;
   text-align: center;
+  border-top: 1px solid #334155;
   position: relative;
-  overflow: hidden;
 }
 
 .footer::before {
@@ -1905,10 +1905,8 @@ html {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.3), transparent);
   pointer-events: none;
 }
 
@@ -1917,26 +1915,41 @@ html {
   margin: 0 auto;
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .footerContent p {
-  margin: 0.75rem 0;
-  font-size: 0.95rem;
-  opacity: 0.9;
-  font-weight: 500;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 .footerContent a {
-  color: #f2f6f9;
+  color: #4f46e5;
   text-decoration: none;
-  font-weight: 700;
-  transition: all 0.3s ease;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .footerContent a:hover {
-  color: #f59e0b;
-  text-decoration: underline;
-  transform: translateY(-1px);
+  color: #6366f1;
+  text-decoration: none;
+}
+
+.footerContent a::after {
+  content: '↗';
+  font-size: 0.75rem;
+  opacity: 0.7;
+  transition: transform 0.2s ease;
+}
+
+.footerContent a:hover::after {
+  transform: translate(1px, -1px);
 }
