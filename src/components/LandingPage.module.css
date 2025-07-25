@@ -1548,46 +1548,90 @@ html {
 }
 
 @media (max-width: 480px) {
+  .hero {
+    padding: 3rem 1rem;
+    padding-top: 60px;
+    gap: 2rem;
+  }
+
   .heroTitle {
     font-size: clamp(1.75rem, 8vw, 2.5rem);
+    line-height: 1.2;
   }
-  
+
   .heroSubtitle {
     font-size: 1rem;
+    line-height: 1.5;
   }
-  
+
+  .heroBadge {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+
   .primaryButton,
   .secondaryButton {
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9rem;
+    max-width: 320px;
   }
-  
+
+  .ctaNote {
+    font-size: 0.85rem;
+  }
+
+  .appDemo {
+    max-width: 320px;
+    transform: scale(0.8);
+  }
+
   .benefit,
+  .feature,
   .testimonial,
   .faqItem {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem 1rem;
   }
-  
+
   .pricingCard {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem 1rem;
   }
-  
+
   .sectionHeader h2 {
     font-size: clamp(1.5rem, 6vw, 2rem);
   }
-  
+
   .amount {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
   }
-  
+
   .ctaButton {
-    min-width: 280px;
-    padding: 1.25rem 2rem;
-    font-size: 1.1rem;
+    min-width: 250px;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
   }
-  
+
   .heroStats {
     padding: 1rem;
+  }
+
+  .benefits,
+  .features,
+  .socialProof,
+  .pricing,
+  .faq {
+    padding: 3rem 1rem;
+  }
+
+  .finalCta {
+    padding: 4rem 1rem;
+  }
+
+  .dealHighlight {
+    padding: 1.5rem 1rem;
+  }
+
+  .footer {
+    padding: 2rem 1rem;
   }
   
   .invoicePreview {
