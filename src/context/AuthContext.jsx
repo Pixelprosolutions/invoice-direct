@@ -323,17 +323,17 @@ export const AuthProvider = ({ children }) => {
   }
 
   const devLogin = () => {
-    // TEMPORARILY ENABLED FOR TESTING - normally disabled when Supabase is configured
-    // const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-    // const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+    // Check if Supabase is configured - if so, don't allow dev login
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-    // if (supabaseUrl && supabaseKey) {
-    //   console.warn('🚫 Dev login disabled - Supabase is configured. Please use Sign In/Sign Up.')
-    //   setError('Development login is disabled when database is configured. Please sign in normally.')
-    //   return
-    // }
+    if (supabaseUrl && supabaseKey) {
+      console.warn('🚫 Dev login disabled - Supabase is configured. Please use Sign In/Sign Up.')
+      setError('Development login is disabled when database is configured. Please sign in normally.')
+      return
+    }
 
-    console.log('🔧 Dev login activated (TESTING MODE)')
+    console.log('🔧 Dev login activated (Supabase not configured)')
     const mockUser = {
       id: 'dev-user-123',
       email: 'dev@invoicedirect.app',
