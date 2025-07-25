@@ -32,10 +32,25 @@ export const AuthProvider = ({ children }) => {
     const initializeAuth = async () => {
       try {
         console.log('🔄 Initializing auth...')
-        
+
+        // Check if Supabase is configured and clear dev user if needed
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+        const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+        if (supabaseUrl && supabaseKey) {
+          // If Supabase is configured, clear any dev user session
+          const currentUser = user || { id: localStorage.getItem('dev-user-id') }
+          if (currentUser && currentUser.id === 'dev-user-123') {
+            console.log('🔄 Clearing dev user session - Supabase is now configured')
+            setUser(null)
+            setUserProfile(null)
+            localStorage.removeItem('dev-user-id')
+          }
+        }
+
         // Try to get session with a shorter timeout
         const sessionPromise = supabase.auth.getSession()
-        const timeoutPromise = new Promise((_, reject) => 
+        const timeoutPromise = new Promise((_, reject) =>
           setTimeout(() => reject(new Error('Session timeout')), 5000)
         )
         
