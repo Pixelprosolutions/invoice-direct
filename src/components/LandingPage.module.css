@@ -837,7 +837,7 @@ html {
 
 .popularBadge {
   position: absolute;
-  top: -12px;
+  top: -20px;
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(135deg, #4f46e5, #7c3aed);
