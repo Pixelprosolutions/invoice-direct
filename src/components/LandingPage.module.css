@@ -861,10 +861,10 @@ html {
 }
 
 .pricingSubtext {
-  color: #64748b;
+  color: #475569;
   margin: 0;
-  font-size: 1.05rem;
-  font-weight: 500;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .featuresList {
