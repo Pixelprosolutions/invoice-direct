@@ -507,25 +507,10 @@ html {
   position: relative;
 }
 
-.benefit::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(79, 70, 229, 0.02), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.benefit:hover::before {
-  opacity: 1;
-}
-
 .benefit:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-color: #4f46e5;
 }
 
 .benefitIcon {
