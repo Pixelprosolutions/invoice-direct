@@ -9,10 +9,32 @@
   padding-bottom: 1rem;
 }
 
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .formHeader h2 {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-color);
+  margin: 0;
+}
+
+.templateIndicator {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(124, 58, 237, 0.1));
+  border: 1px solid rgba(79, 70, 229, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #4f46e5;
+}
+
+.templateIndicator strong {
+  color: #1e293b;
 }
 
 .formSection {
