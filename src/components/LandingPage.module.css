@@ -251,9 +251,9 @@ html {
 
 .statLabel {
   display: block;
-  font-size: 0.95rem;
-  color: #64748b;
-  font-weight: 500;
+  font-size: 1rem;
+  color: #475569;
+  font-weight: 600;
 }
 
 .heroVisual {
