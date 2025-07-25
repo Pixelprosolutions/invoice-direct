@@ -28,21 +28,22 @@ const InvoiceHistory = ({ setActiveView }) => {
   }, []);
 
   const handleViewInvoice = (invoice) => {
-    loadInvoice(invoice);
+    loadInvoice(invoice.invoiceData || invoice);
     setActiveView('create');
-    toast.info(`Loaded invoice #${invoice.invoiceNumber}`);
+    toast.info(`Loaded invoice #${invoice.invoiceData?.invoiceNumber || invoice.invoiceNumber || 'N/A'}`);
   };
 
   const handleDuplicateInvoice = (invoice) => {
+    const invoiceData = invoice.invoiceData || invoice;
     const duplicatedInvoice = {
-      ...invoice,
-      invoiceNumber: `${invoice.invoiceNumber}-copy`,
+      ...invoiceData,
+      invoiceNumber: `${invoiceData.invoiceNumber || 'INV'}-copy`,
       invoiceDate: format(new Date(), 'yyyy-MM-dd')
     };
-    
+
     loadInvoice(duplicatedInvoice);
     setActiveView('create');
-    toast.info(`Duplicated invoice #${invoice.invoiceNumber}`);
+    toast.info(`Duplicated invoice #${invoiceData.invoiceNumber || 'N/A'}`);
   };
 
   const handleDeleteInvoice = (invoiceId) => {
