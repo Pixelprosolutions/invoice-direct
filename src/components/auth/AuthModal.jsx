@@ -14,7 +14,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [resetEmailSent, setResetEmailSent] = useState(false)
 
-  const { signIn, signUp, resetPassword, error, loading } = useAuth()
+  const { signIn, signUp, resetPassword, error, loading, devLogin } = useAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -41,7 +41,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
           setLocalError('Account created successfully! Please check your email for verification.')
           onClose()
         } else {
-          console.error('❌ Signup error:', error)
+          console.error('❌ Signup failed:', error.message || error)
           setLocalError(error.message || 'Failed to create account')
         }
       } else if (mode === 'signin') {
@@ -52,7 +52,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
         if (!error) {
           onClose()
         } else {
-          console.error('❌ Signin error:', error)
+          console.error('❌ Signin failed:', error.message || error)
           setLocalError(error.message || 'Failed to sign in')
         }
       } else if (mode === 'reset') {
@@ -171,6 +171,23 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
                 {localError || error}
               </div>
             )}
+
+            {/* Dev Login Button */}
+            <div className={styles.devLoginSection}>
+              <button
+                type="button"
+                onClick={() => {
+                  devLogin()
+                  onClose()
+                }}
+                className={styles.devLoginButton}
+              >
+                🔧 Dev Login (Skip Auth)
+              </button>
+              <p className={styles.devLoginText}>
+                For development/testing - bypasses authentication
+              </p>
+            </div>
 
             <button 
               type="submit" 

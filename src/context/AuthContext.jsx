@@ -168,7 +168,7 @@ export const AuthProvider = ({ children }) => {
       if (error) throw error
       return { data, error: null }
     } catch (error) {
-      console.error('❌ Signup failed:', error)
+      console.error('❌ Signup failed:', error.message || error)
       setError(error.message)
       return { data: null, error }
     } finally {
@@ -193,7 +193,7 @@ export const AuthProvider = ({ children }) => {
       if (error) throw error
       return { data, error: null }
     } catch (error) {
-      console.error('❌ Signin failed:', error)
+      console.error('❌ Signin failed:', error.message || error)
       setError(error.message)
       return { data: null, error }
     } finally {
@@ -272,7 +272,7 @@ export const AuthProvider = ({ children }) => {
 
   const refreshProfile = async () => {
     if (!user) return
-    
+
     try {
       const profile = await getUserProfile(user.id)
       setUserProfile(profile || {
@@ -287,6 +287,27 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  const devLogin = () => {
+    console.log('🔧 Dev login activated')
+    const mockUser = {
+      id: 'dev-user-123',
+      email: 'dev@invoicedirect.app',
+      created_at: new Date().toISOString()
+    }
+    const mockProfile = {
+      id: 'dev-user-123',
+      email: 'dev@invoicedirect.app',
+      plan: 'premium',
+      invoice_count: 0,
+      created_at: new Date().toISOString()
+    }
+
+    setUser(mockUser)
+    setUserProfile(mockProfile)
+    setError(null)
+    setLoading(false)
+  }
+
   const value = {
     user,
     userProfile,
@@ -299,7 +320,8 @@ export const AuthProvider = ({ children }) => {
     canCreateInvoice,
     isPremium,
     getRemainingInvoices,
-    refreshProfile
+    refreshProfile,
+    devLogin
   }
 
   return (

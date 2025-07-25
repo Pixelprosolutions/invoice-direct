@@ -1,0 +1,377 @@
+.taxSettingsForm {
+  padding: 2rem;
+}
+
+.formSection {
+  margin-bottom: 3rem;
+}
+
+.formSection:last-child {
+  margin-bottom: 0;
+}
+
+.formSection h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem 0;
+  color: #1e293b;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.75rem;
+}
+
+.sectionIcon {
+  color: #4f46e5;
+  width: 20px;
+  height: 20px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup.fullWidth {
+  grid-column: span 2;
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  background: white;
+  color: #1e293b;
+  font-family: inherit;
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: #9ca3af;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.formGroup input:hover:not(:focus),
+.formGroup select:hover:not(:focus),
+.formGroup textarea:hover:not(:focus) {
+  border-color: #9ca3af;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.inputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputSuffix {
+  position: absolute;
+  right: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.checkboxLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.checkboxLabel:hover {
+  border-color: #4f46e5;
+  background: #f8fafc;
+}
+
+.checkboxText {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.checkboxLabel input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #4f46e5;
+  margin: 0;
+}
+
+.checkboxNote {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-left: 2rem;
+}
+
+.taxPresets {
+  margin-top: 2rem;
+}
+
+.taxPresets h4 {
+  margin: 0 0 1rem 0;
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.presetsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.presetButton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.presetButton:hover {
+  border-color: #4f46e5;
+  background: #f8fafc;
+  transform: translateY(-1px);
+}
+
+.presetButton strong {
+  color: #1e293b;
+  font-size: 0.9rem;
+}
+
+.presetButton span {
+  color: #4f46e5;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.presetButton small {
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.multiTaxSection {
+  margin-top: 1rem;
+}
+
+.sectionDescription {
+  margin: 0 0 1.5rem 0;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.taxRatesList {
+  margin-bottom: 2rem;
+}
+
+.taxRateItem {
+  position: relative;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background: #f8fafc;
+}
+
+.taxRateGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.removeTaxButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.removeTaxButton:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+.addTaxRate {
+  padding: 1.5rem;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  background: white;
+}
+
+.addTaxRate h4 {
+  margin: 0 0 1rem 0;
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.addTaxGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.addTaxButton {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.addTaxButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.addTaxButton:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.taxTips {
+  margin-top: 1.5rem;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.taxTips h4 {
+  margin: 0 0 1rem 0;
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.taxTips ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #64748b;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.taxTips li {
+  margin-bottom: 0.5rem;
+}
+
+.taxTips li:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .taxSettingsForm {
+    padding: 1.5rem;
+  }
+  
+  .formGrid,
+  .taxRateGrid,
+  .addTaxGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .formGroup.fullWidth {
+    grid-column: span 1;
+  }
+  
+  .presetsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .removeTaxButton {
+    position: static;
+    margin-top: 1rem;
+    width: auto;
+    height: auto;
+    padding: 0.5rem 1rem;
+  }
+  
+  .taxRateItem {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .taxSettingsForm {
+    padding: 1rem;
+  }
+  
+  .formSection h3 {
+    font-size: 1rem;
+  }
+  
+  .presetsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .checkboxNote {
+    margin-left: 0;
+  }
+}

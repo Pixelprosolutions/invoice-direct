@@ -11,7 +11,7 @@ import ActionButtons from './ActionButtons';
 import Watermark from './Watermark';
 
 function InvoicePreview() {
-  const { invoiceData } = useInvoice();
+  const { invoiceData, appliedTemplate } = useInvoice();
   const { user, userProfile, refreshProfile } = useAuth();
   
   // Ensure lineItems exists before calculating totals
@@ -37,8 +37,8 @@ function InvoicePreview() {
           
           toast.success('Invoice saved successfully!');
         } catch (error) {
-          console.error('Failed to save invoice:', error);
-          toast.error('Failed to save invoice data.');
+          console.error('Failed to save invoice:', error.message || error);
+          toast.error(`Failed to save invoice: ${error.message || 'Database connection issue'}`);
         }
       }
     };
@@ -152,35 +152,63 @@ function InvoicePreview() {
       </div>
       
       <div className={styles.previewWrapper}>
-        <div id="invoice-preview" className={styles.preview}>
+        <div
+          id="invoice-preview"
+          className={styles.preview}
+          style={{
+            '--primary-color': invoiceData.design?.colors?.primary || '#4F46E5',
+            '--secondary-color': invoiceData.design?.colors?.secondary || '#6366F1',
+            '--accent-color': invoiceData.design?.colors?.accent || '#10B981',
+            '--text-color': invoiceData.design?.colors?.text || '#1F2937',
+            '--background-color': invoiceData.design?.colors?.background || '#FFFFFF',
+            '--font-family': invoiceData.design?.fonts?.body || 'Inter',
+            '--header-font': invoiceData.design?.fonts?.header || 'Inter',
+            '--accent-font': invoiceData.design?.fonts?.accent || 'Inter',
+            '--primary-color-rgb': invoiceData.design?.colors?.primary ?
+              invoiceData.design.colors.primary.replace('#', '').match(/.{2}/g).map(hex => parseInt(hex, 16)).join(', ') :
+              '79, 70, 229',
+            '--secondary-color-rgb': invoiceData.design?.colors?.secondary ?
+              invoiceData.design.colors.secondary.replace('#', '').match(/.{2}/g).map(hex => parseInt(hex, 16)).join(', ') :
+              '99, 102, 241'
+          }}
+        >
           <div className={styles.invoiceHeader}>
-            {invoiceData.logo && (
-              <div className={styles.logo}>
-                <img src={invoiceData.logo} alt={`${invoiceData.businessName} Logo`} />
-              </div>
-            )}
-            
+            {/* Left: Business Info */}
             <div className={styles.businessInfo}>
+              {invoiceData.logo && (
+                <div className={styles.logo}>
+                  <img src={invoiceData.logo} alt={`${invoiceData.businessName} Logo`} />
+                </div>
+              )}
               <h1>{invoiceData.businessName || 'Your Business Name'}</h1>
               <p>{invoiceData.businessAddress || 'Your Business Address'}</p>
-              {invoiceData.vatNumber && <p>VAT: {invoiceData.vatNumber}</p>}
-              {invoiceData.registrationNumber && <p>Reg: {invoiceData.registrationNumber}</p>}
               <div className={styles.contactInfo}>
-                {invoiceData.contactInfo?.phone && <p>Phone: {invoiceData.contactInfo.phone}</p>}
-                {invoiceData.contactInfo?.email && <p>Email: {invoiceData.contactInfo.email}</p>}
+                {invoiceData.contactInfo?.phone && <p>{invoiceData.contactInfo.phone}</p>}
+                {invoiceData.contactInfo?.email && <p>{invoiceData.contactInfo.email}</p>}
               </div>
             </div>
-          </div>
 
-          <div className={styles.invoiceTitle}>
-            <h2>INVOICE</h2>
-            <div className={styles.invoiceStatus + ' ' + getStatusClass()}>
-              {invoiceData.status || 'Pending'}
+            {/* Center: Invoice Title */}
+            <div className={styles.invoiceTitle}>
+              <h2>INVOICE</h2>
+              <div className={styles.invoiceStatus + ' ' + getStatusClass()}>
+                {invoiceData.status || 'Pending'}
+              </div>
+            </div>
+
+            {/* Right: Client Info */}
+            <div className={styles.clientInfo}>
+              <h3>Bill To:</h3>
+              <p className={styles.clientName}>{invoiceData.clientName || 'Client Name'}</p>
+              <p className={styles.clientAddress}>{invoiceData.clientAddress || 'Client Address'}</p>
+              {invoiceData.clientEmail && <p>{invoiceData.clientEmail}</p>}
+              {invoiceData.clientPhone && <p>{invoiceData.clientPhone}</p>}
             </div>
           </div>
 
           <div className={styles.invoiceDetails}>
             <div className={styles.invoiceInfo}>
+              <h3>Invoice Details</h3>
               <div className={styles.infoRow}>
                 <span className={styles.infoLabel}>Invoice Number:</span>
                 <span className={styles.infoValue}>{invoiceData.invoiceNumber}</span>
@@ -201,12 +229,24 @@ function InvoicePreview() {
               )}
             </div>
 
-            <div className={styles.clientInfo}>
-              <h3>Bill To:</h3>
-              <p className={styles.clientName}>{invoiceData.clientName || 'Client Name'}</p>
-              <p className={styles.clientAddress}>{invoiceData.clientAddress || 'Client Address'}</p>
-              {invoiceData.clientEmail && <p>Email: {invoiceData.clientEmail}</p>}
-              {invoiceData.clientPhone && <p>Phone: {invoiceData.clientPhone}</p>}
+            <div className={styles.paymentInfo}>
+              <h3>Payment Terms</h3>
+              <div className={styles.infoRow}>
+                <span className={styles.infoLabel}>Terms:</span>
+                <span className={styles.infoValue}>{invoiceData.terms || 'Net 30'}</span>
+              </div>
+              {invoiceData.bankDetails?.accountName && (
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>Account:</span>
+                  <span className={styles.infoValue}>{invoiceData.bankDetails.accountName}</span>
+                </div>
+              )}
+              {invoiceData.bankDetails?.sortCode && (
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>Sort Code:</span>
+                  <span className={styles.infoValue}>{invoiceData.bankDetails.sortCode}</span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -247,35 +287,21 @@ function InvoicePreview() {
             </tfoot>
           </table>
 
-          {(invoiceData.bankDetails?.accountName || 
-            invoiceData.bankDetails?.sortCode || 
-            invoiceData.bankDetails?.accountNumber) && (
-            <div className={styles.paymentDetails}>
-              <h3>Payment Details</h3>
-              {invoiceData.bankDetails?.accountName && <p>Account Name: {invoiceData.bankDetails.accountName}</p>}
-              {invoiceData.bankDetails?.sortCode && <p>Sort Code: {invoiceData.bankDetails.sortCode}</p>}
-              {invoiceData.bankDetails?.accountNumber && <p>Account Number: {invoiceData.bankDetails.accountNumber}</p>}
-              {invoiceData.paymentInstructions && (
-                <div className={styles.paymentInstructions}>
-                  <p>{invoiceData.paymentInstructions}</p>
-                </div>
-              )}
-            </div>
-          )}
+          {/* Compact Footer Section */}
+          <div className={styles.footerSection}>
+            {invoiceData.notes && (
+              <div className={styles.notes}>
+                <h3>Notes</h3>
+                <p>{invoiceData.notes}</p>
+              </div>
+            )}
 
-          {invoiceData.notes && (
-            <div className={styles.notes}>
-              <h3>Notes</h3>
-              <p>{invoiceData.notes}</p>
-            </div>
-          )}
-
-          {invoiceData.terms && (
-            <div className={styles.terms}>
-              <h3>Terms & Conditions</h3>
-              <p>{invoiceData.terms}</p>
-            </div>
-          )}
+            {invoiceData.paymentInstructions && (
+              <div className={styles.paymentInstructions}>
+                <p>{invoiceData.paymentInstructions}</p>
+              </div>
+            )}
+          </div>
 
           <div className={styles.footer}>
             {invoiceData.customFooter ? (
