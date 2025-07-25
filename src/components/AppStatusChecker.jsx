@@ -255,7 +255,7 @@ const AppStatusChecker = () => {
           className={styles.refreshButton}
           onClick={checkAppStatus}
         >
-          <FaRefresh /> Refresh Status
+          <FaRedo /> Refresh Status
         </button>
         
         <button 
