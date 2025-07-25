@@ -572,8 +572,9 @@ html {
 
 /* Features Section */
 .features {
-  padding: 8rem 2rem;
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  padding: 5rem 2rem;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
 }
 
 .featuresGrid {
