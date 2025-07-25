@@ -139,9 +139,9 @@ const InvoiceHistory = ({ setActiveView }) => {
                       style: 'currency',
                       currency: 'USD'
                     }).format(
-                      invoice.lineItems?.reduce((sum, item) =>
+                      (invoice.invoiceData?.lineItems || invoice.lineItems || []).reduce((sum, item) =>
                         sum + (parseFloat(item.total) || 0), 0
-                      ) || 0
+                      )
                     )}
                   </span>
                 </div>
