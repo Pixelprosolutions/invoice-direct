@@ -1434,6 +1434,7 @@ html {
     align-items: center;
     gap: 1.25rem;
     margin-bottom: 2rem;
+    width: 100%;
   }
 
   .primaryButton {
@@ -1445,6 +1446,9 @@ html {
     font-weight: 700;
     border-radius: 12px;
     box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
   }
 
   .ctaNote {
