@@ -70,10 +70,10 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             </div>
             <div className={styles.demoContent}>
               <div className={styles.demoSidebar}>
-                <div className={styles.sidebarItem}>📄 Create Invoice</div>
-                <div className={styles.sidebarItem}>📊 Dashboard</div>
-                <div className={styles.sidebarItem}>👥 Clients</div>
-                <div className={styles.sidebarItem}>💰 Payments</div>
+                <div className={styles.sidebarItem}><FaFileInvoice /> Create Invoice</div>
+                <div className={styles.sidebarItem}><FaTachometerAlt /> Dashboard</div>
+                <div className={styles.sidebarItem}><FaUsers /> Clients</div>
+                <div className={styles.sidebarItem}><FaCreditCard /> Payments</div>
               </div>
               <div className={styles.demoMain}>
                 <div className={styles.demoForm}>
