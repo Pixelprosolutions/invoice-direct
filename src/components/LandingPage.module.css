@@ -185,14 +185,34 @@ html {
 }
 
 .heroTrust {
-  font-size: 1rem;
-  color: #059669;
-  font-weight: 600;
   margin-bottom: 2.5rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
   align-items: center;
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #059669;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 25px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  transition: all 0.3s ease;
+}
+
+.trustItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.trustItem svg {
+  font-size: 0.9rem;
 }
 
 .heroStats {
