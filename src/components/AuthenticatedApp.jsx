@@ -90,6 +90,12 @@ const AuthenticatedApp = () => {
               )}
             </div>
 
+            {/* Quick Actions Section */}
+            <QuickActions
+              onCreateInvoice={handleCreateInvoice}
+              onSetActiveView={setActiveView}
+            />
+
             <div className={styles.quickActions}>
               <div className={styles.actionCard} onClick={handleCreateInvoice}>
                 <div className={styles.actionIcon}>
