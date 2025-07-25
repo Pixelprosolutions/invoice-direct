@@ -13,6 +13,7 @@ import MobileFeaturesHub from './MobileFeaturesHub'
 import QuickInvoiceForm from './QuickInvoiceForm'
 import PaymentStatusUpdater from './PaymentStatusUpdater'
 import PaymentTracking from './PaymentTracking'
+import OverdueAlerts from './OverdueAlerts'
 import FloatingActionButton from './FloatingActionButton'
 import Modal from './Modal'
 import UserDashboard from './UserDashboard'
@@ -250,6 +251,8 @@ const AuthenticatedApp = () => {
           </p>
         </div>
       )}
+
+      <OverdueAlerts onNavigateToPayments={() => setActiveView('payments')} />
 
       <main className={styles.main}>
         {renderContent()}
