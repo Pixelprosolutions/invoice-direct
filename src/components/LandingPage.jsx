@@ -45,7 +45,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
               <FaRocket /> Start Creating Invoices Free
             </button>
             <p className={styles.ctaNote}>
-              ✓ No credit card required • ✓ Setup in 2 minutes • ✓ 3 free invoices
+              <FaCheck /> No credit card required • <FaCheck /> Setup in 2 minutes • <FaCheck /> 3 free invoices
             </p>
           </div>
 
