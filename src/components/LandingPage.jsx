@@ -65,7 +65,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
                   <span></span>
                   <span></span>
                 </div>
-                <div className={styles.urlBar}>app.invoicedirect.com</div>
+                <div className={styles.urlBar}>www.invoice.direct</div>
               </div>
             </div>
             <div className={styles.demoContent}>
