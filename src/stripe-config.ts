@@ -1,11 +1,13 @@
 export const STRIPE_CONFIG = {
   currency: 'usd',
   products: {
-    premium: {
-      name: 'Invoice Direct Premium',
-      description: 'Lifetime access with unlimited invoices and premium features',
+    lifetimeAccess: {
+      id: 'prod_SkOfQw8tQa6xIf',
+      name: 'Lifetime Access',
+      description: 'One-time payment for unlimited invoices and premium features forever',
       price: 1000, // $10.00 in cents
-      priceId: 'price_1234567890', // TODO: Replace with your actual Stripe Price ID from Step 1.3
+      priceId: 'price_1Rots22OqqTomYvmdgVZW4H0',
+      mode: 'payment'
     }
   }
 }
@@ -13,17 +15,17 @@ export const STRIPE_CONFIG = {
 // Create checkout session
 export const createCheckoutSession = async (priceId, customerEmail, userId) => {
   try {
-    const response = await fetch('/api/create-checkout-session', {
+    const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-checkout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
       },
       body: JSON.stringify({
-        priceId,
-        customerEmail,
-        userId,
-        successUrl: `${window.location.origin}/payment-success`,
-        cancelUrl: `${window.location.origin}/payment-cancelled`,
+        price_id: priceId,
+        success_url: `${window.location.origin}/payment-success`,
+        cancel_url: `${window.location.origin}/`,
+        mode: 'payment'
       }),
     })
 

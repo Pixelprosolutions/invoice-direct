@@ -23,6 +23,9 @@ function App() {
                           window.location.hash.includes('type=recovery') ||
                           window.location.search.includes('type=recovery')
 
+  // Check if this is a payment success callback
+  const isPaymentSuccess = window.location.pathname.includes('payment-success') ||
+                           window.location.search.includes('session_id')
   // Initialize SEO optimizations
   useEffect(() => {
     initializeSEO()
@@ -55,8 +58,8 @@ function App() {
     )
   }
 
-  // Show authenticated app if user is logged in
-  if (user) {
+  // Show authenticated app if user is logged in or if it's a payment callback
+  if (user || isPaymentSuccess) {
     return (
       <ErrorBoundary>
         <AuthenticatedApp />

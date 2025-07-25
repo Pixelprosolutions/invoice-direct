@@ -320,7 +320,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
                   <span className={styles.amount}>$10</span>
                   <span className={styles.period}>lifetime</span>
                 </div>
-                <p className={styles.pricingSubtext}>One-time payment • Unlimited invoices forever</p>
+                <p className={styles.pricingSubtext}>One-time payment for unlimited invoices and premium features forever</p>
               </div>
               <ul className={styles.featuresList}>
                 <li><FaCheck /> <strong>Unlimited professional invoices</strong></li>

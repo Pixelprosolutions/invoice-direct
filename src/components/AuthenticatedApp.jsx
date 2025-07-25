@@ -23,6 +23,7 @@ import MVPStatusChecker from './MVPStatusChecker'
 import ConfigChecker from './ConfigChecker'
 import DatabaseSetupChecker from './DatabaseSetupChecker'
 import StripeCheckout from './StripeCheckout'
+import PaymentSuccess from './PaymentSuccess'
 import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile, FaCreditCard, FaChartBar, FaCog, FaCamera, FaCrown, FaPlus, FaRocket, FaGem, FaDatabase } from 'react-icons/fa'
 
 const AuthenticatedApp = () => {
@@ -33,8 +34,18 @@ const AuthenticatedApp = () => {
   const [showQuickInvoice, setShowQuickInvoice] = useState(false)
   const [showPaymentStatus, setShowPaymentStatus] = useState(false)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
+  const [showPaymentSuccess, setShowPaymentSuccess] = useState(false)
   const { user, canCreateInvoice, getRemainingInvoices, signOut, forceSignOut, isPremium } = useAuth()
 
+  // Check for payment success on mount
+  React.useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    if (urlParams.get('session_id')) {
+      setShowPaymentSuccess(true)
+      // Clean up URL
+      window.history.replaceState({}, document.title, window.location.pathname)
+    }
+  }, [])
   // Check if current user is valid for database operations
   const isValidUser = user && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(user.id)
   const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY
@@ -100,6 +111,8 @@ const AuthenticatedApp = () => {
         return <MVPStatusChecker />
       case 'config':
         return <ConfigChecker />
+      case 'payment-success':
+        return <PaymentSuccess onContinue={() => setActiveView('home')} />
       default:
         return (
           <div className={styles.homeContent}>
@@ -472,6 +485,14 @@ const AuthenticatedApp = () => {
         </Modal>
       )}
 
+      {showPaymentSuccess && (
+        <Modal onClose={() => setShowPaymentSuccess(false)}>
+          <PaymentSuccess onContinue={() => {
+            setShowPaymentSuccess(false)
+            setActiveView('home')
+          }} />
+        </Modal>
+      )}
       <FloatingActionButton
         onQuickInvoice={() => setShowQuickInvoice(true)}
         onPhotoExpense={() => setShowQuickInvoice(true)}

@@ -289,6 +289,20 @@ export const AuthProvider = ({ children }) => {
     if (user?.email === 'hello@pixelpro.solutions') {
       return true
     }
+    
+    // Check localStorage for premium upgrade (handles both demo and real payments)
+    const localProfile = localStorage.getItem('userProfile')
+    if (localProfile) {
+      try {
+        const parsedProfile = JSON.parse(localProfile)
+        if (parsedProfile.id === user?.id && parsedProfile.plan === 'premium') {
+          return true
+        }
+      } catch (e) {
+        console.warn('Error parsing local profile:', e)
+      }
+    }
+    
     return userProfile?.plan === 'premium'
   }
 
@@ -298,6 +312,20 @@ export const AuthProvider = ({ children }) => {
     if (user?.email === 'hello@pixelpro.solutions') {
       return Infinity
     }
+    
+    // Check localStorage for premium status
+    const localProfile = localStorage.getItem('userProfile')
+    if (localProfile) {
+      try {
+        const parsedProfile = JSON.parse(localProfile)
+        if (parsedProfile.id === user?.id && parsedProfile.plan === 'premium') {
+          return Infinity
+        }
+      } catch (e) {
+        console.warn('Error parsing local profile:', e)
+      }
+    }
+    
     if (userProfile.plan === 'premium') return Infinity
     return Math.max(0, 3 - userProfile.invoice_count)
   }

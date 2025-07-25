@@ -4,12 +4,14 @@ import styles from './UserDashboard.module.css'
 import { FaUser, FaCrown, FaFileInvoice, FaChartLine, FaCheckCircle, FaTimes } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import StripeCheckout from './StripeCheckout'
+import { STRIPE_CONFIG } from '../stripe-config'
 
 const UserDashboard = ({ onClose }) => {
   const { user, userProfile, isPremium, getRemainingInvoices } = useAuth()
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
   const [showStripeCheckout, setShowStripeCheckout] = useState(false)
 
+  const product = STRIPE_CONFIG.products.lifetimeAccess
   const remainingInvoices = getRemainingInvoices()
   const usagePercentage = userProfile ?
     (userProfile.invoice_count / (isPremium() ? 100 : 3)) * 100 : 0
@@ -159,10 +161,10 @@ const UserDashboard = ({ onClose }) => {
             <div className={styles.pricingCard}>
               <div className={styles.price}>
                 <span className={styles.currency}>$</span>
-                <span className={styles.amount}>9</span>
+                <span className={styles.amount}>10</span>
                 <span className={styles.period}>lifetime</span>
               </div>
-              <p>One-time payment, lifetime access</p>
+              <p>{product.description}</p>
             </div>
             
             <ul className={styles.upgradeFeatures}>
@@ -180,7 +182,7 @@ const UserDashboard = ({ onClose }) => {
                 onClick={handleUpgradeClick}
                 className={styles.checkoutButton}
               >
-                Upgrade Now - $10 Lifetime
+                Upgrade Now - ${(product.price / 100).toFixed(0)} Lifetime
               </button>
               <button 
                 onClick={() => setShowUpgradeModal(false)}

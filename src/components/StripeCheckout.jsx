@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Elements } from '@stripe/react-stripe-js'
-import { getStripe, STRIPE_CONFIG, simulatePayment, formatPrice } from '../lib/stripe'
+import { STRIPE_CONFIG, createCheckoutSession, simulatePayment, formatPrice } from '../stripe-config'
 import { useAuth } from '../context/AuthContext'
 import { triggerPaymentSuccess } from './PaymentWebhookHandler'
 import { FaLock, FaCheckCircle, FaSpinner, FaCreditCard, FaShieldAlt } from 'react-icons/fa'
@@ -11,7 +10,9 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
   const { user, refreshProfile } = useAuth()
   const [isProcessing, setIsProcessing] = useState(false)
   const [paymentSuccess, setPaymentSuccess] = useState(false)
+  const [checkoutUrl, setCheckoutUrl] = useState(null)
 
+  const product = STRIPE_CONFIG.products.lifetimeAccess
   const handleDemoPayment = async () => {
     setIsProcessing(true)
     
@@ -40,22 +41,40 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
     }
   }
 
-  const handleRealStripePayment = async () => {
+  const handleStripePayment = async () => {
     setIsProcessing(true)
     
     try {
-      const stripe = await getStripe()
+      // Check if Supabase is configured for real payments
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
       
-      // In a real implementation, you would call your backend to create a checkout session
-      // const session = await createCheckoutSession(STRIPE_CONFIG.products.premium.priceId, user.email, user.id)
+      if (!supabaseUrl || !supabaseKey) {
+        toast.info('Stripe integration ready! Using demo payment for development.')
+        handleDemoPayment()
+        return
+      }
+
+      toast.info('Creating checkout session...')
       
-      // For now, we'll use the demo payment
-      toast.info('Stripe integration ready! Using demo payment for now.')
-      handleDemoPayment()
+      const session = await createCheckoutSession(
+        product.priceId,
+        user.email,
+        user.id
+      )
+      
+      if (session.url) {
+        // Redirect to Stripe Checkout
+        window.location.href = session.url
+      } else {
+        throw new Error('No checkout URL received')
+      }
       
     } catch (error) {
       console.error('Stripe checkout failed:', error)
-      toast.error('Payment system error. Please try again.')
+      toast.error('Payment system error. Using demo payment instead.')
+      // Fallback to demo payment
+      handleDemoPayment()
       setIsProcessing(false)
     }
   }
@@ -103,7 +122,7 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
         <div className={styles.content}>
           <div className={styles.productInfo}>
             <div className={styles.productHeader}>
-              <h3>Invoice Direct Premium</h3>
+              <h3>{product.name}</h3>
               <div className={styles.price}>
                 <span className={styles.amount}>$10</span>
                 <span className={styles.period}>lifetime</span>
@@ -136,11 +155,15 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
                 <FaLock />
                 <span>256-bit SSL Encryption</span>
               </div>
+              <div className={styles.securityBadge}>
+                <FaShieldAlt />
+                <span>Secure Stripe Payment</span>
+              </div>
 
             </div>
 
             <button 
-              onClick={handleRealStripePayment}
+              onClick={handleStripePayment}
               disabled={isProcessing}
               className={styles.paymentButton}
             >
@@ -152,17 +175,11 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
               ) : (
                 <>
                   <FaCreditCard />
-                  Pay {formatPrice(STRIPE_CONFIG.products.premium.price)} - Lifetime Access
+                  Pay {formatPrice(product.price)} - Lifetime Access
                 </>
               )}
             </button>
 
-            <div className={styles.demoNotice}>
-              <p>
-                <strong>Demo Mode:</strong> This is a demonstration. No real payment will be processed.
-                Your account will be upgraded to Premium for testing purposes.
-              </p>
-            </div>
 
             <div className={styles.trust}>
               <p>✅ Instant access • ✅ No monthly fees • ✅ Cancel anytime</p>
@@ -178,13 +195,4 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
   )
 }
 
-// Wrapper component with Stripe Elements provider
-const StripeCheckoutWrapper = (props) => {
-  return (
-    <Elements stripe={getStripe()}>
-      <StripeCheckout {...props} />
-    </Elements>
-  )
-}
-
-export default StripeCheckoutWrapper
+export default StripeCheckout
