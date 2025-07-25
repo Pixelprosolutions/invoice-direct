@@ -937,14 +937,52 @@ html {
 
 .pricingNote {
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 4rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.pricingNote p {
-  font-size: 1.15rem;
+.dealHighlight {
+  background: rgba(16, 185, 129, 0.05);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.limitedTimeOffer {
+  margin-top: 1.5rem;
+}
+
+.limitedLabel {
+  display: inline-block;
+  background: #f59e0b;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+.offerDetails {
+  font-size: 1.25rem;
   color: #1e293b;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   font-weight: 600;
+}
+
+.regularPrice {
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0.5rem 0;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  opacity: 0.7;
 }
 
 .savingsBadge {
