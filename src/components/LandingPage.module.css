@@ -834,6 +834,10 @@ html {
     0 0 0 2px rgba(79, 70, 229, 0.2);
 }
 
+.pricingCard.popular .pricingHeader {
+  margin-top: 2rem;
+}
+
 .popularBadge {
   position: absolute;
   top: -15px;
