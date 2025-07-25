@@ -1102,9 +1102,8 @@ html {
 }
 
 .ctaFeatures {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
   margin-bottom: 3rem;
   max-width: 600px;
