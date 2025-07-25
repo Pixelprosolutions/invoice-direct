@@ -12,12 +12,13 @@ import QuickActions from './QuickActions'
 import MobileFeaturesHub from './MobileFeaturesHub'
 import QuickInvoiceForm from './QuickInvoiceForm'
 import PaymentStatusUpdater from './PaymentStatusUpdater'
+import PaymentTracking from './PaymentTracking'
 import FloatingActionButton from './FloatingActionButton'
 import Modal from './Modal'
 import UserDashboard from './UserDashboard'
 import MVPStatusChecker from './MVPStatusChecker'
 import ConfigChecker from './ConfigChecker'
-import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile } from 'react-icons/fa'
+import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile, FaCreditCard } from 'react-icons/fa'
 
 const AuthenticatedApp = () => {
   const [activeView, setActiveView] = useState('home')
@@ -74,6 +75,8 @@ const AuthenticatedApp = () => {
         return <BusinessProfile />
       case 'templates':
         return <TemplateManager />
+      case 'payments':
+        return <PaymentTracking />
       case 'test':
         return <MVPStatusChecker />
       case 'config':
@@ -206,6 +209,12 @@ const AuthenticatedApp = () => {
               onClick={() => setActiveView('business')}
             >
               <FaBuilding /> Business
+            </button>
+            <button
+              className={`${styles.navButton} ${activeView === 'payments' ? styles.active : ''}`}
+              onClick={() => setActiveView('payments')}
+            >
+              <FaCreditCard /> Payments
             </button>
           </nav>
         </div>
