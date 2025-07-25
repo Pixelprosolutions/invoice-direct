@@ -124,8 +124,12 @@ const InvoiceHistory = ({ setActiveView, onNavigateHome }) => {
                   >
                     <FaCopy />
                   </button>
-                  <button 
-                    onClick={() => handleDeleteInvoice(invoice.id)}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleDeleteInvoice(invoice.id);
+                    }}
                     className={`${styles.actionButton} ${styles.deleteButton}`}
                     title="Delete Invoice"
                   >
