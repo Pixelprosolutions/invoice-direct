@@ -166,6 +166,47 @@
   white-space: nowrap;
 }
 
+.errorBanner {
+  background: #dc2626;
+  color: white;
+  padding: 0.75rem 2rem;
+  text-align: center;
+  margin: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  border-bottom: 1px solid #b91c1c;
+}
+
+.errorBanner p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.signOutLink {
+  background: white;
+  color: #dc2626;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.signOutLink:hover {
+  background: #f9fafb;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .devBanner {
   background: #f59e0b;
   color: white;
