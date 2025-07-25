@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { FaBuilding, FaCreditCard, FaPercent, FaSave, FaUndo } from 'react-icons/fa'
+import { FaBuilding, FaCreditCard, FaPercent, FaSave, FaUndo, FaArrowLeft, FaHome } from 'react-icons/fa'
 import BusinessInfoForm from './BusinessInfoForm'
 import PaymentTermsForm from './PaymentTermsForm'
 import TaxSettingsForm from './TaxSettingsForm'
