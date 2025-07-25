@@ -191,6 +191,9 @@ const AuthenticatedApp = () => {
     }
   }
 
+  // Check if Supabase is configured
+  const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY
+
   return (
     <div className={styles.authenticatedApp}>
       <header className={styles.header}>
