@@ -85,6 +85,11 @@ function InvoicePreview() {
             }
 
             localStorage.setItem('savedInvoices', JSON.stringify(savedInvoices));
+
+            // Mark as saved to prevent duplicates
+            hasSaved.current = true;
+            savedInvoiceId.current = invoiceId;
+
             toast.success('Invoice saved locally!');
           }
         } catch (error) {
