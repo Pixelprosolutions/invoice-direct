@@ -50,12 +50,23 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
         console.log('🔄 Starting signin process...')
         const { error } = await signIn(email, password)
         console.log('📊 Signin result:', error ? 'Failed' : 'Success')
-        
+
         if (!error) {
           onClose()
         } else {
           console.error('❌ Signin failed:', error.message || error)
-          setLocalError(error.message || 'Failed to sign in')
+
+          // Check if error is related to email confirmation
+          if (error.message && (
+            error.message.toLowerCase().includes('email not confirmed') ||
+            error.message.toLowerCase().includes('not confirmed') ||
+            error.message.toLowerCase().includes('confirm your email')
+          )) {
+            setNeedsEmailConfirmation(true)
+            setLocalError('')
+          } else {
+            setLocalError(error.message || 'Failed to sign in')
+          }
         }
       } else if (mode === 'reset') {
         const { error } = await resetPassword(email)
