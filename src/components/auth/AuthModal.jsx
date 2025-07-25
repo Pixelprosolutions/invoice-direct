@@ -91,6 +91,25 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
     return 'Strong'
   }
 
+  const handleGoogleSignIn = async () => {
+    setLocalError('')
+    setIsSubmitting(true)
+
+    try {
+      const { error } = await signInWithGoogle()
+      if (error) {
+        setLocalError(error.message || 'Failed to sign in with Google')
+      }
+      // Note: User will be redirected to Google OAuth, then back to the app
+      // The modal will close automatically when auth state changes
+    } catch (err) {
+      console.error('❌ Google signin error:', err)
+      setLocalError(err.message || 'Failed to sign in with Google')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLocalError('')
