@@ -44,16 +44,15 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             <button onClick={onSignUp} className={styles.primaryButton}>
               <FaRocket /> Start Creating Invoices Free
             </button>
+            <button onClick={onSignIn} className={styles.secondaryButton}>
+              Already have an account? Sign In
+            </button>
             <p className={styles.ctaNote}>
               <FaCheck /> No credit card required • <FaCheck /> Setup in 2 minutes • <FaCheck /> 3 free invoices
             </p>
           </div>
 
-          <div className={styles.heroSecondary}>
-            <button onClick={onSignIn} className={styles.secondaryButton}>
-              Already have an account? Sign In
-            </button>
-          </div>
+          <div className={styles.heroSecondary} />
 
         </div>
         <div className={styles.heroVisual}>
