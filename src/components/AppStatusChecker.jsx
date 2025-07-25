@@ -6,7 +6,7 @@ import {
   FaExclamationTriangle, 
   FaInfoCircle,
   FaDatabase,
-  FaRefresh,
+  FaRedo,
   FaTrash,
   FaCog,
   FaRocket,
