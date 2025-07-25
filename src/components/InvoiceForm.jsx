@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { useInvoice } from '../context/InvoiceContext';
 import LineItems from './LineItems';
 import styles from './InvoiceForm.module.css';
-import { FaSave, FaEye, FaUndo } from 'react-icons/fa';
+import { FaSave, FaEye, FaUndo, FaArrowLeft } from 'react-icons/fa';
 
 const InvoiceForm = ({ onPreview }) => {
   const { invoiceData, updateInvoiceData, resetInvoiceData, appliedTemplate } = useInvoice();
