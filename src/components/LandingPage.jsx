@@ -94,7 +94,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
       </section>
 
       {/* Benefits Section */}
-      <section className={styles.benefits}>
+      <section className={`${styles.benefits} ${styles.observeElement}`}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2>Why 50,000+ Businesses Choose Invoice Direct</h2>
