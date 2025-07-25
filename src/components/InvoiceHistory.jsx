@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { useInvoice } from '../context/InvoiceContext';
 import styles from './InvoiceHistory.module.css';
 
-const InvoiceHistory = ({ setActiveView }) => {
+const InvoiceHistory = ({ setActiveView, onNavigateHome }) => {
   const [invoices, setInvoices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { loadInvoice, deleteInvoice } = useInvoice();
