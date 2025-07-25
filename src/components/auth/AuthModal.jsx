@@ -23,6 +23,74 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
 
   const { signIn, signUp, resetPassword, resendConfirmation, error, loading, devLogin } = useAuth()
 
+  // Email validation
+  useEffect(() => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    setIsEmailValid(emailRegex.test(email))
+  }, [email])
+
+  // Password strength calculation
+  useEffect(() => {
+    if (mode !== 'signup') return
+
+    let strength = 0
+    if (password.length >= 8) strength += 25
+    if (password.match(/[a-z]/)) strength += 25
+    if (password.match(/[A-Z]/)) strength += 25
+    if (password.match(/[0-9]/)) strength += 25
+
+    setPasswordStrength(strength)
+  }, [password, mode])
+
+  const validateField = (field, value) => {
+    const errors = { ...fieldErrors }
+
+    switch (field) {
+      case 'email':
+        if (!value) {
+          errors.email = 'Email is required'
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          errors.email = 'Please enter a valid email address'
+        } else {
+          delete errors.email
+        }
+        break
+      case 'password':
+        if (!value) {
+          errors.password = 'Password is required'
+        } else if (value.length < 6) {
+          errors.password = 'Password must be at least 6 characters'
+        } else {
+          delete errors.password
+        }
+        break
+      case 'confirmPassword':
+        if (!value) {
+          errors.confirmPassword = 'Please confirm your password'
+        } else if (value !== password) {
+          errors.confirmPassword = 'Passwords do not match'
+        } else {
+          delete errors.confirmPassword
+        }
+        break
+    }
+
+    setFieldErrors(errors)
+  }
+
+  const getPasswordStrengthColor = () => {
+    if (passwordStrength < 50) return '#ef4444'
+    if (passwordStrength < 75) return '#f59e0b'
+    return '#10b981'
+  }
+
+  const getPasswordStrengthText = () => {
+    if (passwordStrength < 25) return 'Very Weak'
+    if (passwordStrength < 50) return 'Weak'
+    if (passwordStrength < 75) return 'Good'
+    return 'Strong'
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLocalError('')
@@ -41,7 +109,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
         
         console.log('🔄 Starting signup process...')
         const { error } = await signUp(email, password)
-        console.log('�� Signup result:', error ? 'Failed' : 'Success')
+        console.log('📊 Signup result:', error ? 'Failed' : 'Success')
         
         if (!error) {
           setLocalError('')
