@@ -203,8 +203,9 @@
 }
 
 .infoValue {
-  font-weight: 500;
-  color: #1F2937;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.8rem;
 }
 
 .clientName {
