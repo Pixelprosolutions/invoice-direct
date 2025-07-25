@@ -3,6 +3,29 @@ import styles from './LandingPage.module.css'
 import { FaFileInvoiceDollar, FaDownload, FaCheck, FaRocket, FaClock, FaUserFriends, FaShieldAlt, FaChartLine, FaPaintBrush, FaGlobeAmericas, FaMobile, FaCloudDownloadAlt, FaStar } from 'react-icons/fa'
 
 const LandingPage = ({ onSignUp, onSignIn }) => {
+  const observerRef = useRef()
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.fadeInUp)
+          }
+        })
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    )
+
+    const elements = document.querySelectorAll(`.${styles.observeElement}`)
+    elements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <div className={styles.container}>
       {/* Hero Section */}
