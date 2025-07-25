@@ -63,32 +63,8 @@ function InvoicePreview() {
             savedInvoiceId.current = invoiceId;
 
             toast.success('Invoice saved to database successfully!');
-          } else if (supabaseUrl && supabaseKey && !isValidUUID && isDevUser) {
-            // Dev user - save to localStorage for testing
-            console.log('🔧 Dev user detected, saving to localStorage for testing');
-            const savedInvoices = JSON.parse(localStorage.getItem('savedInvoices') || '[]');
-            const invoiceRecord = {
-              id: Date.now().toString(),
-              user_id: user.id,
-              invoice_data: invoiceData,
-              status: 'draft',
-              created_at: new Date().toISOString()
-            };
-
-            savedInvoices.push(invoiceRecord);
-            if (savedInvoices.length > 100) {
-              savedInvoices.splice(0, savedInvoices.length - 100);
-            }
-
-            localStorage.setItem('savedInvoices', JSON.stringify(savedInvoices));
-
-            // Mark as saved to prevent duplicates
-            hasSaved.current = true;
-            savedInvoiceId.current = invoiceId;
-
-            toast.success('Invoice saved locally (Dev Mode)!');
           } else if (supabaseUrl && supabaseKey && !isValidUUID) {
-            // Supabase is configured but user ID is invalid (not dev user)
+            // Supabase is configured but user ID is invalid
             console.warn('Invalid user ID for database:', user.id);
             throw new Error('Please sign in with a valid account to save to database');
           } else {
