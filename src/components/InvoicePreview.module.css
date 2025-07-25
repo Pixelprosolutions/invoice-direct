@@ -288,8 +288,10 @@
 }
 
 .paymentDetails p, .notes p, .terms p {
-  color: #4B5563;
-  line-height: 1.5;
+  color: #64748b;
+  line-height: 1.4;
+  font-size: 0.8rem;
+  margin: 0.125rem 0;
 }
 
 .paymentInstructions {
