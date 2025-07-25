@@ -5,7 +5,7 @@ export const STRIPE_CONFIG = {
       name: 'Invoice Direct Premium',
       description: 'Lifetime access with unlimited invoices and premium features',
       price: 1000, // $10.00 in cents
-      priceId: 'price_1234567890', // This would be your actual Stripe price ID
+      priceId: 'price_1234567890', // TODO: Replace with your actual Stripe Price ID from Step 1.3
     }
   }
 }
