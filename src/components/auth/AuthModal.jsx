@@ -21,7 +21,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
   const [fieldErrors, setFieldErrors] = useState({})
   const [showSuccess, setShowSuccess] = useState(false)
 
-  const { signIn, signUp, signInWithGoogle, resetPassword, resendConfirmation, error, loading, devLogin } = useAuth()
+  const { signIn, signUp, resetPassword, resendConfirmation, error, loading, devLogin } = useAuth()
 
   // Email validation
   useEffect(() => {
@@ -91,33 +91,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
     return 'Strong'
   }
 
-  const handleGoogleSignIn = async () => {
-    setLocalError('')
-    setIsSubmitting(true)
-
-    try {
-      console.log('🔄 Starting Google OAuth flow...')
-      const { error } = await signInWithGoogle()
-      if (error) {
-        console.error('❌ Google OAuth error:', error)
-        const errorMessage = error.message?.includes('development mode') || error.message?.includes('not configured')
-          ? 'Google sign-in is not available in development mode. Please use email/password sign-in or set up Supabase configuration.'
-          : error.message || 'Failed to sign in with Google'
-        setLocalError(errorMessage)
-        setIsSubmitting(false)
-      }
-      // Note: If successful, user will be redirected to Google OAuth, then back to the app
-      // The modal will close automatically when auth state changes
-      // Don't reset isSubmitting here as the redirect is happening
-    } catch (err) {
-      console.error('❌ Google signin error:', err)
-      const errorMessage = err.message?.includes('development mode') || err.message?.includes('not configured')
-        ? 'Google sign-in is not available in development mode. Please use email/password sign-in.'
-        : err.message || 'Failed to sign in with Google'
-      setLocalError(errorMessage)
-      setIsSubmitting(false)
-    }
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -313,33 +286,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
           </div>
         ) : (
           <div className={styles.authForm}>
-            {/* Google Sign-In Button */}
-            {(mode === 'signin' || mode === 'signup') && (
-              <>
-                <button
-                  type="button"
-                  onClick={handleGoogleSignIn}
-                  disabled={isSubmitting || loading}
-                  className={styles.googleButton}
-                >
-                  {isSubmitting && loading ? (
-                    <>
-                      <FaSpinner className={styles.spinner} />
-                      Connecting...
-                    </>
-                  ) : (
-                    <>
-                      <FaGoogle />
-                      Continue with Google
-                    </>
-                  )}
-                </button>
-
-                <div className={styles.divider}>
-                  <span>or</span>
-                </div>
-              </>
-            )}
 
             <form onSubmit={handleSubmit} className={styles.emailForm}>
             <div className={styles.formGroup}>

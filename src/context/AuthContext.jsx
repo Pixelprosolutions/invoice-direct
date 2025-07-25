@@ -226,43 +226,6 @@ export const AuthProvider = ({ children }) => {
       // Clear all local state
       setUser(null)
       setUserProfile(null)
-      
-      // Clear any cached data from localStorage
-      localStorage.removeItem('invoiceData')
-      localStorage.removeItem('savedInvoices')
-      
-      // Try to sign out from Supabase, but don't block on it
-      supabase.auth.signOut().catch(error => {
-        console.warn('Supabase signout failed:', error.message)
-      })
-      
-    } catch (error) {
-      console.warn('Logout error:', error.message)
-      // Even if there's an error, clear local state
-      setUser(null)
-      setUserProfile(null)
-      localStorage.removeItem('invoiceData')
-      localStorage.removeItem('savedInvoices')
-    }
-  }
-
-  const signInWithGoogle = async () => {
-    try {
-      setError(null)
-      setLoading(true)
-
-      console.log('🔄 Attempting Google signin')
-
-      // Check if we're in development mode without Supabase configured
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-      
-      if (!supabaseUrl || !supabaseKey) {
-        throw new Error('Google sign-in requires Supabase configuration. Please set up your environment variables.')
-      }
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
           redirectTo: `${window.location.origin}/`,
           queryParams: {
             access_type: 'offline',
@@ -424,7 +387,6 @@ export const AuthProvider = ({ children }) => {
     error,
     signUp,
     signIn,
-    signInWithGoogle,
     signOut,
     resetPassword,
     resendConfirmation,
