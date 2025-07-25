@@ -22,7 +22,7 @@ import UserDashboard from './UserDashboard'
 import MVPStatusChecker from './MVPStatusChecker'
 import ConfigChecker from './ConfigChecker'
 import StripeCheckout from './StripeCheckout'
-import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile, FaCreditCard, FaChartBar, FaCog, FaCamera, FaCrown } from 'react-icons/fa'
+import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile, FaCreditCard, FaChartBar, FaCog, FaCamera, FaCrown, FaPlus, FaRocket, FaGem } from 'react-icons/fa'
 
 const AuthenticatedApp = () => {
   const [activeView, setActiveView] = useState('home')
@@ -102,63 +102,96 @@ const AuthenticatedApp = () => {
       default:
         return (
           <div className={styles.homeContent}>
-            <div className={styles.welcomeSection}>
-              <h2>Welcome back!</h2>
-              <p>Create professional invoices for your business</p>
-              {canCreateInvoice() && (
-                <div className={styles.remainingInvoices}>
-                  {getRemainingInvoices() === Infinity ? (
-                    <span className={styles.premium}>Lifetime Access - Unlimited Invoices</span>
-                  ) : (
-                    <span>
-                      {getRemainingInvoices()} free invoice{getRemainingInvoices() !== 1 ? 's' : ''} remaining
-                    </span>
-                  )}
+            {/* Hero Welcome Section */}
+            <div className={styles.heroSection}>
+              <div className={styles.heroContent}>
+                <div className={styles.heroText}>
+                  <h1>Welcome back!</h1>
+                  <p>Create professional invoices and manage your business finances</p>
                 </div>
-              )}
+                <div className={styles.heroActions}>
+                  <button onClick={handleCreateInvoice} className={styles.primaryCta}>
+                    <FaPlus />
+                    Create Invoice
+                  </button>
+                  <button onClick={() => setActiveView('history')} className={styles.secondaryCta}>
+                    <FaHistory />
+                    View History
+                  </button>
+                </div>
+              </div>
+              <div className={styles.heroStats}>
+                <div className={styles.statCard}>
+                  <div className={styles.statIcon}>
+                    <FaRocket />
+                  </div>
+                  <div className={styles.statContent}>
+                    <h3>{getRemainingInvoices() === Infinity ? '∞' : getRemainingInvoices()}</h3>
+                    <p>Invoices Remaining</p>
+                  </div>
+                </div>
+                {isPremium() && (
+                  <div className={styles.statCard}>
+                    <div className={styles.statIcon} style={{ background: 'linear-gradient(135deg, #fbbf24, #f59e0b)' }}>
+                      <FaGem />
+                    </div>
+                    <div className={styles.statContent}>
+                      <h3>Premium</h3>
+                      <p>Lifetime Access</p>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
-            {/* Quick Actions Section */}
+            {/* Quick Actions */}
             <QuickActions
               onCreateInvoice={handleCreateInvoice}
               onSetActiveView={setActiveView}
             />
 
-            {/* Grouped Navigation Sections */}
-            <div className={styles.navigationSections}>
-              {/* Invoices Section */}
-              <div className={styles.navigationSection}>
-                <h3 className={styles.sectionTitle}>
-                  <FaFileInvoice className={styles.sectionIcon} />
-                  Invoices
-                </h3>
-                <div className={styles.sectionCards}>
-                  <div className={styles.actionCard} onClick={handleCreateInvoice}>
-                    <div className={styles.actionIcon}>
-                      <FaFileInvoice />
+            {/* Main Navigation Grid */}
+            <div className={styles.navigationGrid}>
+              {/* Core Features */}
+              <div className={styles.featureSection}>
+                <h2>
+                  <FaFileInvoice />
+                  Invoice Management
+                </h2>
+                <div className={styles.featureCards}>
+                  <div className={styles.featureCard} onClick={handleCreateInvoice}>
+                    <div className={styles.cardIcon}>
+                      <FaPlus />
                     </div>
-                    <h4>Create</h4>
-                    <p>Generate professional invoices</p>
+                    <div className={styles.cardContent}>
+                      <h3>Create Invoice</h3>
+                      <p>Generate professional invoices with custom branding</p>
+                    </div>
+                    <div className={styles.cardArrow}>→</div>
                   </div>
-                  <div className={styles.actionCard} onClick={() => setActiveView('history')}>
-                    <div className={styles.actionIcon}>
+                  
+                  <div className={styles.featureCard} onClick={() => setActiveView('history')}>
+                    <div className={styles.cardIcon}>
                       <FaHistory />
                     </div>
-                    <h4>History</h4>
-                    <p>View and manage past invoices</p>
+                    <div className={styles.cardContent}>
+                      <h3>Invoice History</h3>
+                      <p>View, edit, and manage all your past invoices</p>
+                    </div>
+                    <div className={styles.cardArrow}>→</div>
                   </div>
                 </div>
               </div>
 
-              {/* Manage Section */}
-              <div className={styles.navigationSection}>
-                <h3 className={styles.sectionTitle}>
-                  <FaCog className={styles.sectionIcon} />
-                  Manage
-                </h3>
-                <div className={styles.sectionCards}>
-                  <div
-                    className={`${styles.actionCard} ${!isPremium() ? styles.premiumFeature : ''}`}
+              {/* Business Management */}
+              <div className={styles.featureSection}>
+                <h2>
+                  <FaBuilding />
+                  Business Management
+                </h2>
+                <div className={styles.featureCards}>
+                  <div 
+                    className={`${styles.featureCard} ${!isPremium() ? styles.premiumCard : ''}`}
                     onClick={() => {
                       if (!isPremium()) {
                         toast.warning('Client management is available for Lifetime Access users. Upgrade to unlock!');
@@ -168,17 +201,39 @@ const AuthenticatedApp = () => {
                       setActiveView('clients');
                     }}
                   >
-                    <div className={styles.actionIcon}>
+                    <div className={styles.cardIcon}>
                       <FaUsers />
                     </div>
-                    <h4>Clients</h4>
-                    <p>Organize client information</p>
-                    {!isPremium() && (
-                      <div className={styles.premiumBadge}>Premium</div>
-                    )}
+                    <div className={styles.cardContent}>
+                      <h3>Client Management</h3>
+                      <p>Organize and track your client relationships</p>
+                    </div>
+                    {!isPremium() && <div className={styles.premiumBadge}><FaCrown /> Premium</div>}
+                    <div className={styles.cardArrow}>→</div>
                   </div>
-                  <div
-                    className={`${styles.actionCard} ${!isPremium() ? styles.premiumFeature : ''}`}
+                  
+                  <div className={styles.featureCard} onClick={() => setActiveView('business')}>
+                    <div className={styles.cardIcon}>
+                      <FaBuilding />
+                    </div>
+                    <div className={styles.cardContent}>
+                      <h3>Business Profile</h3>
+                      <p>Configure your company information and settings</p>
+                    </div>
+                    <div className={styles.cardArrow}>→</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Analytics & Tracking */}
+              <div className={styles.featureSection}>
+                <h2>
+                  <FaChartBar />
+                  Analytics & Tracking
+                </h2>
+                <div className={styles.featureCards}>
+                  <div 
+                    className={`${styles.featureCard} ${!isPremium() ? styles.premiumCard : ''}`}
                     onClick={() => {
                       if (!isPremium()) {
                         toast.warning('Payment tracking is available for Lifetime Access users. Upgrade to unlock!');
@@ -188,17 +243,19 @@ const AuthenticatedApp = () => {
                       setActiveView('payments');
                     }}
                   >
-                    <div className={styles.actionIcon}>
+                    <div className={styles.cardIcon}>
                       <FaCreditCard />
                     </div>
-                    <h4>Payments</h4>
-                    <p>Track payment status</p>
-                    {!isPremium() && (
-                      <div className={styles.premiumBadge}>Premium</div>
-                    )}
+                    <div className={styles.cardContent}>
+                      <h3>Payment Tracking</h3>
+                      <p>Monitor payment status and send reminders</p>
+                    </div>
+                    {!isPremium() && <div className={styles.premiumBadge}><FaCrown /> Premium</div>}
+                    <div className={styles.cardArrow}>→</div>
                   </div>
-                  <div
-                    className={`${styles.actionCard} ${!isPremium() ? styles.premiumFeature : ''}`}
+                  
+                  <div 
+                    className={`${styles.featureCard} ${!isPremium() ? styles.premiumCard : ''}`}
                     onClick={() => {
                       if (!isPremium()) {
                         toast.warning('Reports & analytics are available for Lifetime Access users. Upgrade to unlock!');
@@ -208,27 +265,28 @@ const AuthenticatedApp = () => {
                       setActiveView('reports');
                     }}
                   >
-                    <div className={styles.actionIcon}>
+                    <div className={styles.cardIcon}>
                       <FaChartBar />
                     </div>
-                    <h4>Reports</h4>
-                    <p>Revenue and analytics</p>
-                    {!isPremium() && (
-                      <div className={styles.premiumBadge}>Premium</div>
-                    )}
+                    <div className={styles.cardContent}>
+                      <h3>Business Reports</h3>
+                      <p>Revenue analytics and financial insights</p>
+                    </div>
+                    {!isPremium() && <div className={styles.premiumBadge}><FaCrown /> Premium</div>}
+                    <div className={styles.cardArrow}>→</div>
                   </div>
                 </div>
               </div>
 
-              {/* Settings Section */}
-              <div className={styles.navigationSection}>
-                <h3 className={styles.sectionTitle}>
-                  <FaCog className={styles.sectionIcon} />
-                  Settings
-                </h3>
-                <div className={styles.sectionCards}>
-                  <div
-                    className={`${styles.actionCard} ${!isPremium() ? styles.premiumFeature : ''}`}
+              {/* Customization */}
+              <div className={styles.featureSection}>
+                <h2>
+                  <FaPalette />
+                  Customization
+                </h2>
+                <div className={styles.featureCards}>
+                  <div 
+                    className={`${styles.featureCard} ${!isPremium() ? styles.premiumCard : ''}`}
                     onClick={() => {
                       if (!isPremium()) {
                         toast.warning('Advanced templates are available for Lifetime Access users. Upgrade to unlock!');
@@ -238,53 +296,38 @@ const AuthenticatedApp = () => {
                       setActiveView('templates');
                     }}
                   >
-                    <div className={styles.actionIcon}>
+                    <div className={styles.cardIcon}>
                       <FaPalette />
                     </div>
-                    <h4>Templates</h4>
-                    <p>Customize invoice designs</p>
-                    {!isPremium() && (
-                      <div className={styles.premiumBadge}>Premium</div>
-                    )}
-                  </div>
-                  <div className={styles.actionCard} onClick={() => setActiveView('business')}>
-                    <div className={styles.actionIcon}>
-                      <FaBuilding />
+                    <div className={styles.cardContent}>
+                      <h3>Invoice Templates</h3>
+                      <p>Customize your invoice design and branding</p>
                     </div>
-                    <h4>Business</h4>
-                    <p>Company profile settings</p>
+                    {!isPremium() && <div className={styles.premiumBadge}><FaCrown /> Premium</div>}
+                    <div className={styles.cardArrow}>→</div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Mobile Features Section */}
-              <div className={styles.navigationSection}>
-                <h3 className={styles.sectionTitle}>
-                  <FaMobile className={styles.sectionIcon} />
-                  Mobile Features
-                </h3>
-                <div className={styles.sectionCards}>
-                  <div className={styles.actionCard} onClick={() => setShowQuickInvoice(true)}>
-                    <div className={styles.actionIcon}>
-                      <FaBolt />
-                    </div>
-                    <h4>Quick Invoice</h4>
-                    <p>Create invoices in seconds with simplified form</p>
-                  </div>
-                  <div className={styles.actionCard} onClick={() => setShowQuickInvoice(true)}>
-                    <div className={styles.actionIcon}>
-                      <FaCamera />
-                    </div>
-                    <h4>Photo Expenses</h4>
-                    <p>Capture receipts and add to invoices instantly</p>
-                  </div>
-                  <div className={styles.actionCard} onClick={() => setShowPaymentStatus(true)}>
-                    <div className={styles.actionIcon}>
-                      <FaCreditCard />
-                    </div>
-                    <h4>Payment Status</h4>
-                    <p>Update payment status with quick actions</p>
-                  </div>
+            {/* Mobile Quick Actions */}
+            <div className={styles.mobileSection}>
+              <h2>
+                <FaMobile />
+                Mobile Features
+              </h2>
+              <div className={styles.mobileCards}>
+                <div className={styles.mobileCard} onClick={() => setShowQuickInvoice(true)}>
+                  <FaBolt />
+                  <span>Quick Invoice</span>
+                </div>
+                <div className={styles.mobileCard} onClick={() => setShowQuickInvoice(true)}>
+                  <FaCamera />
+                  <span>Photo Expenses</span>
+                </div>
+                <div className={styles.mobileCard} onClick={() => setShowPaymentStatus(true)}>
+                  <FaCreditCard />
+                  <span>Payment Status</span>
                 </div>
               </div>
             </div>
@@ -360,15 +403,19 @@ const AuthenticatedApp = () => {
 
       {!canCreateInvoice() && (
         <div className={styles.limitBanner}>
-          <p>
-            You've reached your free invoice limit.
+          <div className={styles.limitContent}>
+            <div className={styles.limitText}>
+              <strong>Free Plan Limit Reached</strong>
+              <span>You've used all 3 free invoices this month</span>
+            </div>
             <button
               onClick={() => setShowUpgradeModal(true)}
               className={styles.upgradeLink}
             >
-              Upgrade to Lifetime Access - $10 One-time
+              <FaCrown />
+              Upgrade to Lifetime Access - $10
             </button>
-          </p>
+          </div>
         </div>
       )}
 
