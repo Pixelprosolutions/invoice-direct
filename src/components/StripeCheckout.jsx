@@ -56,31 +56,44 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
         return
       }
 
+      // Check if Edge Functions are available by testing the URL
+      const functionsUrl = `${supabaseUrl}/functions/v1/stripe-checkout`
+      
+      try {
+        // Quick connectivity test with short timeout
+        const testResponse = await fetch(functionsUrl, {
+          method: 'OPTIONS',
+          signal: AbortSignal.timeout(3000)
+        })
+        
+        if (!testResponse.ok && testResponse.status !== 405) {
+          throw new Error('Edge Functions not available')
+        }
+      } catch (connectError) {
+        console.warn('Edge Functions connectivity test failed:', connectError.message)
+        toast.warning('Payment system not available. Using demo payment.')
+        await handleDemoPayment()
+        return
+      }
+
       toast.info('Creating checkout session...')
       
-      // Add timeout to prevent infinite loading
-      const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Request timeout')), 10000)
+      // Get the user's session token with timeout
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+      if (sessionError || !session?.access_token) {
+        throw new Error('User not authenticated')
+      }
+      
+      // Create checkout session with shorter timeout
+      const checkoutSession = await createCheckoutSession(
+        product.priceId,
+        user.email,
+        user.id,
+        session.access_token
       )
-
-      const sessionPromise = (async () => {
-        // Get the user's session token
-        const { data: { session } } = await supabase.auth.getSession()
-        if (!session?.access_token) {
-          throw new Error('User not authenticated')
-        }
-        
-        return await createCheckoutSession(
-          product.priceId,
-          user.email,
-          user.id,
-          session.access_token
-        )
-      })()
-
-      const checkoutSession = await Promise.race([sessionPromise, timeoutPromise])
       
       if (checkoutSession?.url) {
+        toast.success('Redirecting to secure payment...')
         // Redirect to Stripe Checkout
         window.location.href = checkoutSession.url
       } else {
@@ -90,10 +103,12 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
     } catch (error) {
       console.error('Stripe checkout failed:', error)
       
-      if (error.message === 'Request timeout') {
-        toast.error('Payment system is taking too long. Using demo payment instead.')
+      if (error.name === 'TimeoutError' || error.message.includes('timeout')) {
+        toast.warning('Payment system timeout. Using demo payment instead.')
+      } else if (error.message.includes('not available') || error.message.includes('not authenticated')) {
+        toast.warning('Payment system not ready. Using demo payment instead.')
       } else {
-        toast.error('Payment system error. Using demo payment instead.')
+        toast.warning('Payment system error. Using demo payment instead.')
       }
       
       // Fallback to demo payment

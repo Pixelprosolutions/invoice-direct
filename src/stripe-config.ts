@@ -15,6 +15,10 @@ export const STRIPE_CONFIG = {
 // Create checkout session
 export const createCheckoutSession = async (priceId, customerEmail, userId, userToken) => {
   try {
+    // Create AbortController for timeout
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 8000) // 8 second timeout
+    
     const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-checkout`, {
       method: 'POST',
       headers: {
@@ -27,15 +31,23 @@ export const createCheckoutSession = async (priceId, customerEmail, userId, user
         cancel_url: `${window.location.origin}/`,
         mode: 'payment'
       }),
+      signal: controller.signal
     })
 
+    clearTimeout(timeoutId)
+
     if (!response.ok) {
+      const errorText = await response.text()
+      console.error('Checkout session error:', response.status, errorText)
       throw new Error('Failed to create checkout session')
     }
 
     const session = await response.json()
     return session
   } catch (error) {
+    if (error.name === 'AbortError') {
+      throw new Error('Request timeout - Edge Function not responding')
+    }
     console.error('Error creating checkout session:', error)
     throw error
   }
