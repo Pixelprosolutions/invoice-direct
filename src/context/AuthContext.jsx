@@ -246,13 +246,33 @@ export const AuthProvider = ({ children }) => {
   const resetPassword = async (email) => {
     try {
       setError(null)
-      
+
       // Get the current origin dynamically
       const redirectTo = `${window.location.origin}/reset-password`
-      
+
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: redirectTo
       })
+      if (error) throw error
+      return { error: null }
+    } catch (error) {
+      setError(error.message)
+      return { error }
+    }
+  }
+
+  const resendConfirmation = async (email) => {
+    try {
+      setError(null)
+
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email: email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/confirm`
+        }
+      })
+
       if (error) throw error
       return { error: null }
     } catch (error) {
