@@ -213,6 +213,30 @@ const AuthenticatedApp = () => {
                 </div>
               </div>
 
+              {/* Mobile Features Section */}
+              <div className={styles.navigationSection}>
+                <h3 className={styles.sectionTitle}>
+                  <FaMobile className={styles.sectionIcon} />
+                  Mobile Features
+                </h3>
+                <div className={styles.sectionCards}>
+                  <div className={styles.actionCard} onClick={() => setShowMobileFeatures(true)}>
+                    <div className={styles.actionIcon}>
+                      <FaBolt />
+                    </div>
+                    <h4>Quick Invoice</h4>
+                    <p>Fast mobile invoice creation</p>
+                  </div>
+                  <div className={styles.actionCard} onClick={() => setShowMobileFeatures(true)}>
+                    <div className={styles.actionIcon}>
+                      <FaMobile />
+                    </div>
+                    <h4>Mobile Hub</h4>
+                    <p>All mobile-optimized tools</p>
+                  </div>
+                </div>
+              </div>
+
               {/* Settings Section */}
               <div className={styles.navigationSection}>
                 <h3 className={styles.sectionTitle}>
