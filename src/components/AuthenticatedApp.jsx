@@ -117,61 +117,137 @@ const AuthenticatedApp = () => {
               onSetActiveView={setActiveView}
             />
 
-            <div className={styles.quickActions}>
-              <div className={styles.actionCard} onClick={handleCreateInvoice}>
-                <div className={styles.actionIcon}>
-                  <FaFileInvoice />
+            {/* Grouped Navigation Sections */}
+            <div className={styles.navigationSections}>
+              {/* Invoices Section */}
+              <div className={styles.navigationSection}>
+                <h3 className={styles.sectionTitle}>
+                  <FaFileInvoice className={styles.sectionIcon} />
+                  Invoices
+                </h3>
+                <div className={styles.sectionCards}>
+                  <div className={styles.actionCard} onClick={handleCreateInvoice}>
+                    <div className={styles.actionIcon}>
+                      <FaFileInvoice />
+                    </div>
+                    <h4>Create</h4>
+                    <p>Generate professional invoices</p>
+                  </div>
+                  <div className={styles.actionCard} onClick={() => setActiveView('history')}>
+                    <div className={styles.actionIcon}>
+                      <FaHistory />
+                    </div>
+                    <h4>History</h4>
+                    <p>View and manage past invoices</p>
+                  </div>
                 </div>
-                <h3>Create New Invoice</h3>
-                <p>Generate a professional invoice in seconds</p>
-              </div>
-              
-              <div className={styles.actionCard} onClick={() => setActiveView('history')}>
-                <div className={styles.actionIcon}>
-                  <FaHistory />
-                </div>
-                <h3>Invoice History</h3>
-                <p>View and manage your past invoices</p>
-              </div>
-
-              <div className={styles.actionCard} onClick={() => setActiveView('clients')}>
-                <div className={styles.actionIcon}>
-                  <FaUsers />
-                </div>
-                <h3>Manage Clients</h3>
-                <p>Add and organize your client information</p>
-              </div>
-
-              <div className={styles.actionCard} onClick={() => setActiveView('templates')}>
-                <div className={styles.actionIcon}>
-                  <FaPalette />
-                </div>
-                <h3>Invoice Templates</h3>
-                <p>Choose professional designs for your invoices</p>
               </div>
 
-              <div className={styles.actionCard} onClick={() => setShowMobileFeatures(true)}>
-                <div className={styles.actionIcon}>
-                  <FaMobile />
+              {/* Manage Section */}
+              <div className={styles.navigationSection}>
+                <h3 className={styles.sectionTitle}>
+                  <FaCog className={styles.sectionIcon} />
+                  Manage
+                </h3>
+                <div className={styles.sectionCards}>
+                  <div
+                    className={`${styles.actionCard} ${user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity ? styles.premiumFeature : ''}`}
+                    onClick={() => {
+                      if (user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity) {
+                        toast.warning('Client management is available for lifetime users. Upgrade to unlock!');
+                        setShowUserDashboard(true);
+                        return;
+                      }
+                      setActiveView('clients');
+                    }}
+                  >
+                    <div className={styles.actionIcon}>
+                      <FaUsers />
+                    </div>
+                    <h4>Clients</h4>
+                    <p>Organize client information</p>
+                    {user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity && (
+                      <div className={styles.premiumBadge}>Premium</div>
+                    )}
+                  </div>
+                  <div
+                    className={`${styles.actionCard} ${user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity ? styles.premiumFeature : ''}`}
+                    onClick={() => {
+                      if (user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity) {
+                        toast.warning('Payment tracking is available for lifetime users. Upgrade to unlock!');
+                        setShowUserDashboard(true);
+                        return;
+                      }
+                      setActiveView('payments');
+                    }}
+                  >
+                    <div className={styles.actionIcon}>
+                      <FaCreditCard />
+                    </div>
+                    <h4>Payments</h4>
+                    <p>Track payment status</p>
+                    {user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity && (
+                      <div className={styles.premiumBadge}>Premium</div>
+                    )}
+                  </div>
+                  <div
+                    className={`${styles.actionCard} ${user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity ? styles.premiumFeature : ''}`}
+                    onClick={() => {
+                      if (user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity) {
+                        toast.warning('Reports & analytics are available for lifetime users. Upgrade to unlock!');
+                        setShowUserDashboard(true);
+                        return;
+                      }
+                      setActiveView('reports');
+                    }}
+                  >
+                    <div className={styles.actionIcon}>
+                      <FaChartBar />
+                    </div>
+                    <h4>Reports</h4>
+                    <p>Revenue and analytics</p>
+                    {user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity && (
+                      <div className={styles.premiumBadge}>Premium</div>
+                    )}
+                  </div>
                 </div>
-                <h3>Mobile Features</h3>
-                <p>Quick invoice creation and mobile-optimized tools</p>
               </div>
 
-              <div className={styles.actionCard} onClick={() => setActiveView('payments')}>
-                <div className={styles.actionIcon}>
-                  <FaCreditCard />
+              {/* Settings Section */}
+              <div className={styles.navigationSection}>
+                <h3 className={styles.sectionTitle}>
+                  <FaCog className={styles.sectionIcon} />
+                  Settings
+                </h3>
+                <div className={styles.sectionCards}>
+                  <div
+                    className={`${styles.actionCard} ${user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity ? styles.premiumFeature : ''}`}
+                    onClick={() => {
+                      if (user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity) {
+                        toast.warning('Advanced templates are available for lifetime users. Upgrade to unlock!');
+                        setShowUserDashboard(true);
+                        return;
+                      }
+                      setActiveView('templates');
+                    }}
+                  >
+                    <div className={styles.actionIcon}>
+                      <FaPalette />
+                    </div>
+                    <h4>Templates</h4>
+                    <p>Customize invoice designs</p>
+                    {user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity && (
+                      <div className={styles.premiumBadge}>Premium</div>
+                    )}
+                  </div>
+                  <div className={styles.actionCard} onClick={() => setActiveView('business')}>
+                    <div className={styles.actionIcon}>
+                      <FaBuilding />
+                    </div>
+                    <h4>Business</h4>
+                    <p>Company profile settings</p>
+                  </div>
                 </div>
-                <h3>Payment Tracking</h3>
-                <p>Monitor payment status and send reminders</p>
-              </div>
-
-              <div className={styles.actionCard} onClick={() => setActiveView('reports')}>
-                <div className={styles.actionIcon}>
-                  <FaChartBar />
-                </div>
-                <h3>Reports & Analytics</h3>
-                <p>View detailed revenue and expense reports</p>
               </div>
             </div>
           </div>
@@ -184,65 +260,7 @@ const AuthenticatedApp = () => {
       <header className={styles.header}>
         <div className={styles.headerLeft}>
           <h1 onClick={() => setActiveView('home')} className={styles.logo}>Invoice Direct</h1>
-          <nav className={styles.navigation}>
-            <button
-              className={`${styles.navButton} ${activeView === 'home' ? styles.active : ''}`}
-              onClick={() => setActiveView('home')}
-            >
-              <FaHome />
-              <span className={styles.navText}>Home</span>
-            </button>
-            <button
-              className={`${styles.navButton} ${activeView === 'create' ? styles.active : ''}`}
-              onClick={handleCreateInvoice}
-            >
-              <FaFileInvoice />
-              <span className={styles.navText}>Create</span>
-            </button>
-            <button
-              className={`${styles.navButton} ${activeView === 'history' ? styles.active : ''}`}
-              onClick={() => setActiveView('history')}
-            >
-              <FaHistory />
-              <span className={styles.navText}>History</span>
-            </button>
-            <button
-              className={`${styles.navButton} ${activeView === 'clients' ? styles.active : ''}`}
-              onClick={() => setActiveView('clients')}
-            >
-              <FaUsers />
-              <span className={styles.navText}>Clients</span>
-            </button>
-            <button
-              className={`${styles.navButton} ${activeView === 'payments' ? styles.active : ''}`}
-              onClick={() => setActiveView('payments')}
-            >
-              <FaCreditCard />
-              <span className={styles.navText}>Payments</span>
-            </button>
-            <button
-              className={`${styles.navButton} ${activeView === 'reports' ? styles.active : ''}`}
-              onClick={() => setActiveView('reports')}
-            >
-              <FaChartBar />
-              <span className={styles.navText}>Reports</span>
-            </button>
 
-            <button
-              className={`${styles.navButton} ${activeView === 'templates' ? styles.active : ''}`}
-              onClick={() => setActiveView('templates')}
-            >
-              <FaPalette />
-              <span className={styles.navText}>Templates</span>
-            </button>
-            <button
-              className={`${styles.navButton} ${activeView === 'business' ? styles.active : ''}`}
-              onClick={() => setActiveView('business')}
-            >
-              <FaBuilding />
-              <span className={styles.navText}>Business</span>
-            </button>
-          </nav>
         </div>
         <div className={styles.headerActions}>
           <button
