@@ -2,23 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import RevenueDashboard from './RevenueDashboard';
 import styles from './Reports.module.css';
-import { 
-  FaChartBar, 
-  FaCalendarAlt, 
-  FaFileAlt, 
-  FaUsers, 
+import {
+  FaChartBar,
+  FaCalendarAlt,
+  FaFileAlt,
+  FaUsers,
   FaDownload,
   FaFilter,
   FaDollarSign,
   FaPercentage,
-
   FaArrowUp,
   FaArrowDown,
   FaEye,
   FaPrint,
   FaFileExport,
   FaChartLine,
-  FaChartPie
+  FaChartPie,
+  FaWallet
 } from 'react-icons/fa';
 
 const Reports = () => {
