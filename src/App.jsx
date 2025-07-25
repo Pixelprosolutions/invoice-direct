@@ -80,7 +80,10 @@ function App() {
           <>
             <header className={styles.landingHeader}>
               <div className={styles.headerContent}>
-                <h1>Invoice Direct</h1>
+                <h1 className={styles.logo}>
+                  <span className={styles.logoMain}>invoice</span>
+                  <span className={styles.logoDomain}>.direct</span>
+                </h1>
                 <div className={styles.headerActions}>
                   <div className={styles.authButtons}>
                     {!isSupabaseConfigured && (
