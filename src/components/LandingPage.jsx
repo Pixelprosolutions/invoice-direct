@@ -50,7 +50,22 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             </button>
           </div>
           <div className={styles.heroTrust}>
-            ✅ No credit card required • ✅ 3 free invoices • ✅ Setup in 2 minutes • ✅ Used by 50,000+ businesses
+            <div className={styles.trustItem}>
+              <FaCheck />
+              <span>No credit card required</span>
+            </div>
+            <div className={styles.trustItem}>
+              <FaCheck />
+              <span>3 free invoices</span>
+            </div>
+            <div className={styles.trustItem}>
+              <FaCheck />
+              <span>Setup in 2 minutes</span>
+            </div>
+            <div className={styles.trustItem}>
+              <FaUserFriends />
+              <span>Used by 50,000+ businesses</span>
+            </div>
           </div>
           <div className={styles.heroStats}>
             <div className={styles.stat}>
