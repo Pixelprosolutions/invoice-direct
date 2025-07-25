@@ -296,6 +296,11 @@
   border-radius: 16px;
   padding: 2rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease;
+}
+
+.navigationSection:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .sectionTitle {
@@ -313,6 +318,7 @@
 .sectionIcon {
   font-size: 1.25rem;
   color: #4f46e5;
+  flex-shrink: 0;
 }
 
 .sectionCards {
