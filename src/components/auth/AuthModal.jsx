@@ -202,6 +202,11 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
     <Modal onClose={onClose} className={styles.authModal}>
       <div className={styles.authContainer}>
         <div className={styles.authHeader}>
+          <div className={styles.headerIcon}>
+            {mode === 'signin' && <FaSignInAlt />}
+            {mode === 'signup' && <FaUserPlus />}
+            {mode === 'reset' && <FaShieldAlt />}
+          </div>
           <h2>
             {mode === 'signin' && 'Welcome Back'}
             {mode === 'signup' && 'Create Account'}
@@ -213,6 +218,16 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
             {mode === 'reset' && 'Enter your email to reset your password'}
           </p>
         </div>
+
+        {showSuccess && (
+          <div className={styles.successBanner}>
+            <FaCheck className={styles.successIcon} />
+            <div>
+              <h3>Account Created Successfully!</h3>
+              <p>Please check your email for verification. Redirecting...</p>
+            </div>
+          </div>
+        )}
 
         {resetEmailSent ? (
           <div className={styles.successMessage}>
