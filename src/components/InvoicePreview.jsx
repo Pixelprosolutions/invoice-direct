@@ -30,12 +30,19 @@ function InvoicePreview() {
           const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
           const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-          if (supabaseUrl && supabaseKey) {
-            // Save to Supabase if configured
+          // Validate user ID format for database operations
+          const isValidUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(user.id);
+
+          if (supabaseUrl && supabaseKey && isValidUUID) {
+            // Save to Supabase if configured and user ID is valid
             await saveInvoice(user.id, invoiceData);
             await incrementInvoiceCount(user.id);
             await refreshProfile();
             toast.success('Invoice saved to database successfully!');
+          } else if (supabaseUrl && supabaseKey && !isValidUUID) {
+            // Supabase is configured but user ID is invalid (probably dev user)
+            console.warn('Invalid user ID for database:', user.id);
+            throw new Error('Please sign in with a valid account to save to database');
           } else {
             // Fallback to localStorage when Supabase is not configured
             const savedInvoices = JSON.parse(localStorage.getItem('savedInvoices') || '[]');
