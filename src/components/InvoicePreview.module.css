@@ -159,10 +159,19 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.clientInfo {
+  text-align: right;
+}
+
 .invoiceDetails {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(var(--primary-color-rgb, 79, 70, 229), 0.03), rgba(var(--secondary-color-rgb, 99, 102, 241), 0.03));
+  border-radius: 8px;
+  border: 1px solid rgba(var(--primary-color-rgb, 79, 70, 229), 0.1);
 }
 
 .invoiceInfo, .clientInfo {
