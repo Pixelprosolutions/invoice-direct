@@ -5,7 +5,7 @@ import LineItems from './LineItems';
 import styles from './InvoiceForm.module.css';
 import { FaSave, FaEye, FaUndo, FaArrowLeft } from 'react-icons/fa';
 
-const InvoiceForm = ({ onPreview }) => {
+const InvoiceForm = ({ onPreview, onNavigateHome }) => {
   const { invoiceData, updateInvoiceData, resetInvoiceData, appliedTemplate } = useInvoice();
 
   const handleChange = (e) => {
