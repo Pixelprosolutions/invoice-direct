@@ -189,6 +189,12 @@ export const InvoiceProvider = ({ children }) => {
     }));
   };
 
+  const applyTemplate = (template) => {
+    setAppliedTemplate(template);
+    localStorage.setItem('currentInvoiceTemplate', JSON.stringify(template));
+    applyTemplateToInvoice(template);
+  };
+
   return (
     <InvoiceContext.Provider value={{
       invoiceData,
@@ -196,7 +202,9 @@ export const InvoiceProvider = ({ children }) => {
       resetInvoiceData,
       addLineItem,
       updateLineItem,
-      removeLineItem
+      removeLineItem,
+      appliedTemplate,
+      applyTemplate
     }}>
       {children}
     </InvoiceContext.Provider>
