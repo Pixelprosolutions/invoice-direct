@@ -20,7 +20,7 @@ import {
   FaArrowLeft
 } from 'react-icons/fa';
 
-const PaymentTracking = () => {
+const PaymentTracking = ({ onNavigateHome }) => {
   const [invoices, setInvoices] = useState([]);
   const [filteredInvoices, setFilteredInvoices] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
