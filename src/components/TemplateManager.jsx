@@ -132,7 +132,16 @@ const TemplateManager = ({ onNavigateHome }) => {
     <div className={styles.templateManager}>
       <div className={styles.header}>
         <div className={styles.headerContent}>
-          <h2>Invoice Templates</h2>
+          <div className="title-row">
+            <button
+              onClick={onNavigateHome}
+              className="back-button"
+              title="Back to Home"
+            >
+              <FaArrowLeft />
+            </button>
+            <h2>Invoice Templates</h2>
+          </div>
           <p>Choose from professional templates or create your own custom design</p>
         </div>
         <div className={styles.headerActions}>
