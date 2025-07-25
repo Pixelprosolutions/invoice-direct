@@ -10,7 +10,7 @@ import {
   FaFilter,
   FaDollarSign,
   FaPercentage,
-  FaTrendUp,
+  FaArrowTrendUp,
   FaArrowUp,
   FaArrowDown,
   FaEye,
