@@ -84,11 +84,13 @@
 }
 
 .logo {
-  height: 80px;
+  height: 75px;
   width: auto;
   cursor: pointer;
   transition: transform 0.2s ease;
   object-fit: contain;
+  padding-top: 10px;
+  margin-bottom: 10px;
 }
 
 .logo:hover {
