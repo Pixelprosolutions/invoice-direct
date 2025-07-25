@@ -65,8 +65,17 @@ const InvoiceHistory = ({ setActiveView, onNavigateHome }) => {
   return (
     <div className={styles.historyContainer}>
       <div className={styles.historyHeader}>
-        <h2>Invoice History</h2>
-        <button 
+        <div className="title-row">
+          <button
+            onClick={onNavigateHome}
+            className="back-button"
+            title="Back to Home"
+          >
+            <FaArrowLeft />
+          </button>
+          <h2>Invoice History</h2>
+        </div>
+        <button
           className={styles.newInvoiceButton}
           onClick={() => setActiveView('create')}
         >
