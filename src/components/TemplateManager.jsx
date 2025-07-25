@@ -13,6 +13,7 @@ import { useInvoice } from '../context/InvoiceContext'
 import styles from './TemplateManager.module.css'
 
 const TemplateManager = () => {
+  const { applyTemplate } = useInvoice()
   const [activeCategory, setActiveCategory] = useState('all')
   const [searchTerm, setSearchTerm] = useState('')
   const [showPreview, setShowPreview] = useState(false)
