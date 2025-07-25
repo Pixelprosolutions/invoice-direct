@@ -126,8 +126,8 @@ const InvoiceHistory = ({ setActiveView }) => {
                 <div className={styles.detailItem}>
                   <span className={styles.detailLabel}>Date</span>
                   <span className={styles.detailValue}>
-                    {invoice.invoiceDate ?
-                      format(new Date(invoice.invoiceDate), 'MMM dd, yyyy') :
+                    {(invoice.invoiceData?.invoiceDate || invoice.invoiceDate) ?
+                      format(new Date(invoice.invoiceData?.invoiceDate || invoice.invoiceDate), 'MMM dd, yyyy') :
                       'No date'
                     }
                   </span>
