@@ -673,6 +673,7 @@ const Reports = () => {
         </button>
       </div>
 
+      {activeReport === 'revenue' && <RevenueDashboard />}
       {activeReport === 'income' && renderIncomeReport()}
       {activeReport === 'expenses' && renderExpenseReport()}
       {activeReport === 'clients' && renderClientReport()}
