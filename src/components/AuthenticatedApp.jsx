@@ -64,6 +64,8 @@ const AuthenticatedApp = () => {
         return <ClientManagement />
       case 'business':
         return <BusinessProfile />
+      case 'templates':
+        return <TemplateManager />
       case 'test':
         return <MVPStatusChecker />
       case 'config':
