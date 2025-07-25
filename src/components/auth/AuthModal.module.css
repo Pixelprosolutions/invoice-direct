@@ -566,18 +566,34 @@
 /* Responsive design */
 @media (max-width: 640px) {
   .authContainer {
-    padding: 1.5rem;
-    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
     margin: 1rem;
   }
-  
+
   .authHeader h2 {
+    font-size: 1.5rem;
+  }
+
+  .headerIcon {
+    width: 48px;
+    height: 48px;
     font-size: 1.25rem;
   }
-  
+
   .formGroup input,
+  .inputWrapper input,
   .submitButton {
     font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .inputWrapper {
+    border-radius: 10px;
+  }
+
+  .submitButton {
+    border-radius: 10px;
+    padding: 0.875rem 1.25rem;
   }
 }
 
@@ -586,9 +602,43 @@
     width: 100%;
     margin: 0;
   }
-  
+
+  .authContainer {
+    margin: 0.75rem;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .authHeader {
+    margin-bottom: 2rem;
+  }
+
+  .authForm {
+    gap: 1.5rem;
+  }
+
+  .successBanner {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 360px) {
   .authContainer {
     margin: 0.5rem;
-    padding: 1.25rem;
+    padding: 1.25rem 1rem;
+  }
+
+  .headerIcon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .authHeader h2 {
+    font-size: 1.25rem;
+  }
+
+  .formGroup {
+    gap: 0.5rem;
   }
 }
