@@ -315,24 +315,57 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
             {mode !== 'reset' && (
               <div className={styles.formGroup}>
                 <label htmlFor="password">Password</label>
-                <div className={styles.passwordInput}>
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    placeholder="Enter your password"
-                    minLength={6}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className={styles.passwordToggle}
-                  >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </button>
+                <div className={`${styles.inputWrapper} ${fieldErrors.password ? styles.inputError : ''}`}>
+                  <FaLock className={styles.inputIcon} />
+                  <div className={styles.passwordInput}>
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      id="password"
+                      value={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value)
+                        validateField('password', e.target.value)
+                      }}
+                      onBlur={(e) => validateField('password', e.target.value)}
+                      required
+                      placeholder="Enter your password"
+                      minLength={6}
+                      className={fieldErrors.password ? styles.errorInput : ''}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className={styles.passwordToggle}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
                 </div>
+                {fieldErrors.password && (
+                  <span className={styles.fieldError}>
+                    <FaExclamationTriangle />
+                    {fieldErrors.password}
+                  </span>
+                )}
+                {mode === 'signup' && password && (
+                  <div className={styles.passwordStrength}>
+                    <div className={styles.strengthBar}>
+                      <div
+                        className={styles.strengthProgress}
+                        style={{
+                          width: `${passwordStrength}%`,
+                          backgroundColor: getPasswordStrengthColor()
+                        }}
+                      />
+                    </div>
+                    <span
+                      className={styles.strengthText}
+                      style={{ color: getPasswordStrengthColor() }}
+                    >
+                      {getPasswordStrengthText()}
+                    </span>
+                  </div>
+                )}
               </div>
             )}
 
