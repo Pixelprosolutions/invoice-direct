@@ -167,28 +167,36 @@ function InvoicePreview() {
           }}
         >
           <div className={styles.invoiceHeader}>
-            {invoiceData.logo && (
-              <div className={styles.logo}>
-                <img src={invoiceData.logo} alt={`${invoiceData.businessName} Logo`} />
-              </div>
-            )}
-            
+            {/* Left: Business Info */}
             <div className={styles.businessInfo}>
+              {invoiceData.logo && (
+                <div className={styles.logo}>
+                  <img src={invoiceData.logo} alt={`${invoiceData.businessName} Logo`} />
+                </div>
+              )}
               <h1>{invoiceData.businessName || 'Your Business Name'}</h1>
               <p>{invoiceData.businessAddress || 'Your Business Address'}</p>
-              {invoiceData.vatNumber && <p>VAT: {invoiceData.vatNumber}</p>}
-              {invoiceData.registrationNumber && <p>Reg: {invoiceData.registrationNumber}</p>}
               <div className={styles.contactInfo}>
-                {invoiceData.contactInfo?.phone && <p>Phone: {invoiceData.contactInfo.phone}</p>}
-                {invoiceData.contactInfo?.email && <p>Email: {invoiceData.contactInfo.email}</p>}
+                {invoiceData.contactInfo?.phone && <p>{invoiceData.contactInfo.phone}</p>}
+                {invoiceData.contactInfo?.email && <p>{invoiceData.contactInfo.email}</p>}
               </div>
             </div>
-          </div>
 
-          <div className={styles.invoiceTitle}>
-            <h2>INVOICE</h2>
-            <div className={styles.invoiceStatus + ' ' + getStatusClass()}>
-              {invoiceData.status || 'Pending'}
+            {/* Center: Invoice Title */}
+            <div className={styles.invoiceTitle}>
+              <h2>INVOICE</h2>
+              <div className={styles.invoiceStatus + ' ' + getStatusClass()}>
+                {invoiceData.status || 'Pending'}
+              </div>
+            </div>
+
+            {/* Right: Client Info */}
+            <div className={styles.clientInfo}>
+              <h3>Bill To:</h3>
+              <p className={styles.clientName}>{invoiceData.clientName || 'Client Name'}</p>
+              <p className={styles.clientAddress}>{invoiceData.clientAddress || 'Client Address'}</p>
+              {invoiceData.clientEmail && <p>{invoiceData.clientEmail}</p>}
+              {invoiceData.clientPhone && <p>{invoiceData.clientPhone}</p>}
             </div>
           </div>
 
