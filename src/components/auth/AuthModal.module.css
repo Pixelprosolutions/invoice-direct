@@ -73,10 +73,51 @@
   font-weight: 400;
 }
 
+.successBanner {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 1.25rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: successSlideIn 0.5s ease-out;
+  box-shadow: 0 8px 16px rgba(16, 185, 129, 0.25);
+}
+
+@keyframes successSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.successIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.successBanner h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.successBanner p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
 .authForm {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 
 .formGroup {
