@@ -305,7 +305,14 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
           </div>
           
           <div className={styles.pricingNote}>
+            <div className={styles.savingsBadge}>
+              <span className={styles.savingsText}>💰 Save $39/year with lifetime deal!</span>
+            </div>
             <p>🎉 <strong>Limited Time:</strong> Get Professional for life at just $10. Regular price $49/year.</p>
+            <div className={styles.guaranteeBadge}>
+              <FaShieldAlt />
+              <span>30-day money-back guarantee • Cancel anytime</span>
+            </div>
           </div>
         </div>
       </section>
