@@ -6,7 +6,7 @@ import styles from './InvoiceForm.module.css';
 import { FaSave, FaEye, FaUndo } from 'react-icons/fa';
 
 const InvoiceForm = ({ onPreview }) => {
-  const { invoiceData, updateInvoiceData, resetInvoiceData } = useInvoice();
+  const { invoiceData, updateInvoiceData, resetInvoiceData, appliedTemplate } = useInvoice();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
