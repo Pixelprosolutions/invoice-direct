@@ -187,10 +187,7 @@ html {
 }
 
 .secondaryButton:hover {
-  background: rgba(79, 70, 229, 0.05);
-  border-color: #4f46e5;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2);
+  color: #4f46e5;
 }
 
 .heroTrust {
