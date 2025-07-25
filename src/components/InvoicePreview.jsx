@@ -163,7 +163,13 @@ function InvoicePreview() {
             '--background-color': invoiceData.design?.colors?.background || '#FFFFFF',
             '--font-family': invoiceData.design?.fonts?.body || 'Inter',
             '--header-font': invoiceData.design?.fonts?.header || 'Inter',
-            '--accent-font': invoiceData.design?.fonts?.accent || 'Inter'
+            '--accent-font': invoiceData.design?.fonts?.accent || 'Inter',
+            '--primary-color-rgb': invoiceData.design?.colors?.primary ?
+              invoiceData.design.colors.primary.replace('#', '').match(/.{2}/g).map(hex => parseInt(hex, 16)).join(', ') :
+              '79, 70, 229',
+            '--secondary-color-rgb': invoiceData.design?.colors?.secondary ?
+              invoiceData.design.colors.secondary.replace('#', '').match(/.{2}/g).map(hex => parseInt(hex, 16)).join(', ') :
+              '99, 102, 241'
           }}
         >
           <div className={styles.invoiceHeader}>
