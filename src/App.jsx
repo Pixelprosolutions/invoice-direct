@@ -6,6 +6,7 @@ import AuthModal from './components/auth/AuthModal'
 import LandingPage from './components/LandingPage'
 import AuthenticatedApp from './components/AuthenticatedApp'
 import PasswordResetHandler from './components/auth/PasswordResetHandler'
+import PaymentWebhookHandler from './components/PaymentWebhookHandler'
 import { FaSignInAlt, FaCode } from 'react-icons/fa'
 
 function App() {
