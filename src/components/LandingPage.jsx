@@ -404,11 +404,11 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
       <section className={styles.finalCta}>
         <div className={styles.ctaContent}>
           <div className={styles.ctaBadge}>
-            <FaStar className={styles.ctaBadgeIcon} />
-            Trusted by 50,000+ Businesses
+            <FaRocket className={styles.ctaBadgeIcon} />
+            Professional Invoice Generator
           </div>
           <h2>Ready to Transform Your Invoicing?</h2>
-          <p>Join thousands of professionals who switched to Invoice Direct to save time and get paid faster</p>
+          <p>Start creating professional invoices in minutes and get paid faster with our intuitive invoice maker</p>
 
           <div className={styles.ctaFeatures}>
             <div className={styles.ctaFeature}>
