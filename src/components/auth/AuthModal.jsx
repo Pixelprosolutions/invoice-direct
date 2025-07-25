@@ -96,16 +96,19 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
     setIsSubmitting(true)
 
     try {
+      console.log('🔄 Starting Google OAuth flow...')
       const { error } = await signInWithGoogle()
       if (error) {
+        console.error('❌ Google OAuth error:', error)
         setLocalError(error.message || 'Failed to sign in with Google')
+        setIsSubmitting(false)
       }
-      // Note: User will be redirected to Google OAuth, then back to the app
+      // Note: If successful, user will be redirected to Google OAuth, then back to the app
       // The modal will close automatically when auth state changes
+      // Don't reset isSubmitting here as the redirect is happening
     } catch (err) {
       console.error('❌ Google signin error:', err)
       setLocalError(err.message || 'Failed to sign in with Google')
-    } finally {
       setIsSubmitting(false)
     }
   }
