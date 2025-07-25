@@ -9,6 +9,7 @@ import TemplateGallery from './TemplateGallery'
 import TemplatePreview from './TemplatePreview'
 import TemplateEditor from './TemplateEditor'
 import Modal from './Modal'
+import { useInvoice } from '../context/InvoiceContext'
 import styles from './TemplateManager.module.css'
 
 const TemplateManager = () => {
