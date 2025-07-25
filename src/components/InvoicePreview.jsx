@@ -51,6 +51,7 @@ function InvoicePreview() {
 
           // Validate user ID format for database operations
           const isValidUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(user.id);
+          const isDevUser = user.id === 'dev-user-123'; // Allow dev user for testing
 
           if (supabaseUrl && supabaseKey && isValidUUID) {
             // Save to Supabase if configured and user ID is valid
