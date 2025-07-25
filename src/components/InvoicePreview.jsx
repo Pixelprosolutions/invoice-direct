@@ -173,18 +173,20 @@ function InvoicePreview() {
           }}
         >
           <div className={styles.invoiceHeader}>
-            {/* Left: Business Info */}
-            <div className={styles.businessInfo}>
+            {/* Left: Business Info with Logo */}
+            <div className={styles.businessSection}>
               {invoiceData.logo && (
-                <div className={styles.logo}>
-                  <img src={invoiceData.logo} alt={`${invoiceData.businessName} Logo`} />
+                <div className={styles.logoContainer}>
+                  <img src={invoiceData.logo} alt={`${invoiceData.businessName} Logo`} className={styles.logoImage} />
                 </div>
               )}
-              <h1>{invoiceData.businessName || 'Your Business Name'}</h1>
-              <p>{invoiceData.businessAddress || 'Your Business Address'}</p>
-              <div className={styles.contactInfo}>
-                {invoiceData.contactInfo?.phone && <p>{invoiceData.contactInfo.phone}</p>}
-                {invoiceData.contactInfo?.email && <p>{invoiceData.contactInfo.email}</p>}
+              <div className={styles.businessInfo}>
+                <h1>{invoiceData.businessName || 'Your Business Name'}</h1>
+                <p>{invoiceData.businessAddress || 'Your Business Address'}</p>
+                <div className={styles.contactInfo}>
+                  {invoiceData.contactInfo?.phone && <p>{invoiceData.contactInfo.phone}</p>}
+                  {invoiceData.contactInfo?.email && <p>{invoiceData.contactInfo.email}</p>}
+                </div>
               </div>
             </div>
 
