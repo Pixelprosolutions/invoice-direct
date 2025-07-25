@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styles from './LandingPage.module.css'
-import { FaFileInvoiceDollar, FaDownload, FaCheck, FaRocket, FaClock, FaUserFriends, FaShieldAlt, FaChartLine, FaPaintBrush, FaGlobeAmericas, FaMobile, FaCloudDownloadAlt, FaStar, FaArrowRight, FaLock } from 'react-icons/fa'
+import { FaFileInvoiceDollar, FaDownload, FaCheck, FaRocket, FaClock, FaUserFriends, FaShieldAlt, FaChartLine, FaPaintBrush, FaGlobeAmericas, FaMobile, FaCloudDownloadAlt, FaStar, FaArrowRight, FaLock, FaFileInvoice, FaTachometerAlt, FaUsers, FaCreditCard } from 'react-icons/fa'
 
 const LandingPage = ({ onSignUp, onSignIn }) => {
   const observerRef = useRef()
@@ -32,7 +32,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <div className={styles.heroBadge}>
-            ✨ #1 Invoice Software with Lifetime Pricing
+            Best Free Invoice Maker Online
           </div>
           <h1 className={styles.heroTitle}>
             Professional Invoice Software for Freelancers & Small Businesses
@@ -44,16 +44,15 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             <button onClick={onSignUp} className={styles.primaryButton}>
               <FaRocket /> Start Creating Invoices Free
             </button>
-            <p className={styles.ctaNote}>
-              ✓ No credit card required • ✓ Setup in 2 minutes • ✓ 3 free invoices
-            </p>
-          </div>
-
-          <div className={styles.heroSecondary}>
             <button onClick={onSignIn} className={styles.secondaryButton}>
               Already have an account? Sign In
             </button>
+            <p className={styles.ctaNote}>
+              <FaCheck /> No credit card required • <FaCheck /> Setup in 2 minutes • <FaCheck /> 3 free invoices
+            </p>
           </div>
+
+          <div className={styles.heroSecondary} />
 
         </div>
         <div className={styles.heroVisual}>
@@ -65,15 +64,15 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
                   <span></span>
                   <span></span>
                 </div>
-                <div className={styles.urlBar}>app.invoicedirect.com</div>
+                <div className={styles.urlBar}>www.invoice.direct</div>
               </div>
             </div>
             <div className={styles.demoContent}>
               <div className={styles.demoSidebar}>
-                <div className={styles.sidebarItem}>📄 Create Invoice</div>
-                <div className={styles.sidebarItem}>📊 Dashboard</div>
-                <div className={styles.sidebarItem}>👥 Clients</div>
-                <div className={styles.sidebarItem}>💰 Payments</div>
+                <div className={styles.sidebarItem}><FaFileInvoice /> Create Invoice</div>
+                <div className={styles.sidebarItem}><FaTachometerAlt /> Dashboard</div>
+                <div className={styles.sidebarItem}><FaUsers /> Clients</div>
+                <div className={styles.sidebarItem}><FaCreditCard /> Payments</div>
               </div>
               <div className={styles.demoMain}>
                 <div className={styles.demoForm}>
@@ -105,8 +104,8 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             </div>
           </div>
           <div className={styles.demoFloating}>
-            <div className={styles.floatingBadge}>✓ Auto-saved</div>
-            <div className={styles.floatingBadge}>📧 Email sent</div>
+            <div className={styles.floatingBadge}><FaCheck /> Auto-saved</div>
+            <div className={styles.floatingBadge}><FaCheck /> Email sent</div>
           </div>
         </div>
       </section>

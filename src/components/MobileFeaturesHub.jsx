@@ -63,9 +63,6 @@ const MobileFeaturesHub = ({ onClose }) => {
           <h2>
             <FaMobile /> Mobile Features
           </h2>
-          <button className={styles.closeButton} onClick={onClose}>
-            <FaTimes />
-          </button>
         </div>
 
         <div className={styles.intro}>

@@ -186,9 +186,7 @@ const QuickInvoiceForm = ({ onClose, onComplete }) => {
         <h2>
           <FaClock /> Quick Invoice
         </h2>
-        <button className={styles.closeButton} onClick={onClose}>
-          <FaTimes />
-        </button>
+
       </div>
 
       <div className={styles.progressBar}>

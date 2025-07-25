@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { FaPlus, FaEdit, FaTrash, FaEye, FaPhone, FaEnvelope, FaMapMarkerAlt, FaSearch, FaUsers } from 'react-icons/fa'
+import { FaPlus, FaEdit, FaTrash, FaEye, FaPhone, FaEnvelope, FaMapMarkerAlt, FaSearch, FaUsers, FaArrowLeft } from 'react-icons/fa'
 import Modal from './Modal'
 import AddEditClient from './AddEditClient'
 import ClientDetails from './ClientDetails'
 import styles from './ClientManagement.module.css'
 
-const ClientManagement = () => {
+const ClientManagement = ({ onNavigateHome }) => {
   const [clients, setClients] = useState([])
   const [filteredClients, setFilteredClients] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
@@ -89,7 +89,16 @@ const ClientManagement = () => {
     <div className={styles.clientManagement}>
       <div className={styles.header}>
         <div className={styles.headerContent}>
-          <h2>Client Management</h2>
+          <div className="title-row">
+            <button
+              onClick={onNavigateHome}
+              className="back-button"
+              title="Back to Home"
+            >
+              <FaArrowLeft />
+            </button>
+            <h2>Client Management</h2>
+          </div>
           <p>Manage your client directory and track payment history</p>
         </div>
         <button onClick={handleAddClient} className={styles.addButton}>

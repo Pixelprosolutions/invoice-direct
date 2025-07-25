@@ -26,8 +26,10 @@ if (supabaseUrl && supabaseAnonKey) {
       onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
       signUp: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
       signInWithPassword: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
+      signInWithOAuth: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured - please set up Google OAuth' } }),
       signOut: () => Promise.resolve({ error: null }),
-      resetPasswordForEmail: () => Promise.resolve({ error: { message: 'Supabase not configured' } })
+      resetPasswordForEmail: () => Promise.resolve({ error: { message: 'Supabase not configured' } }),
+      resend: () => Promise.resolve({ error: { message: 'Supabase not configured' } })
     },
     from: () => ({
       insert: () => ({ select: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }) }),

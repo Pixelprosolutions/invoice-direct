@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import Modal from '../Modal'
 import styles from './AuthModal.module.css'
-import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa'
+import { FaEye, FaEyeSlash, FaSpinner, FaCheck, FaExclamationTriangle, FaEnvelope, FaLock, FaUserPlus, FaSignInAlt, FaShieldAlt, FaGoogle } from 'react-icons/fa'
 
 const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
   const [mode, setMode] = useState(initialMode)
@@ -10,13 +10,114 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [localError, setLocalError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [resetEmailSent, setResetEmailSent] = useState(false)
   const [confirmationEmailSent, setConfirmationEmailSent] = useState(false)
   const [needsEmailConfirmation, setNeedsEmailConfirmation] = useState(false)
+  const [passwordStrength, setPasswordStrength] = useState(0)
+  const [isEmailValid, setIsEmailValid] = useState(false)
+  const [fieldErrors, setFieldErrors] = useState({})
+  const [showSuccess, setShowSuccess] = useState(false)
 
-  const { signIn, signUp, resetPassword, resendConfirmation, error, loading, devLogin } = useAuth()
+  const { signIn, signUp, signInWithGoogle, resetPassword, resendConfirmation, error, loading, devLogin } = useAuth()
+
+  // Email validation
+  useEffect(() => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    setIsEmailValid(emailRegex.test(email))
+  }, [email])
+
+  // Password strength calculation
+  useEffect(() => {
+    if (mode !== 'signup') return
+
+    let strength = 0
+    if (password.length >= 8) strength += 25
+    if (password.match(/[a-z]/)) strength += 25
+    if (password.match(/[A-Z]/)) strength += 25
+    if (password.match(/[0-9]/)) strength += 25
+
+    setPasswordStrength(strength)
+  }, [password, mode])
+
+  const validateField = (field, value) => {
+    const errors = { ...fieldErrors }
+
+    switch (field) {
+      case 'email':
+        if (!value) {
+          errors.email = 'Email is required'
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          errors.email = 'Please enter a valid email address'
+        } else {
+          delete errors.email
+        }
+        break
+      case 'password':
+        if (!value) {
+          errors.password = 'Password is required'
+        } else if (value.length < 6) {
+          errors.password = 'Password must be at least 6 characters'
+        } else {
+          delete errors.password
+        }
+        break
+      case 'confirmPassword':
+        if (!value) {
+          errors.confirmPassword = 'Please confirm your password'
+        } else if (value !== password) {
+          errors.confirmPassword = 'Passwords do not match'
+        } else {
+          delete errors.confirmPassword
+        }
+        break
+    }
+
+    setFieldErrors(errors)
+  }
+
+  const getPasswordStrengthColor = () => {
+    if (passwordStrength < 50) return '#ef4444'
+    if (passwordStrength < 75) return '#f59e0b'
+    return '#10b981'
+  }
+
+  const getPasswordStrengthText = () => {
+    if (passwordStrength < 25) return 'Very Weak'
+    if (passwordStrength < 50) return 'Weak'
+    if (passwordStrength < 75) return 'Good'
+    return 'Strong'
+  }
+
+  const handleGoogleSignIn = async () => {
+    setLocalError('')
+    setIsSubmitting(true)
+
+    try {
+      console.log('🔄 Starting Google OAuth flow...')
+      const { error } = await signInWithGoogle()
+      if (error) {
+        console.error('❌ Google OAuth error:', error)
+        const errorMessage = error.message?.includes('development mode') || error.message?.includes('not configured')
+          ? 'Google sign-in is not available in development mode. Please use email/password sign-in or set up Supabase configuration.'
+          : error.message || 'Failed to sign in with Google'
+        setLocalError(errorMessage)
+        setIsSubmitting(false)
+      }
+      // Note: If successful, user will be redirected to Google OAuth, then back to the app
+      // The modal will close automatically when auth state changes
+      // Don't reset isSubmitting here as the redirect is happening
+    } catch (err) {
+      console.error('❌ Google signin error:', err)
+      const errorMessage = err.message?.includes('development mode') || err.message?.includes('not configured')
+        ? 'Google sign-in is not available in development mode. Please use email/password sign-in.'
+        : err.message || 'Failed to sign in with Google'
+      setLocalError(errorMessage)
+      setIsSubmitting(false)
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -40,8 +141,10 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
         
         if (!error) {
           setLocalError('')
-          setLocalError('Account created successfully! Please check your email for verification.')
-          onClose()
+          setShowSuccess(true)
+          setTimeout(() => {
+            onClose()
+          }, 2000)
         } else {
           console.error('❌ Signup failed:', error.message || error)
           setLocalError(error.message || 'Failed to create account')
@@ -111,6 +214,9 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
     setResetEmailSent(false)
     setConfirmationEmailSent(false)
     setNeedsEmailConfirmation(false)
+    setPasswordStrength(0)
+    setFieldErrors({})
+    setShowSuccess(false)
   }
 
   const switchMode = (newMode) => {
@@ -124,6 +230,11 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
     <Modal onClose={onClose} className={styles.authModal}>
       <div className={styles.authContainer}>
         <div className={styles.authHeader}>
+          <div className={styles.headerIcon}>
+            {mode === 'signin' && <FaSignInAlt />}
+            {mode === 'signup' && <FaUserPlus />}
+            {mode === 'reset' && <FaShieldAlt />}
+          </div>
           <h2>
             {mode === 'signin' && 'Welcome Back'}
             {mode === 'signup' && 'Create Account'}
@@ -135,6 +246,16 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
             {mode === 'reset' && 'Enter your email to reset your password'}
           </p>
         </div>
+
+        {showSuccess && (
+          <div className={styles.successBanner}>
+            <FaCheck className={styles.successIcon} />
+            <div>
+              <h3>Account Created Successfully!</h3>
+              <p>Please check your email for verification. Redirecting...</p>
+            </div>
+          </div>
+        )}
 
         {resetEmailSent ? (
           <div className={styles.successMessage}>
@@ -191,55 +312,156 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className={styles.authForm}>
+          <div className={styles.authForm}>
+            {/* Google Sign-In Button */}
+            {(mode === 'signin' || mode === 'signup') && (
+              <>
+                <button
+                  type="button"
+                  onClick={handleGoogleSignIn}
+                  disabled={isSubmitting || loading}
+                  className={styles.googleButton}
+                >
+                  {isSubmitting && loading ? (
+                    <>
+                      <FaSpinner className={styles.spinner} />
+                      Connecting...
+                    </>
+                  ) : (
+                    <>
+                      <FaGoogle />
+                      Continue with Google
+                    </>
+                  )}
+                </button>
+
+                <div className={styles.divider}>
+                  <span>or</span>
+                </div>
+              </>
+            )}
+
+            <form onSubmit={handleSubmit} className={styles.emailForm}>
             <div className={styles.formGroup}>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="Enter your email"
-              />
+              <label htmlFor="email">Email Address</label>
+              <div className={`${styles.inputWrapper} ${fieldErrors.email ? styles.inputError : ''} ${isEmailValid && email ? styles.inputValid : ''}`}>
+                <FaEnvelope className={styles.inputIcon} />
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value)
+                    validateField('email', e.target.value)
+                  }}
+                  onBlur={(e) => validateField('email', e.target.value)}
+                  required
+                  placeholder="Enter your email address"
+                  className={fieldErrors.email ? styles.errorInput : ''}
+                />
+                {isEmailValid && email && <FaCheck className={styles.validIcon} />}
+              </div>
+              {fieldErrors.email && (
+                <span className={styles.fieldError}>
+                  <FaExclamationTriangle />
+                  {fieldErrors.email}
+                </span>
+              )}
             </div>
 
             {mode !== 'reset' && (
               <div className={styles.formGroup}>
                 <label htmlFor="password">Password</label>
-                <div className={styles.passwordInput}>
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    placeholder="Enter your password"
-                    minLength={6}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className={styles.passwordToggle}
-                  >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </button>
+                <div className={`${styles.inputWrapper} ${fieldErrors.password ? styles.inputError : ''}`}>
+                  <FaLock className={styles.inputIcon} />
+                  <div className={styles.passwordInput}>
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      id="password"
+                      value={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value)
+                        validateField('password', e.target.value)
+                      }}
+                      onBlur={(e) => validateField('password', e.target.value)}
+                      required
+                      placeholder="Enter your password"
+                      minLength={6}
+                      className={fieldErrors.password ? styles.errorInput : ''}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className={styles.passwordToggle}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
                 </div>
+                {fieldErrors.password && (
+                  <span className={styles.fieldError}>
+                    <FaExclamationTriangle />
+                    {fieldErrors.password}
+                  </span>
+                )}
+                {mode === 'signup' && password && (
+                  <div className={styles.passwordStrength}>
+                    <div className={styles.strengthBar}>
+                      <div
+                        className={styles.strengthProgress}
+                        style={{
+                          width: `${passwordStrength}%`,
+                          backgroundColor: getPasswordStrengthColor()
+                        }}
+                      />
+                    </div>
+                    <span
+                      className={styles.strengthText}
+                      style={{ color: getPasswordStrengthColor() }}
+                    >
+                      {getPasswordStrengthText()}
+                    </span>
+                  </div>
+                )}
               </div>
             )}
 
             {mode === 'signup' && (
               <div className={styles.formGroup}>
                 <label htmlFor="confirmPassword">Confirm Password</label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                  placeholder="Confirm your password"
-                  minLength={6}
-                />
+                <div className={`${styles.inputWrapper} ${fieldErrors.confirmPassword ? styles.inputError : ''} ${confirmPassword && confirmPassword === password ? styles.inputValid : ''}`}>
+                  <FaLock className={styles.inputIcon} />
+                  <div className={styles.passwordInput}>
+                    <input
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      id="confirmPassword"
+                      value={confirmPassword}
+                      onChange={(e) => {
+                        setConfirmPassword(e.target.value)
+                        validateField('confirmPassword', e.target.value)
+                      }}
+                      onBlur={(e) => validateField('confirmPassword', e.target.value)}
+                      required
+                      placeholder="Confirm your password"
+                      minLength={6}
+                      className={fieldErrors.confirmPassword ? styles.errorInput : ''}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className={styles.passwordToggle}
+                    >
+                      {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
+                  {confirmPassword && confirmPassword === password && <FaCheck className={styles.validIcon} />}
+                </div>
+                {fieldErrors.confirmPassword && (
+                  <span className={styles.fieldError}>
+                    <FaExclamationTriangle />
+                    {fieldErrors.confirmPassword}
+                  </span>
+                )}
               </div>
             )}
 
@@ -272,6 +494,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
               )}
             </button>
           </form>
+          </div>
         )}
 
         {!resetEmailSent && (

@@ -80,7 +80,11 @@ function App() {
           <>
             <header className={styles.landingHeader}>
               <div className={styles.headerContent}>
-                <h1>Invoice Direct</h1>
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2Ff05c99624a914652bdf806facc6f1fbd%2Fe01427c877184c61b1b4ab7c48ef7eb1"
+                  alt="invoice.direct"
+                  className={styles.logo}
+                />
                 <div className={styles.headerActions}>
                   <div className={styles.authButtons}>
                     {!isSupabaseConfigured && (

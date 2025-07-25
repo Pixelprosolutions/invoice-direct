@@ -3,9 +3,9 @@ import { toast } from 'react-toastify';
 import { useInvoice } from '../context/InvoiceContext';
 import LineItems from './LineItems';
 import styles from './InvoiceForm.module.css';
-import { FaSave, FaEye, FaUndo } from 'react-icons/fa';
+import { FaSave, FaEye, FaUndo, FaArrowLeft } from 'react-icons/fa';
 
-const InvoiceForm = ({ onPreview }) => {
+const InvoiceForm = ({ onPreview, onNavigateHome }) => {
   const { invoiceData, updateInvoiceData, resetInvoiceData, appliedTemplate } = useInvoice();
 
   const handleChange = (e) => {
@@ -81,7 +81,17 @@ const InvoiceForm = ({ onPreview }) => {
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.formHeader}>
         <div className={styles.headerContent}>
-          <h2>Invoice Details</h2>
+          <div className="title-row">
+            <button
+              type="button"
+              onClick={onNavigateHome}
+              className="back-button"
+              title="Back to Home"
+            >
+              <FaArrowLeft />
+            </button>
+            <h2>Invoice Details</h2>
+          </div>
           {appliedTemplate && (
             <div className={styles.templateIndicator}>
               <span>📋 Using template: <strong>{appliedTemplate.name}</strong></span>

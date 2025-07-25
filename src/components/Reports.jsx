@@ -18,10 +18,11 @@ import {
   FaFileExport,
   FaChartLine,
   FaChartPie,
-  FaWallet
+  FaWallet,
+  FaArrowLeft
 } from 'react-icons/fa';
 
-const Reports = () => {
+const Reports = ({ onNavigateHome }) => {
   const [invoices, setInvoices] = useState([]);
   const [activeReport, setActiveReport] = useState('revenue');
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
@@ -640,10 +641,21 @@ const Reports = () => {
   return (
     <div className={styles.reports}>
       <div className={styles.header}>
-        <h1>
-          <FaChartBar /> Business Reports
-        </h1>
-        <p>Analyze your business performance with detailed insights</p>
+        <div className="title-row">
+          <button
+            onClick={onNavigateHome}
+            className="back-button"
+            title="Back to Home"
+          >
+            <FaArrowLeft />
+          </button>
+          <div>
+            <h1>
+              <FaChartBar /> Business Reports
+            </h1>
+            <p>Analyze your business performance with detailed insights</p>
+          </div>
+        </div>
       </div>
 
       <div className={styles.reportTabs}>

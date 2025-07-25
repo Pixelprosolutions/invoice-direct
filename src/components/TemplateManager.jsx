@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { 
+import {
   FaPalette, FaPlus, FaSearch, FaFilter, FaStar, FaEye, FaEdit, FaTrash, FaCopy,
-  FaBriefcase, FaPaintBrush, FaHammer, FaShoppingCart, FaLaptopCode, FaHeartbeat, FaCog
+  FaBriefcase, FaPaintBrush, FaHammer, FaShoppingCart, FaLaptopCode, FaHeartbeat, FaCog, FaArrowLeft
 } from 'react-icons/fa'
 import { templatePresets, templateCategories } from '../data/templatePresets'
 import TemplateGallery from './TemplateGallery'
@@ -12,7 +12,7 @@ import Modal from './Modal'
 import { useInvoice } from '../context/InvoiceContext'
 import styles from './TemplateManager.module.css'
 
-const TemplateManager = () => {
+const TemplateManager = ({ onNavigateHome }) => {
   const { applyTemplate } = useInvoice()
   const [activeCategory, setActiveCategory] = useState('all')
   const [searchTerm, setSearchTerm] = useState('')
@@ -132,7 +132,16 @@ const TemplateManager = () => {
     <div className={styles.templateManager}>
       <div className={styles.header}>
         <div className={styles.headerContent}>
-          <h2>Invoice Templates</h2>
+          <div className="title-row">
+            <button
+              onClick={onNavigateHome}
+              className="back-button"
+              title="Back to Home"
+            >
+              <FaArrowLeft />
+            </button>
+            <h2>Invoice Templates</h2>
+          </div>
           <p>Choose from professional templates or create your own custom design</p>
         </div>
         <div className={styles.headerActions}>

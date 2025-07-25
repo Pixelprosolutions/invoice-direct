@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { FaBuilding, FaCreditCard, FaPercent, FaSave, FaUndo } from 'react-icons/fa'
+import { FaBuilding, FaCreditCard, FaPercent, FaSave, FaUndo, FaArrowLeft, FaHome } from 'react-icons/fa'
 import BusinessInfoForm from './BusinessInfoForm'
 import PaymentTermsForm from './PaymentTermsForm'
 import TaxSettingsForm from './TaxSettingsForm'
 import styles from './BusinessProfile.module.css'
 
-const BusinessProfile = () => {
+const BusinessProfile = ({ onNavigateHome }) => {
   const [activeTab, setActiveTab] = useState('business')
   const [businessData, setBusinessData] = useState({
     // Business Information
@@ -125,7 +125,16 @@ const BusinessProfile = () => {
     <div className={styles.businessProfile}>
       <div className={styles.header}>
         <div className={styles.headerContent}>
-          <h2>Business Profile</h2>
+          <div className={styles.titleRow}>
+            <button
+              onClick={onNavigateHome}
+              className={styles.backButton}
+              title="Back to Home"
+            >
+              <FaArrowLeft />
+            </button>
+            <h2>Business Profile</h2>
+          </div>
           <p>Manage your business information, payment terms, and tax settings</p>
         </div>
         {hasChanges && (

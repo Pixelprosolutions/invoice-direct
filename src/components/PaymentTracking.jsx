@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import styles from './PaymentTracking.module.css';
-import { 
-  FaCreditCard, 
-  FaCheckCircle, 
-  FaClock, 
-  FaExclamationTriangle, 
+import {
+  FaCreditCard,
+  FaCheckCircle,
+  FaClock,
+  FaExclamationTriangle,
   FaTimes,
   FaSearch,
   FaFilter,
@@ -16,10 +16,11 @@ import {
   FaChartPie,
   FaEye,
   FaEdit,
-  FaPlus
+  FaPlus,
+  FaArrowLeft
 } from 'react-icons/fa';
 
-const PaymentTracking = () => {
+const PaymentTracking = ({ onNavigateHome }) => {
   const [invoices, setInvoices] = useState([]);
   const [filteredInvoices, setFilteredInvoices] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -221,9 +222,18 @@ const PaymentTracking = () => {
   return (
     <div className={styles.paymentTracking}>
       <div className={styles.header}>
-        <h1>
-          <FaCreditCard /> Payment Tracking
-        </h1>
+        <div className="title-row">
+          <button
+            onClick={onNavigateHome}
+            className="back-button"
+            title="Back to Home"
+          >
+            <FaArrowLeft />
+          </button>
+          <h1>
+            <FaCreditCard /> Payment Tracking
+          </h1>
+        </div>
         {overdueCount > 0 && (
           <div className={styles.overdueAlert}>
             <FaBell className={styles.alertIcon} />

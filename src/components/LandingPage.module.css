@@ -31,7 +31,7 @@ html {
   min-height: calc(100vh - 80px);
   padding: 4rem 2rem;
   padding-top: 100px;
-  max-width: 1400px;
+  max-width: 1269px;
   margin: 0 auto;
   gap: 4rem;
   position: relative;
@@ -64,7 +64,7 @@ html {
   font-size: 0.95rem;
   font-weight: 600;
   color: #4f46e5;
-  margin-bottom: 2.5rem;
+  margin: 2.5rem 0 1.25rem;
   box-shadow: 
     0 4px 6px -1px rgba(79, 70, 229, 0.1),
     0 0 0 1px rgba(255, 255, 255, 0.05);
@@ -463,11 +463,20 @@ html {
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
   animation: fadeInBounce 2s ease-out;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .floatingBadge:nth-child(2) {
   background: #3b82f6;
   animation-delay: 1s;
+}
+
+.floatingBadge span {
+  padding-left: 0.1875rem;
 }
 
 @keyframes fadeInBounce {

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { FaFileInvoice, FaTrash, FaCopy, FaEye, FaPlus } from 'react-icons/fa';
+import { FaFileInvoice, FaTrash, FaCopy, FaEye, FaPlus, FaArrowLeft } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 import { useInvoice } from '../context/InvoiceContext';
 import styles from './InvoiceHistory.module.css';
 
-const InvoiceHistory = ({ setActiveView }) => {
+const InvoiceHistory = ({ setActiveView, onNavigateHome }) => {
   const [invoices, setInvoices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { loadInvoice, deleteInvoice } = useInvoice();
@@ -34,6 +34,7 @@ const InvoiceHistory = ({ setActiveView }) => {
   };
 
   const handleDuplicateInvoice = (invoice) => {
+    console.log('🔄 Duplicating invoice:', invoice);
     const invoiceData = invoice.invoiceData || invoice;
     const duplicatedInvoice = {
       ...invoiceData,
@@ -41,9 +42,10 @@ const InvoiceHistory = ({ setActiveView }) => {
       invoiceDate: format(new Date(), 'yyyy-MM-dd')
     };
 
+    console.log('📋 Duplicated invoice data:', duplicatedInvoice);
     loadInvoice(duplicatedInvoice);
     setActiveView('create');
-    toast.info(`Duplicated invoice #${invoiceData.invoiceNumber || 'N/A'}`);
+    toast.success(`Invoice duplicated! Editing copy of #${invoiceData.invoiceNumber || 'N/A'}`);
   };
 
   const handleDeleteInvoice = (invoiceId) => {
@@ -65,8 +67,17 @@ const InvoiceHistory = ({ setActiveView }) => {
   return (
     <div className={styles.historyContainer}>
       <div className={styles.historyHeader}>
-        <h2>Invoice History</h2>
-        <button 
+        <div className="title-row">
+          <button
+            onClick={onNavigateHome}
+            className="back-button"
+            title="Back to Home"
+          >
+            <FaArrowLeft />
+          </button>
+          <h2>Invoice History</h2>
+        </div>
+        <button
           className={styles.newInvoiceButton}
           onClick={() => setActiveView('create')}
         >
@@ -93,22 +104,34 @@ const InvoiceHistory = ({ setActiveView }) => {
               <div className={styles.invoiceCardHeader}>
                 <h3>Invoice #{invoice.invoiceData?.invoiceNumber || invoice.invoiceNumber || 'N/A'}</h3>
                 <div className={styles.invoiceActions}>
-                  <button 
-                    onClick={() => handleViewInvoice(invoice)}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleViewInvoice(invoice);
+                    }}
                     className={styles.actionButton}
                     title="View Invoice"
                   >
                     <FaEye />
                   </button>
-                  <button 
-                    onClick={() => handleDuplicateInvoice(invoice)}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleDuplicateInvoice(invoice);
+                    }}
                     className={styles.actionButton}
                     title="Duplicate Invoice"
                   >
                     <FaCopy />
                   </button>
-                  <button 
-                    onClick={() => handleDeleteInvoice(invoice.id)}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleDeleteInvoice(invoice.id);
+                    }}
                     className={`${styles.actionButton} ${styles.deleteButton}`}
                     title="Delete Invoice"
                   >

@@ -218,6 +218,34 @@ export const InvoiceProvider = ({ children }) => {
     applyTemplateToInvoice(template);
   };
 
+  const loadInvoice = (savedInvoiceData) => {
+    if (!savedInvoiceData) return;
+
+    // Merge the saved invoice data with current invoice data
+    setInvoiceData(prevData => ({
+      ...prevData,
+      ...savedInvoiceData,
+      // Ensure line items have IDs if they don't
+      lineItems: savedInvoiceData.lineItems?.map(item => ({
+        ...item,
+        id: item.id || uuidv4()
+      })) || prevData.lineItems
+    }));
+  };
+
+  const deleteInvoice = (invoiceId) => {
+    // Get saved invoices from localStorage
+    const savedInvoices = JSON.parse(localStorage.getItem('savedInvoices') || '[]');
+
+    // Filter out the invoice to delete
+    const updatedInvoices = savedInvoices.filter(invoice => invoice.id !== invoiceId);
+
+    // Save back to localStorage
+    localStorage.setItem('savedInvoices', JSON.stringify(updatedInvoices));
+
+    return updatedInvoices;
+  };
+
   return (
     <InvoiceContext.Provider value={{
       invoiceData,
@@ -227,7 +255,9 @@ export const InvoiceProvider = ({ children }) => {
       updateLineItem,
       removeLineItem,
       appliedTemplate,
-      applyTemplate
+      applyTemplate,
+      loadInvoice,
+      deleteInvoice
     }}>
       {children}
     </InvoiceContext.Provider>
