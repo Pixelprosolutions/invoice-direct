@@ -647,19 +647,25 @@ const Reports = () => {
       </div>
 
       <div className={styles.reportTabs}>
-        <button 
+        <button
+          className={`${styles.tab} ${activeReport === 'revenue' ? styles.active : ''}`}
+          onClick={() => setActiveReport('revenue')}
+        >
+          <FaWallet /> Revenue Dashboard
+        </button>
+        <button
           className={`${styles.tab} ${activeReport === 'income' ? styles.active : ''}`}
           onClick={() => setActiveReport('income')}
         >
           <FaChartLine /> Monthly Income
         </button>
-        <button 
+        <button
           className={`${styles.tab} ${activeReport === 'expenses' ? styles.active : ''}`}
           onClick={() => setActiveReport('expenses')}
         >
           <FaFileAlt /> Tax Expenses
         </button>
-        <button 
+        <button
           className={`${styles.tab} ${activeReport === 'clients' ? styles.active : ''}`}
           onClick={() => setActiveReport('clients')}
         >
