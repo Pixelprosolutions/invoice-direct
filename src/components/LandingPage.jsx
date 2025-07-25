@@ -417,11 +417,11 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             </div>
             <div className={styles.ctaFeature}>
               <FaCheck className={styles.ctaFeatureIcon} />
-              <span>3 free invoices</span>
+              <span>3 free invoices included</span>
             </div>
             <div className={styles.ctaFeature}>
               <FaCheck className={styles.ctaFeatureIcon} />
-              <span>Setup in 2 minutes</span>
+              <span>Setup in under 2 minutes</span>
             </div>
 
           </div>
