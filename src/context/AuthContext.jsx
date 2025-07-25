@@ -195,9 +195,9 @@ export const AuthProvider = ({ children }) => {
     try {
       setError(null)
       setLoading(true)
-      
+
       console.log('🔄 Attempting signin for:', email)
-      
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -209,6 +209,37 @@ export const AuthProvider = ({ children }) => {
       return { data, error: null }
     } catch (error) {
       console.error('❌ Signin failed:', error.message || error)
+      setError(error.message)
+      return { data: null, error }
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const signInWithGoogle = async () => {
+    try {
+      setError(null)
+      setLoading(true)
+
+      console.log('🔄 Attempting Google OAuth signin...')
+
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
+        }
+      })
+
+      console.log('📊 Google OAuth response:', { data, error })
+
+      if (error) throw error
+      return { data, error: null }
+    } catch (error) {
+      console.error('❌ Google signin failed:', error.message || error)
       setError(error.message)
       return { data: null, error }
     } finally {
