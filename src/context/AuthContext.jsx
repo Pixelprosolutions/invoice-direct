@@ -176,6 +176,9 @@ export const AuthProvider = ({ children }) => {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: undefined, // Disable email confirmation
+        }
       })
 
       console.log('📊 Signup response:', { data, error })
@@ -211,48 +214,6 @@ export const AuthProvider = ({ children }) => {
       console.error('❌ Signin failed:', error.message || error)
       setError(error.message)
       return { data: null, error }
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const signInWithGoogle = async () => {
-    try {
-      setError(null)
-      setLoading(true)
-
-      console.log('🔄 Attempting Google OAuth signin...')
-
-      // Check if Supabase is properly configured
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-
-      if (!supabaseUrl || !supabaseKey) {
-        throw new Error('Google sign-in requires Supabase configuration. Please set up your environment variables.')
-      }
-
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/`,
-          queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          },
-        }
-      })
-
-      console.log('📊 Google OAuth response:', { data, error })
-
-      if (error) throw error
-      return { data, error: null }
-    } catch (error) {
-      console.error('❌ Google signin failed:', error.message || error)
-      const errorMessage = error.message === 'Supabase not configured - please set up Google OAuth'
-        ? 'Google sign-in is not available in development mode. Please set up Supabase configuration.'
-        : error.message || 'Failed to sign in with Google'
-      setError(errorMessage)
-      return { data: null, error: { message: errorMessage } }
     } finally {
       setLoading(false)
     }
@@ -295,26 +256,6 @@ export const AuthProvider = ({ children }) => {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: redirectTo
       })
-      if (error) throw error
-      return { error: null }
-    } catch (error) {
-      setError(error.message)
-      return { error }
-    }
-  }
-
-  const resendConfirmation = async (email) => {
-    try {
-      setError(null)
-
-      const { error } = await supabase.auth.resend({
-        type: 'signup',
-        email: email,
-        options: {
-          emailRedirectTo: `${window.location.origin}/auth/confirm`
-        }
-      })
-
       if (error) throw error
       return { error: null }
     } catch (error) {
@@ -427,10 +368,8 @@ export const AuthProvider = ({ children }) => {
     error,
     signUp,
     signIn,
-    signInWithGoogle,
     signOut,
     resetPassword,
-    resendConfirmation,
     canCreateInvoice,
     isPremium,
     getRemainingInvoices,

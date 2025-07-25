@@ -21,7 +21,9 @@ import Modal from './Modal'
 import UserDashboard from './UserDashboard'
 import MVPStatusChecker from './MVPStatusChecker'
 import ConfigChecker from './ConfigChecker'
-import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile, FaCreditCard, FaChartBar, FaCog, FaCamera } from 'react-icons/fa'
+import SubscriptionStatus from './SubscriptionStatus'
+import StripeCheckout from './StripeCheckout'
+import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile, FaCreditCard, FaChartBar, FaCog, FaCamera, FaCrown } from 'react-icons/fa'
 
 const AuthenticatedApp = () => {
   const [activeView, setActiveView] = useState('home')
@@ -30,7 +32,8 @@ const AuthenticatedApp = () => {
   const [showMobileFeatures, setShowMobileFeatures] = useState(false)
   const [showQuickInvoice, setShowQuickInvoice] = useState(false)
   const [showPaymentStatus, setShowPaymentStatus] = useState(false)
-  const { user, canCreateInvoice, getRemainingInvoices, signOut, forceSignOut } = useAuth()
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false)
+  const { user, canCreateInvoice, getRemainingInvoices, signOut, forceSignOut, isPremium } = useAuth()
 
   // Check if current user is valid for database operations
   const isValidUser = user && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(user.id)
@@ -39,7 +42,7 @@ const AuthenticatedApp = () => {
   const handleCreateInvoice = () => {
     if (!canCreateInvoice()) {
       toast.warning('You have reached your free invoice limit. Please upgrade to continue.');
-      setShowUserDashboard(true)
+      setShowUpgradeModal(true)
       return
     }
     
@@ -49,7 +52,7 @@ const AuthenticatedApp = () => {
   const handlePreviewInvoice = () => {
     if (!canCreateInvoice()) {
       toast.warning('You have reached your free invoice limit. Please upgrade to continue.');
-      setShowUserDashboard(true)
+      setShowUpgradeModal(true)
       return
     }
     
@@ -64,6 +67,11 @@ const AuthenticatedApp = () => {
       // Force reload as fallback
       window.location.reload()
     }
+  }
+
+  const handleUpgradeSuccess = () => {
+    setShowUpgradeModal(false)
+    toast.success('🎉 Welcome to Lifetime Access!')
   }
 
   const renderContent = () => {
@@ -101,7 +109,7 @@ const AuthenticatedApp = () => {
               {canCreateInvoice() && (
                 <div className={styles.remainingInvoices}>
                   {getRemainingInvoices() === Infinity ? (
-                    <span className={styles.premium}>Premium Account - Unlimited Invoices</span>
+                    <span className={styles.premium}>Lifetime Access - Unlimited Invoices</span>
                   ) : (
                     <span>
                       {getRemainingInvoices()} free invoice{getRemainingInvoices() !== 1 ? 's' : ''} remaining
@@ -151,11 +159,11 @@ const AuthenticatedApp = () => {
                 </h3>
                 <div className={styles.sectionCards}>
                   <div
-                    className={`${styles.actionCard} ${user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity ? styles.premiumFeature : ''}`}
+                    className={`${styles.actionCard} ${!isPremium() ? styles.premiumFeature : ''}`}
                     onClick={() => {
-                      if (user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity) {
-                        toast.warning('Client management is available for lifetime users. Upgrade to unlock!');
-                        setShowUserDashboard(true);
+                      if (!isPremium()) {
+                        toast.warning('Client management is available for Lifetime Access users. Upgrade to unlock!');
+                        setShowUpgradeModal(true);
                         return;
                       }
                       setActiveView('clients');
@@ -166,16 +174,16 @@ const AuthenticatedApp = () => {
                     </div>
                     <h4>Clients</h4>
                     <p>Organize client information</p>
-                    {user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity && (
+                    {!isPremium() && (
                       <div className={styles.premiumBadge}>Premium</div>
                     )}
                   </div>
                   <div
-                    className={`${styles.actionCard} ${user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity ? styles.premiumFeature : ''}`}
+                    className={`${styles.actionCard} ${!isPremium() ? styles.premiumFeature : ''}`}
                     onClick={() => {
-                      if (user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity) {
-                        toast.warning('Payment tracking is available for lifetime users. Upgrade to unlock!');
-                        setShowUserDashboard(true);
+                      if (!isPremium()) {
+                        toast.warning('Payment tracking is available for Lifetime Access users. Upgrade to unlock!');
+                        setShowUpgradeModal(true);
                         return;
                       }
                       setActiveView('payments');
@@ -186,16 +194,16 @@ const AuthenticatedApp = () => {
                     </div>
                     <h4>Payments</h4>
                     <p>Track payment status</p>
-                    {user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity && (
+                    {!isPremium() && (
                       <div className={styles.premiumBadge}>Premium</div>
                     )}
                   </div>
                   <div
-                    className={`${styles.actionCard} ${user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity ? styles.premiumFeature : ''}`}
+                    className={`${styles.actionCard} ${!isPremium() ? styles.premiumFeature : ''}`}
                     onClick={() => {
-                      if (user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity) {
-                        toast.warning('Reports & analytics are available for lifetime users. Upgrade to unlock!');
-                        setShowUserDashboard(true);
+                      if (!isPremium()) {
+                        toast.warning('Reports & analytics are available for Lifetime Access users. Upgrade to unlock!');
+                        setShowUpgradeModal(true);
                         return;
                       }
                       setActiveView('reports');
@@ -206,7 +214,7 @@ const AuthenticatedApp = () => {
                     </div>
                     <h4>Reports</h4>
                     <p>Revenue and analytics</p>
-                    {user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity && (
+                    {!isPremium() && (
                       <div className={styles.premiumBadge}>Premium</div>
                     )}
                   </div>
@@ -221,11 +229,11 @@ const AuthenticatedApp = () => {
                 </h3>
                 <div className={styles.sectionCards}>
                   <div
-                    className={`${styles.actionCard} ${user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity ? styles.premiumFeature : ''}`}
+                    className={`${styles.actionCard} ${!isPremium() ? styles.premiumFeature : ''}`}
                     onClick={() => {
-                      if (user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity) {
-                        toast.warning('Advanced templates are available for lifetime users. Upgrade to unlock!');
-                        setShowUserDashboard(true);
+                      if (!isPremium()) {
+                        toast.warning('Advanced templates are available for Lifetime Access users. Upgrade to unlock!');
+                        setShowUpgradeModal(true);
                         return;
                       }
                       setActiveView('templates');
@@ -236,7 +244,7 @@ const AuthenticatedApp = () => {
                     </div>
                     <h4>Templates</h4>
                     <p>Customize invoice designs</p>
-                    {user && getRemainingInvoices() <= 3 && getRemainingInvoices() !== Infinity && (
+                    {!isPremium() && (
                       <div className={styles.premiumBadge}>Premium</div>
                     )}
                   </div>
@@ -291,9 +299,9 @@ const AuthenticatedApp = () => {
       <header className={styles.header}>
         <div className={styles.headerLeft}>
           <h1 onClick={() => setActiveView('home')} className={styles.logo}>Invoice Direct</h1>
-
         </div>
         <div className={styles.headerActions}>
+          <SubscriptionStatus />
           <button
             onClick={() => setShowUserDashboard(true)}
             className={styles.userButton}
@@ -301,6 +309,15 @@ const AuthenticatedApp = () => {
           >
             <FaUser />
           </button>
+          {!isPremium() && (
+            <button
+              onClick={() => setShowUpgradeModal(true)}
+              className={styles.upgradeButton}
+              title="Upgrade to Lifetime Access"
+            >
+              <FaCrown />
+            </button>
+          )}
           <button
             onClick={handleSignOut}
             className={styles.logoutButton}
@@ -348,10 +365,10 @@ const AuthenticatedApp = () => {
           <p>
             You've reached your free invoice limit.
             <button
-              onClick={() => setShowUserDashboard(true)}
+              onClick={() => setShowUpgradeModal(true)}
               className={styles.upgradeLink}
             >
-              Upgrade to Premium - $10 Lifetime
+              Upgrade to Lifetime Access - $10 One-time
             </button>
           </p>
         </div>
@@ -396,6 +413,16 @@ const AuthenticatedApp = () => {
       {showPaymentStatus && (
         <Modal onClose={() => setShowPaymentStatus(false)}>
           <PaymentStatusUpdater onClose={() => setShowPaymentStatus(false)} />
+        </Modal>
+      )}
+
+      {showUpgradeModal && (
+        <Modal onClose={() => setShowUpgradeModal(false)}>
+          <StripeCheckout
+            productId="lifetimeAccess"
+            onSuccess={handleUpgradeSuccess}
+            onCancel={() => setShowUpgradeModal(false)}
+          />
         </Modal>
       )}
 

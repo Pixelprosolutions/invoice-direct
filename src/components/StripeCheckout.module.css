@@ -1,109 +1,38 @@
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  backdrop-filter: blur(5px);
-  animation: fadeIn 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.modal {
+.checkoutContainer {
   background: white;
-  border-radius: 20px;
-  max-width: 600px;
-  width: 95%;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.25),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
-  animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 2rem 1rem;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.header h2 {
-  margin: 0;
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #1e293b;
-}
-
-.closeButton {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: #64748b;
-  cursor: pointer;
-  padding: 0;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.closeButton:hover {
-  background: #f1f5f9;
-  color: #1e293b;
-}
-
-.content {
+  border-radius: 12px;
   padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
 }
 
 .productInfo {
+  text-align: center;
   margin-bottom: 2rem;
 }
 
-.productHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.productHeader h3 {
-  margin: 0;
+.productInfo h2 {
+  margin: 0 0 1rem 0;
+  color: #1e293b;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1e293b;
+}
+
+.description {
+  margin: 0 0 1.5rem 0;
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .price {
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .amount {
@@ -121,96 +50,37 @@
   font-weight: 600;
 }
 
-.savings {
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.savingsLabel {
-  display: block;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
-}
-
-.originalPrice {
-  font-size: 0.9rem;
-  opacity: 0.9;
-  text-decoration: line-through;
-}
-
-.features h4 {
-  margin: 0 0 1rem 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.features ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.features li {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-  color: #1e293b;
-  font-size: 1rem;
-}
-
-.features svg {
-  color: #10b981;
-  font-size: 1rem;
-  flex-shrink: 0;
-}
-
-.paymentSection {
-  background: #f8fafc;
-  padding: 2rem;
-  border-radius: 16px;
-  border: 1px solid #e2e8f0;
-}
-
 .securityBadges {
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
-  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .securityBadge {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: #059669;
   font-weight: 500;
-  padding: 0.75rem 1rem;
-  background: white;
+  padding: 0.5rem 1rem;
+  background: rgba(16, 185, 129, 0.1);
   border-radius: 8px;
   border: 1px solid rgba(16, 185, 129, 0.2);
-  flex: 1;
-  min-width: 200px;
 }
 
 .securityBadge svg {
   font-size: 1rem;
 }
 
-.paymentButton {
+.checkoutButton {
   width: 100%;
   background: linear-gradient(135deg, #4f46e5, #7c3aed);
   color: white;
   border: none;
-  padding: 1.5rem 2rem;
-  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   border-radius: 12px;
   cursor: pointer;
@@ -219,19 +89,43 @@
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
 }
 
-.paymentButton:hover:not(:disabled) {
+.checkoutButton:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 12px 30px rgba(79, 70, 229, 0.4);
 }
 
-.paymentButton:disabled {
+.checkoutButton:disabled {
   opacity: 0.7;
   cursor: not-allowed;
   transform: none;
+}
+
+.cancelButton {
+  width: 100%;
+  background: white;
+  color: #64748b;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelButton:hover:not(:disabled) {
+  background: #f8fafc;
+  color: #374151;
+  border-color: #9ca3af;
+}
+
+.cancelButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .spinner {
@@ -243,168 +137,27 @@
   to { transform: rotate(360deg); }
 }
 
-.demoNotice {
-  background: #fef3c7;
-  border: 1px solid #f59e0b;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-
-.demoNotice p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #92400e;
-  font-weight: 500;
-}
-
-.trust {
-  text-align: center;
-  color: #059669;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-.trust p {
-  margin: 0;
-}
-
-.footer {
-  padding: 1.5rem 2rem;
-  border-top: 1px solid #e2e8f0;
-  text-align: center;
-  background: #f8fafc;
-  border-radius: 0 0 20px 20px;
-}
-
-.footer p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #64748b;
-}
-
-.footer a {
-  color: #4f46e5;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.footer a:hover {
-  text-decoration: underline;
-}
-
-/* Success Modal Styles */
-.successContent {
-  text-align: center;
-  padding: 3rem 2rem;
-}
-
-.successIcon {
-  font-size: 4rem;
-  color: #10b981;
-  margin-bottom: 1.5rem;
-}
-
-.successContent h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 1rem;
-}
-
-.successContent p {
-  font-size: 1.2rem;
-  color: #64748b;
-  margin-bottom: 2rem;
-}
-
-.successFeatures {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.feature {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: #10b981;
-  font-weight: 600;
-}
-
-.feature svg {
-  font-size: 1.2rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .modal {
-    margin: 1rem;
-    max-height: 95vh;
-  }
-  
-  .header,
-  .content {
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .checkoutContainer {
     padding: 1.5rem;
   }
-  
-  .paymentSection {
-    padding: 1.5rem;
+
+  .productInfo h2 {
+    font-size: 1.25rem;
   }
-  
-  .productHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-  
-  .securityBadges {
-    flex-direction: column;
-  }
-  
-  .securityBadge {
-    min-width: auto;
-  }
-  
+
   .amount {
     font-size: 2rem;
   }
-  
-  .paymentButton {
-    padding: 1.25rem;
-    font-size: 1.1rem;
-  }
-}
 
-@media (max-width: 480px) {
-  .modal {
-    margin: 0.5rem;
+  .securityBadges {
+    flex-direction: column;
+    gap: 0.5rem;
   }
-  
-  .header,
-  .content {
-    padding: 1rem;
-  }
-  
-  .paymentSection {
-    padding: 1rem;
-  }
-  
-  .amount {
-    font-size: 1.75rem;
-  }
-  
-  .successContent {
-    padding: 2rem 1rem;
-  }
-  
-  .successIcon {
-    font-size: 3rem;
-  }
-  
-  .successContent h2 {
-    font-size: 1.5rem;
+
+  .checkoutButton {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
   }
 }
