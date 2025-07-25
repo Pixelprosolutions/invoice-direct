@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { 
+import {
   FaPalette, FaPlus, FaSearch, FaFilter, FaStar, FaEye, FaEdit, FaTrash, FaCopy,
-  FaBriefcase, FaPaintBrush, FaHammer, FaShoppingCart, FaLaptopCode, FaHeartbeat, FaCog
+  FaBriefcase, FaPaintBrush, FaHammer, FaShoppingCart, FaLaptopCode, FaHeartbeat, FaCog, FaArrowLeft
 } from 'react-icons/fa'
 import { templatePresets, templateCategories } from '../data/templatePresets'
 import TemplateGallery from './TemplateGallery'
