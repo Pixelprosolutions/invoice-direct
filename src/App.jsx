@@ -12,7 +12,10 @@ function App() {
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [authMode, setAuthMode] = useState('signin')
 
-  const { user, loading, error } = useAuth()
+  const { user, loading, error, devLogin } = useAuth()
+
+  // Check if Supabase is configured
+  const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY
 
   // Check if this is a password reset callback
   const isPasswordReset = window.location.pathname.includes('reset-password') ||
