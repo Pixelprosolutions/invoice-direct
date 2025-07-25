@@ -43,10 +43,16 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
           </p>
           <div className={styles.heroActions}>
             <button onClick={onSignUp} className={styles.primaryButton}>
-              <FaRocket /> Create Your First Invoice Free
+              <FaRocket /> Start Creating Invoices Free
             </button>
+            <p className={styles.ctaNote}>
+              ✓ No credit card required • ✓ Setup in 2 minutes • ✓ 3 free invoices
+            </p>
+          </div>
+
+          <div className={styles.heroSecondary}>
             <button onClick={onSignIn} className={styles.secondaryButton}>
-              Sign In
+              Already have an account? Sign In
             </button>
           </div>
           <div className={styles.heroTrust}>
