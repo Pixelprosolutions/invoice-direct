@@ -1,5 +1,9 @@
 # Handle password reset redirects with query parameters
 /reset-password /index.html 200
 
+# Handle payment success redirects
+/payment-success /index.html 200
+/payment-cancelled /index.html 200
+
 # Handle all other routes
 /* /index.html 200
