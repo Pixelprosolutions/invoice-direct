@@ -223,6 +223,14 @@ export const AuthProvider = ({ children }) => {
 
       console.log('🔄 Attempting Google OAuth signin...')
 
+      // Check if Supabase is properly configured
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+      if (!supabaseUrl || !supabaseKey) {
+        throw new Error('Google sign-in requires Supabase configuration. Please set up your environment variables.')
+      }
+
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
@@ -240,8 +248,11 @@ export const AuthProvider = ({ children }) => {
       return { data, error: null }
     } catch (error) {
       console.error('❌ Google signin failed:', error.message || error)
-      setError(error.message)
-      return { data: null, error }
+      const errorMessage = error.message === 'Supabase not configured - please set up Google OAuth'
+        ? 'Google sign-in is not available in development mode. Please set up Supabase configuration.'
+        : error.message || 'Failed to sign in with Google'
+      setError(errorMessage)
+      return { data: null, error: { message: errorMessage } }
     } finally {
       setLoading(false)
     }
