@@ -342,11 +342,18 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
           </div>
           
           <div className={styles.pricingNote}>
-            <div className={styles.savingsBadge}>
-              <span className={styles.savingsText}>💰 Save $39/year with lifetime deal!</span>
+            <div className={styles.dealHighlight}>
+              <div className={styles.savingsBadge}>
+                <span className={styles.savingsText}>Save $39/year with lifetime deal!</span>
+              </div>
+              <div className={styles.limitedTimeOffer}>
+                <div className={styles.offerText}>
+                  <span className={styles.limitedLabel}>Limited Time Offer</span>
+                  <p className={styles.offerDetails}>Get Professional for life at just <strong>$10</strong></p>
+                  <p className={styles.regularPrice}>Regular price: <span className={styles.strikethrough}>$49/year</span></p>
+                </div>
+              </div>
             </div>
-            <p>🎉 <strong>Limited Time:</strong> Get Professional for life at just $10. Regular price $49/year.</p>
-
           </div>
         </div>
       </section>
