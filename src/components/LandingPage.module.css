@@ -879,7 +879,8 @@ html {
   gap: 1rem;
   margin-bottom: 1rem;
   color: #1e293b;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
+  font-weight: 500;
   padding: 0.5rem 0;
 }
 
