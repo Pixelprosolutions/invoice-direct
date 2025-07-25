@@ -458,42 +458,7 @@
   }
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .authenticatedApp {
-    background: #0f172a;
-    color: #e2e8f0;
-  }
 
-  .header {
-    background: #1e293b;
-    border-color: #334155;
-  }
-
-  .welcomeSection,
-  .actionCard,
-  .formSection {
-    background: #1e293b;
-    border-color: #334155;
-  }
-
-  .navButton {
-    color: #94a3b8;
-  }
-
-  .navButton:hover {
-    background: #334155;
-    color: #e2e8f0;
-  }
-
-  .actionCard h3 {
-    color: #e2e8f0;
-  }
-
-  .actionCard p {
-    color: #94a3b8;
-  }
-}
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
