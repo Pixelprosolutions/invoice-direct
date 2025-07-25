@@ -272,8 +272,11 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
                 <p>"The best invoice generator I've used. Clean interface, powerful features, and the $10 lifetime deal is incredible value."</p>
               </div>
               <div className={styles.testimonialAuthor}>
-                <strong>Mike Chen</strong>
-                <span>Marketing Consultant</span>
+                <div className={styles.authorAvatar} style={{background: 'linear-gradient(135deg, #10b981, #059669)'}}>MC</div>
+                <div className={styles.authorInfo}>
+                  <strong>Mike Chen</strong>
+                  <span>Marketing Consultant • San Francisco, CA</span>
+                </div>
               </div>
             </div>
 
