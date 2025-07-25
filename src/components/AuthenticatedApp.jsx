@@ -9,16 +9,18 @@ import ClientManagement from './ClientManagement'
 import BusinessProfile from './BusinessProfile'
 import TemplateManager from './TemplateManager'
 import QuickActions from './QuickActions'
+import MobileFeaturesHub from './MobileFeaturesHub'
 import Modal from './Modal'
 import UserDashboard from './UserDashboard'
 import MVPStatusChecker from './MVPStatusChecker'
 import ConfigChecker from './ConfigChecker'
-import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt } from 'react-icons/fa'
+import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile } from 'react-icons/fa'
 
 const AuthenticatedApp = () => {
   const [activeView, setActiveView] = useState('home')
   const [showPreview, setShowPreview] = useState(false)
   const [showUserDashboard, setShowUserDashboard] = useState(false)
+  const [showMobileFeatures, setShowMobileFeatures] = useState(false)
   const { user, canCreateInvoice, getRemainingInvoices, signOut } = useAuth()
 
   const handleCreateInvoice = () => {
@@ -127,6 +129,14 @@ const AuthenticatedApp = () => {
                 </div>
                 <h3>Invoice Templates</h3>
                 <p>Choose professional designs for your invoices</p>
+              </div>
+
+              <div className={styles.actionCard} onClick={() => setShowMobileFeatures(true)}>
+                <div className={styles.actionIcon}>
+                  <FaMobile />
+                </div>
+                <h3>Mobile Features</h3>
+                <p>Quick invoice creation and mobile-optimized tools</p>
               </div>
             </div>
             
@@ -240,6 +250,12 @@ const AuthenticatedApp = () => {
       {showUserDashboard && (
         <Modal onClose={() => setShowUserDashboard(false)}>
           <UserDashboard onClose={() => setShowUserDashboard(false)} />
+        </Modal>
+      )}
+
+      {showMobileFeatures && (
+        <Modal onClose={() => setShowMobileFeatures(false)}>
+          <MobileFeaturesHub onClose={() => setShowMobileFeatures(false)} />
         </Modal>
       )}
     </div>
