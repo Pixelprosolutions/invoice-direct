@@ -922,10 +922,10 @@ html {
 }
 
 .pricingNote p {
-  font-size: 1.05rem;
-  color: #64748b;
+  font-size: 1.15rem;
+  color: #1e293b;
   margin: 1rem 0;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .savingsBadge {
