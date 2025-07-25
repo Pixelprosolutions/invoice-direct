@@ -57,6 +57,11 @@ function InvoicePreview() {
             await saveInvoice(user.id, invoiceData);
             await incrementInvoiceCount(user.id);
             await refreshProfile();
+
+            // Mark as saved to prevent duplicates
+            hasSaved.current = true;
+            savedInvoiceId.current = invoiceId;
+
             toast.success('Invoice saved to database successfully!');
           } else if (supabaseUrl && supabaseKey && !isValidUUID) {
             // Supabase is configured but user ID is invalid (probably dev user)
