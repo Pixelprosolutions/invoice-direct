@@ -13,13 +13,23 @@ import Watermark from './Watermark';
 function InvoicePreview() {
   const { invoiceData, appliedTemplate } = useInvoice();
   const { user, userProfile, refreshProfile } = useAuth();
-  
+
+  // Track whether we've already saved this invoice to prevent duplicates
+  const hasSaved = useRef(false);
+  const savedInvoiceId = useRef(null);
+
   // Ensure lineItems exists before calculating totals
   const lineItems = invoiceData?.lineItems || [];
   const { subtotal, tax, total } = useMemo(() =>
     calculateTotals(lineItems),
     [lineItems]
   );
+
+  // Create a stable invoice identifier for duplicate prevention
+  const invoiceId = useMemo(() => {
+    if (!invoiceData) return null;
+    return `${invoiceData.invoiceNumber}-${invoiceData.invoiceDate}-${user?.id}`;
+  }, [invoiceData?.invoiceNumber, invoiceData?.invoiceDate, user?.id]);
 
   // Save invoice and increment count when component mounts
   useEffect(() => {
