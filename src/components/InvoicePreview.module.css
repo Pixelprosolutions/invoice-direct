@@ -104,7 +104,8 @@
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #1F2937;
+  color: var(--primary-color, #1F2937);
+  font-family: var(--header-font, 'Inter');
 }
 
 .businessInfo p {
