@@ -277,6 +277,23 @@ const AuthenticatedApp = () => {
         </div>
       </header>
 
+      {!isSupabaseConfigured && (
+        <div className={styles.devBanner}>
+          <p>
+            <strong>Development Mode:</strong> Running without database.
+            Data is stored locally and will be lost on browser refresh.
+            <a
+              href="https://github.com/supabase/supabase"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.configLink}
+            >
+              Configure Supabase →
+            </a>
+          </p>
+        </div>
+      )}
+
       {!canCreateInvoice() && (
         <div className={styles.limitBanner}>
           <p>
