@@ -120,6 +120,80 @@
   gap: 1.75rem;
 }
 
+.emailForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.googleButton {
+  background: white;
+  color: #374151;
+  border: 2px solid #e5e7eb;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.googleButton:hover:not(:disabled) {
+  border-color: #4285f4;
+  background: #fafafa;
+  transform: translateY(-1px);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.googleButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.googleButton svg:first-child {
+  color: #4285f4;
+  font-size: 1.2rem;
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e5e7eb;
+  z-index: 1;
+}
+
+.divider span {
+  background: white;
+  color: #9ca3af;
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
+}
+
 .formGroup {
   display: flex;
   flex-direction: column;
