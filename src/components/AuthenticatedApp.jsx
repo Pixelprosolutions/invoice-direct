@@ -13,13 +13,14 @@ import MobileFeaturesHub from './MobileFeaturesHub'
 import QuickInvoiceForm from './QuickInvoiceForm'
 import PaymentStatusUpdater from './PaymentStatusUpdater'
 import PaymentTracking from './PaymentTracking'
+import Reports from './Reports'
 import OverdueAlerts from './OverdueAlerts'
 import FloatingActionButton from './FloatingActionButton'
 import Modal from './Modal'
 import UserDashboard from './UserDashboard'
 import MVPStatusChecker from './MVPStatusChecker'
 import ConfigChecker from './ConfigChecker'
-import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile, FaCreditCard } from 'react-icons/fa'
+import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile, FaCreditCard, FaChartBar } from 'react-icons/fa'
 
 const AuthenticatedApp = () => {
   const [activeView, setActiveView] = useState('home')
@@ -78,6 +79,8 @@ const AuthenticatedApp = () => {
         return <TemplateManager />
       case 'payments':
         return <PaymentTracking />
+      case 'reports':
+        return <Reports />
       case 'test':
         return <MVPStatusChecker />
       case 'config':
@@ -224,6 +227,12 @@ const AuthenticatedApp = () => {
               onClick={() => setActiveView('payments')}
             >
               <FaCreditCard /> Payments
+            </button>
+            <button
+              className={`${styles.navButton} ${activeView === 'reports' ? styles.active : ''}`}
+              onClick={() => setActiveView('reports')}
+            >
+              <FaChartBar /> Reports
             </button>
           </nav>
         </div>
