@@ -522,12 +522,23 @@
     font-size: 1.3rem;
   }
 
+  .main {
+    padding: 0.75rem;
+  }
+
+  .welcomeSection {
+    padding: 1.25rem 0.75rem;
+    margin-bottom: 1rem;
+  }
+
   .welcomeSection h2 {
     font-size: 1.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .welcomeSection p {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
   }
 
   .userButton {
@@ -542,13 +553,25 @@
     padding: 0.625rem;
   }
 
+  .navigationSections {
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
   .navigationSection {
     padding: 1rem;
+    border-radius: 10px;
   }
 
   .sectionTitle {
     font-size: 1.125rem;
     gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .sectionIcon {
+    font-size: 1rem;
   }
 
   .sectionCards {
@@ -557,18 +580,40 @@
   }
 
   .actionCard {
-    padding: 1.25rem;
-    border-radius: 10px;
+    padding: 1rem;
+    border-radius: 8px;
+    min-height: 90px;
+    text-align: center;
   }
 
   .actionIcon {
-    width: 48px;
-    height: 48px;
-    font-size: 1.125rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+    margin: 0 auto 0.75rem;
+  }
+
+  .actionCard h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .actionCard p {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    color: #6b7280;
+  }
+
+  .premiumBadge {
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.65rem;
   }
 
   .homeContent {
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .quickActions {
