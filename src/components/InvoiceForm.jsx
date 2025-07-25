@@ -63,7 +63,14 @@ const InvoiceForm = ({ onPreview }) => {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.formHeader}>
-        <h2>Invoice Details</h2>
+        <div className={styles.headerContent}>
+          <h2>Invoice Details</h2>
+          {appliedTemplate && (
+            <div className={styles.templateIndicator}>
+              <span>📋 Using template: <strong>{appliedTemplate.name}</strong></span>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className={styles.formSection}>
