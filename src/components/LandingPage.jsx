@@ -398,6 +398,13 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
           </div>
         </div>
       </section>
+
+      {/* Sticky CTA for mobile */}
+      <div className={styles.stickyCta}>
+        <button onClick={onSignUp} className={styles.stickyCtaButton}>
+          <FaRocket /> Start Free
+        </button>
+      </div>
     </div>
   )
 }
