@@ -197,54 +197,77 @@ const AuthenticatedApp = () => {
         <div className={styles.headerLeft}>
           <h1 onClick={() => setActiveView('home')} className={styles.logo}>Invoice Direct</h1>
           <nav className={styles.navigation}>
-            <button 
+            <button
               className={`${styles.navButton} ${activeView === 'home' ? styles.active : ''}`}
               onClick={() => setActiveView('home')}
             >
-              <FaHome /> Home
+              <FaHome />
+              <span className={styles.navText}>Home</span>
             </button>
-            <button 
+            <button
               className={`${styles.navButton} ${activeView === 'create' ? styles.active : ''}`}
               onClick={handleCreateInvoice}
             >
-              <FaFileInvoice /> Create
+              <FaFileInvoice />
+              <span className={styles.navText}>Create</span>
             </button>
             <button
               className={`${styles.navButton} ${activeView === 'history' ? styles.active : ''}`}
               onClick={() => setActiveView('history')}
             >
-              <FaHistory /> History
+              <FaHistory />
+              <span className={styles.navText}>History</span>
             </button>
             <button
               className={`${styles.navButton} ${activeView === 'clients' ? styles.active : ''}`}
               onClick={() => setActiveView('clients')}
             >
-              <FaUsers /> Clients
-            </button>
-            <button
-              className={`${styles.navButton} ${activeView === 'templates' ? styles.active : ''}`}
-              onClick={() => setActiveView('templates')}
-            >
-              <FaPalette /> Templates
-            </button>
-            <button
-              className={`${styles.navButton} ${activeView === 'business' ? styles.active : ''}`}
-              onClick={() => setActiveView('business')}
-            >
-              <FaBuilding /> Business
+              <FaUsers />
+              <span className={styles.navText}>Clients</span>
             </button>
             <button
               className={`${styles.navButton} ${activeView === 'payments' ? styles.active : ''}`}
               onClick={() => setActiveView('payments')}
             >
-              <FaCreditCard /> Payments
+              <FaCreditCard />
+              <span className={styles.navText}>Payments</span>
             </button>
             <button
               className={`${styles.navButton} ${activeView === 'reports' ? styles.active : ''}`}
               onClick={() => setActiveView('reports')}
             >
-              <FaChartBar /> Reports
+              <FaChartBar />
+              <span className={styles.navText}>Reports</span>
             </button>
+
+            <div className={styles.navDropdown}>
+              <button
+                className={`${styles.navButton} ${styles.dropdownToggle} ${['templates', 'business'].includes(activeView) ? styles.active : ''}`}
+                onClick={() => setActiveView(activeView === 'templates' ? 'business' : 'templates')}
+              >
+                <FaCog />
+                <span className={styles.navText}>Setup</span>
+                <svg className={styles.dropdownIcon} width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                  <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                </svg>
+              </button>
+              <div className={styles.dropdownMenu}>
+                <button
+                  className={`${styles.dropdownItem} ${activeView === 'templates' ? styles.active : ''}`}
+                  onClick={() => setActiveView('templates')}
+                >
+                  <FaPalette />
+                  <span>Templates</span>
+                </button>
+                <button
+                  className={`${styles.dropdownItem} ${activeView === 'business' ? styles.active : ''}`}
+                  onClick={() => setActiveView('business')}
+                >
+                  <FaBuilding />
+                  <span>Business Profile</span>
+                </button>
+              </div>
+            </div>
           </nav>
         </div>
         <div className={styles.headerActions}>
