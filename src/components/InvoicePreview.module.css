@@ -383,13 +383,28 @@
     padding-bottom: 0.5rem;
   }
   
-  .invoiceHeader, .invoiceDetails {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .businessInfo, .clientInfo {
+  .invoiceHeader {
+    grid-template-columns: 1fr;
+    gap: 1rem;
     text-align: left;
+  }
+
+  .invoiceTitle {
+    text-align: left;
+  }
+
+  .clientInfo {
+    text-align: left;
+  }
+
+  .invoiceDetails {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .footerSection {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
   }
   
   .preview {
