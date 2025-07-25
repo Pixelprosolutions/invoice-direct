@@ -1,5 +1,5 @@
-# Handle password reset redirects
-/reset-password/* /index.html 200
+# Handle password reset redirects with query parameters
+/reset-password /index.html 200
 
 # Handle all other routes
 /* /index.html 200
