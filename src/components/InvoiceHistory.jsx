@@ -90,7 +90,7 @@ const InvoiceHistory = ({ setActiveView }) => {
           {invoices.map((invoice) => (
             <div key={invoice.id} className={styles.invoiceCard}>
               <div className={styles.invoiceCardHeader}>
-                <h3>Invoice #{invoice.invoiceNumber}</h3>
+                <h3>Invoice #{invoice.invoiceData?.invoiceNumber || invoice.invoiceNumber || 'N/A'}</h3>
                 <div className={styles.invoiceActions}>
                   <button 
                     onClick={() => handleViewInvoice(invoice)}
