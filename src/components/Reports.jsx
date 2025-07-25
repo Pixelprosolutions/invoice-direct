@@ -23,7 +23,7 @@ import {
 
 const Reports = () => {
   const [invoices, setInvoices] = useState([]);
-  const [activeReport, setActiveReport] = useState('income');
+  const [activeReport, setActiveReport] = useState('revenue');
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [dateRange, setDateRange] = useState({
