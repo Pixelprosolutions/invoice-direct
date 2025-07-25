@@ -107,11 +107,11 @@ html {
 }
 
 .heroSubtitle {
-  font-size: 1.25rem;
-  line-height: 1.7;
+  font-size: 1.3rem;
+  line-height: 1.8;
   margin-bottom: 3rem;
-  color: #475569;
-  font-weight: 400;
+  color: #374151;
+  font-weight: 500;
   max-width: 580px;
 }
 
