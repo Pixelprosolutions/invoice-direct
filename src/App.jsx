@@ -81,7 +81,7 @@ function App() {
             <header className={styles.landingHeader}>
               <div className={styles.headerContent}>
                 <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2Ff05c99624a914652bdf806facc6f1fbd%2F757f47c0f3614222b9add18800e94092?format=webp&width=800"
+                  src="https://cdn.builder.io/api/v1/image/assets%2Ff05c99624a914652bdf806facc6f1fbd%2Fb33ffff574254235988bcdbb3f0d67ec"
                   alt="invoice.direct"
                   className={styles.logo}
                 />
