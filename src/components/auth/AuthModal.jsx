@@ -186,6 +186,9 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
     setResetEmailSent(false)
     setConfirmationEmailSent(false)
     setNeedsEmailConfirmation(false)
+    setPasswordStrength(0)
+    setFieldErrors({})
+    setShowSuccess(false)
   }
 
   const switchMode = (newMode) => {
