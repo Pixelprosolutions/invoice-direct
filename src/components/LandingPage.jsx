@@ -105,8 +105,8 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             </div>
           </div>
           <div className={styles.demoFloating}>
-            <div className={styles.floatingBadge}>✓ Auto-saved</div>
-            <div className={styles.floatingBadge}>📧 Email sent</div>
+            <div className={styles.floatingBadge}><FaCheck /> Auto-saved</div>
+            <div className={styles.floatingBadge}><FaCheck /> Email sent</div>
           </div>
         </div>
       </section>
