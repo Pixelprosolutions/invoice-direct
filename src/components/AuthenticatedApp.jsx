@@ -112,6 +112,22 @@ const AuthenticatedApp = () => {
                 <h3>Invoice History</h3>
                 <p>View and manage your past invoices</p>
               </div>
+
+              <div className={styles.actionCard} onClick={() => setActiveView('clients')}>
+                <div className={styles.actionIcon}>
+                  <FaUsers />
+                </div>
+                <h3>Manage Clients</h3>
+                <p>Add and organize your client information</p>
+              </div>
+
+              <div className={styles.actionCard} onClick={() => setActiveView('templates')}>
+                <div className={styles.actionIcon}>
+                  <FaPalette />
+                </div>
+                <h3>Invoice Templates</h3>
+                <p>Choose professional designs for your invoices</p>
+              </div>
             </div>
             
             <div className={styles.actionCard} onClick={() => setActiveView('test')}>
