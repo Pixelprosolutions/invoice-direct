@@ -125,7 +125,16 @@ const BusinessProfile = ({ onNavigateHome }) => {
     <div className={styles.businessProfile}>
       <div className={styles.header}>
         <div className={styles.headerContent}>
-          <h2>Business Profile</h2>
+          <div className={styles.titleRow}>
+            <button
+              onClick={onNavigateHome}
+              className={styles.backButton}
+              title="Back to Home"
+            >
+              <FaArrowLeft />
+            </button>
+            <h2>Business Profile</h2>
+          </div>
           <p>Manage your business information, payment terms, and tax settings</p>
         </div>
         {hasChanges && (
