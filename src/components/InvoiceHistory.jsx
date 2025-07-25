@@ -147,8 +147,8 @@ const InvoiceHistory = ({ setActiveView }) => {
                 </div>
                 <div className={styles.detailItem}>
                   <span className={styles.detailLabel}>Status</span>
-                  <span className={`${styles.status} ${styles[invoice.status || 'pending']}`}>
-                    {invoice.status || 'Pending'}
+                  <span className={`${styles.status} ${styles[(invoice.invoiceData?.status || invoice.status || 'pending')]}`}>
+                    {(invoice.invoiceData?.status || invoice.status || 'Pending').charAt(0).toUpperCase() + (invoice.invoiceData?.status || invoice.status || 'pending').slice(1)}
                   </span>
                 </div>
               </div>
