@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styles from './LandingPage.module.css'
-import { FaFileInvoiceDollar, FaDownload, FaCheck, FaRocket, FaClock, FaUserFriends, FaShieldAlt, FaChartLine, FaPaintBrush, FaGlobeAmericas, FaMobile, FaCloudDownloadAlt, FaStar, FaArrowRight, FaLock } from 'react-icons/fa'
+import { FaFileInvoiceDollar, FaDownload, FaCheck, FaRocket, FaClock, FaUserFriends, FaShieldAlt, FaChartLine, FaPaintBrush, FaGlobeAmericas, FaMobile, FaCloudDownloadAlt, FaStar, FaArrowRight, FaLock, FaFileInvoice, FaTachometerAlt, FaUsers, FaCreditCard } from 'react-icons/fa'
 
 const LandingPage = ({ onSignUp, onSignIn }) => {
   const observerRef = useRef()
