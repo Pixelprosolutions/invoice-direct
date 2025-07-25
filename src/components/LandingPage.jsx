@@ -46,7 +46,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
               <FaRocket /> Start Creating Invoices Free
             </button>
             <p className={styles.ctaNote}>
-              ✓ No credit card required • ✓ Setup in 2 minutes • ✓ 3 free invoices
+              ✓ No credit card required • ✓ Setup in 2 minutes • ��� 3 free invoices
             </p>
           </div>
 
@@ -427,15 +427,6 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             </button>
 
             <div className={styles.ctaTrust}>
-              <div className={styles.trustRating}>
-                <div className={styles.stars}>
-                  {[...Array(5)].map((_, i) => (
-                    <FaStar key={i} className={styles.star} />
-                  ))}
-                </div>
-                <span className={styles.ratingText}>4.9/5 from 2,000+ reviews</span>
-              </div>
-
               <div className={styles.securityBadges}>
                 <div className={styles.securityBadge}>
                   <FaLock className={styles.securityIcon} />
@@ -463,6 +454,14 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
           <FaRocket /> Start Free
         </button>
       </div>
+
+      {/* Footer */}
+      <footer className={styles.footer}>
+        <div className={styles.footerContent}>
+          <p>© {new Date().getFullYear()} Invoice Direct. All rights reserved.</p>
+          <p>Developed by <a href="https://pixelpro.solutions" target="_blank" rel="noopener noreferrer">Pixelpro Solutions</a></p>
+        </div>
+      </footer>
     </div>
   )
 }
