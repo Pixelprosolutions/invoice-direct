@@ -34,6 +34,7 @@ const InvoiceHistory = ({ setActiveView, onNavigateHome }) => {
   };
 
   const handleDuplicateInvoice = (invoice) => {
+    console.log('🔄 Duplicating invoice:', invoice);
     const invoiceData = invoice.invoiceData || invoice;
     const duplicatedInvoice = {
       ...invoiceData,
@@ -41,9 +42,10 @@ const InvoiceHistory = ({ setActiveView, onNavigateHome }) => {
       invoiceDate: format(new Date(), 'yyyy-MM-dd')
     };
 
+    console.log('📋 Duplicated invoice data:', duplicatedInvoice);
     loadInvoice(duplicatedInvoice);
     setActiveView('create');
-    toast.info(`Duplicated invoice #${invoiceData.invoiceNumber || 'N/A'}`);
+    toast.success(`Invoice duplicated! Editing copy of #${invoiceData.invoiceNumber || 'N/A'}`);
   };
 
   const handleDeleteInvoice = (invoiceId) => {
