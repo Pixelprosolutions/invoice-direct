@@ -55,38 +55,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
               Already have an account? Sign In
             </button>
           </div>
-          <div className={styles.heroTrust}>
-            <div className={styles.trustItem}>
-              <FaCheck />
-              <span>No credit card required</span>
-            </div>
-            <div className={styles.trustItem}>
-              <FaCheck />
-              <span>3 free invoices</span>
-            </div>
-            <div className={styles.trustItem}>
-              <FaCheck />
-              <span>Setup in 2 minutes</span>
-            </div>
-            <div className={styles.trustItem}>
-              <FaUserFriends />
-              <span>Used by 50,000+ businesses</span>
-            </div>
-          </div>
-          <div className={styles.heroStats}>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>50K+</span>
-              <span className={styles.statLabel}>Happy Users</span>
-            </div>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>500K+</span>
-              <span className={styles.statLabel}>Invoices Generated</span>
-            </div>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>98%</span>
-              <span className={styles.statLabel}>Customer Satisfaction</span>
-            </div>
-          </div>
+
         </div>
         <div className={styles.heroVisual}>
           <div className={styles.appDemo}>
