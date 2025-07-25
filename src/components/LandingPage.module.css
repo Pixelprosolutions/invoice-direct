@@ -832,15 +832,12 @@ html {
   box-shadow:
     0 25px 50px rgba(79, 70, 229, 0.25),
     0 0 0 2px rgba(79, 70, 229, 0.2);
-}
-
-.pricingCard.popular .pricingHeader {
-  margin-top: 2rem;
+  padding-top: 3rem;
 }
 
 .popularBadge {
   position: absolute;
-  top: -15px;
+  top: -12px;
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(135deg, #4f46e5, #7c3aed);
@@ -850,6 +847,7 @@ html {
   font-size: 1rem;
   font-weight: 700;
   box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+  z-index: 10;
 }
 
 .pricingHeader {
