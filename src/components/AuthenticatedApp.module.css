@@ -426,3 +426,104 @@
     gap: 1rem;
   }
 }
+
+/* Touch-friendly improvements */
+@media (pointer: coarse) {
+  .navButton {
+    padding: 0.875rem 1rem;
+    font-size: 0.9rem;
+    min-height: 44px;
+  }
+
+  .userButton {
+    padding: 0.875rem 1.25rem;
+    min-height: 44px;
+  }
+
+  .logoutButton {
+    width: 44px;
+    height: 44px;
+    padding: 0.75rem;
+  }
+
+  .actionCard {
+    padding: 2rem 1.5rem;
+    min-height: 140px;
+  }
+
+  .actionIcon {
+    width: 72px;
+    height: 72px;
+    font-size: 1.5rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .authenticatedApp {
+    background: #0f172a;
+    color: #e2e8f0;
+  }
+
+  .header {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  .welcomeSection,
+  .actionCard,
+  .formSection {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  .navButton {
+    color: #94a3b8;
+  }
+
+  .navButton:hover {
+    background: #334155;
+    color: #e2e8f0;
+  }
+
+  .actionCard h3 {
+    color: #e2e8f0;
+  }
+
+  .actionCard p {
+    color: #94a3b8;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .actionCard,
+  .navButton,
+  .userButton,
+  .logoutButton,
+  .logo {
+    transition: none;
+  }
+
+  .actionCard:hover {
+    transform: none;
+  }
+
+  .userButton:hover,
+  .logo:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .actionCard,
+  .welcomeSection,
+  .formSection {
+    border: 2px solid;
+  }
+
+  .navButton.active {
+    border: 2px solid white;
+  }
+}
