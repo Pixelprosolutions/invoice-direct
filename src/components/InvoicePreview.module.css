@@ -313,6 +313,13 @@
   font-weight: 500;
 }
 
+.footerSection {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
 .poweredBy {
   margin-top: 0.5rem;
   font-size: 0.75rem;
