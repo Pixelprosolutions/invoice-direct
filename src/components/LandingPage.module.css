@@ -1231,28 +1231,7 @@ html {
   }
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .container {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-  }
-  
-  .heroTitle,
-  .sectionHeader h2,
-  .benefit h3,
-  .feature h3,
-  .faqItem h3 {
-    color: #f8fafc;
-  }
-  
-  .heroSubtitle,
-  .sectionHeader p,
-  .benefit p,
-  .feature p,
-  .faqItem p {
-    color: #cbd5e1;
-  }
-}
+/* Force light mode - removed dark mode support */
 
 /* Sticky CTA */
 .stickyCta {
