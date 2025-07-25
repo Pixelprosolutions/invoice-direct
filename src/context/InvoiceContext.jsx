@@ -79,7 +79,29 @@ export const InvoiceProvider = ({ children }) => {
 
   const [invoiceData, setInvoiceData] = useState(() => {
     const savedInvoice = localStorage.getItem('invoiceData');
-    return savedInvoice ? JSON.parse(savedInvoice) : defaultInvoiceData;
+    let initialData = savedInvoice ? JSON.parse(savedInvoice) : defaultInvoiceData;
+
+    // Load business profile data if available
+    const businessProfile = localStorage.getItem('businessProfile');
+    if (businessProfile) {
+      try {
+        const profile = JSON.parse(businessProfile);
+        initialData = {
+          ...initialData,
+          businessName: profile.businessName || initialData.businessName,
+          businessAddress: `${profile.businessAddress || ''}\n${profile.businessCity || ''}, ${profile.businessState || ''} ${profile.businessZip || ''}`.trim() || initialData.businessAddress,
+          logo: profile.businessLogo || '',
+          contactInfo: {
+            email: profile.businessEmail || initialData.contactInfo.email,
+            phone: profile.businessPhone || initialData.contactInfo.phone
+          }
+        };
+      } catch (error) {
+        console.error('Error loading business profile on init:', error);
+      }
+    }
+
+    return initialData;
   });
 
   const applyTemplateToInvoice = (template) => {
