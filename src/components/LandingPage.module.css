@@ -662,6 +662,14 @@ html {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
+.testimonialRating {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+  color: #fbbf24;
+  font-size: 1.1rem;
+}
+
 .testimonialContent p {
   font-style: italic;
   color: #1e293b;
