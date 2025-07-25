@@ -127,8 +127,9 @@
 .invoiceTitle h2 {
   font-size: 2rem;
   font-weight: 800;
-  color: #1F2937;
+  color: var(--primary-color, #1F2937);
   letter-spacing: 0.05em;
+  font-family: var(--header-font, 'Inter');
 }
 
 .invoiceStatus {
