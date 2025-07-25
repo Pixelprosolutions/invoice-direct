@@ -251,10 +251,9 @@ const AuthenticatedApp = () => {
           <button
             onClick={() => setShowUserDashboard(true)}
             className={styles.userButton}
-            title="User Dashboard"
+            title={`User Dashboard - ${user.email}`}
           >
             <FaUser />
-            <span className={styles.userEmail}>{user.email}</span>
           </button>
           <button
             onClick={handleSignOut}
