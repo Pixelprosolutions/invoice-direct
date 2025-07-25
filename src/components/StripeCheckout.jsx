@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { STRIPE_CONFIG, createCheckoutSession, simulatePayment, formatPrice } from '../stripe-config'
 import { useAuth } from '../context/AuthContext'
+import { supabase } from '../lib/supabase'
 import { triggerPaymentSuccess } from './PaymentWebhookHandler'
 import { FaLock, FaCheckCircle, FaSpinner, FaCreditCard, FaShieldAlt } from 'react-icons/fa'
 import { toast } from 'react-toastify'
@@ -57,10 +58,17 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
 
       toast.info('Creating checkout session...')
       
+      // Get the user's session token
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session?.access_token) {
+        throw new Error('User not authenticated')
+      }
+      
       const session = await createCheckoutSession(
         product.priceId,
         user.email,
-        user.id
+        user.id,
+        session.access_token
       )
       
       if (session.url) {

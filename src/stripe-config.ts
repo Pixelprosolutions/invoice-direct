@@ -13,13 +13,13 @@ export const STRIPE_CONFIG = {
 }
 
 // Create checkout session
-export const createCheckoutSession = async (priceId, customerEmail, userId) => {
+export const createCheckoutSession = async (priceId, customerEmail, userId, userToken) => {
   try {
     const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-checkout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        'Authorization': `Bearer ${userToken}`,
       },
       body: JSON.stringify({
         price_id: priceId,
