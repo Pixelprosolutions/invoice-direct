@@ -120,7 +120,7 @@ const InvoiceHistory = ({ setActiveView }) => {
                 <div className={styles.detailItem}>
                   <span className={styles.detailLabel}>Client</span>
                   <span className={styles.detailValue}>
-                    {invoice.clientName || 'Unnamed Client'}
+                    {invoice.invoiceData?.clientName || invoice.clientName || 'Unnamed Client'}
                   </span>
                 </div>
                 <div className={styles.detailItem}>
