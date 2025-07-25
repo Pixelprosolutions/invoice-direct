@@ -100,7 +100,10 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
       const { error } = await signInWithGoogle()
       if (error) {
         console.error('❌ Google OAuth error:', error)
-        setLocalError(error.message || 'Failed to sign in with Google')
+        const errorMessage = error.message?.includes('development mode') || error.message?.includes('not configured')
+          ? 'Google sign-in is not available in development mode. Please use email/password sign-in or set up Supabase configuration.'
+          : error.message || 'Failed to sign in with Google'
+        setLocalError(errorMessage)
         setIsSubmitting(false)
       }
       // Note: If successful, user will be redirected to Google OAuth, then back to the app
@@ -108,7 +111,10 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
       // Don't reset isSubmitting here as the redirect is happening
     } catch (err) {
       console.error('❌ Google signin error:', err)
-      setLocalError(err.message || 'Failed to sign in with Google')
+      const errorMessage = err.message?.includes('development mode') || err.message?.includes('not configured')
+        ? 'Google sign-in is not available in development mode. Please use email/password sign-in.'
+        : err.message || 'Failed to sign in with Google'
+      setLocalError(errorMessage)
       setIsSubmitting(false)
     }
   }
