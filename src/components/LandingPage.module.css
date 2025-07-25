@@ -463,10 +463,11 @@ html {
 }
 
 .sectionHeader p {
-  font-size: 1.2rem;
-  color: #64748b;
+  font-size: 1.25rem;
+  color: #475569;
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.7;
+  font-weight: 500;
 }
 
 /* Benefits Section */
