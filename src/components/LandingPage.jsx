@@ -214,6 +214,9 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
           
           <div className={styles.testimonials}>
             <div className={styles.testimonial}>
+              <div className={styles.testimonialRating}>
+                <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
+              </div>
               <div className={styles.testimonialContent}>
                 <p>"Invoice Direct saved me hours every week. I can create professional invoices in under a minute and my clients pay me 50% faster now."</p>
               </div>
