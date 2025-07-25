@@ -156,8 +156,9 @@ html {
 }
 
 .primaryButton:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(79, 70, 229, 0.5);
+  background: #4338ca;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
 }
 
 .secondaryButton {
