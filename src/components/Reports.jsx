@@ -541,7 +541,7 @@ const Reports = () => {
           
           <div className={styles.summaryCard}>
             <div className={styles.cardIcon} style={{ backgroundColor: '#7c3aed' }}>
-              <FaTrendUp />
+              <FaArrowUp />
             </div>
             <div className={styles.cardContent}>
               <h3>${clientData.length > 0 ? (totalRevenue / clientData.length).toFixed(2) : '0.00'}</h3>
