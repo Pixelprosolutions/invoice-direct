@@ -372,15 +372,39 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
             {mode === 'signup' && (
               <div className={styles.formGroup}>
                 <label htmlFor="confirmPassword">Confirm Password</label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                  placeholder="Confirm your password"
-                  minLength={6}
-                />
+                <div className={`${styles.inputWrapper} ${fieldErrors.confirmPassword ? styles.inputError : ''} ${confirmPassword && confirmPassword === password ? styles.inputValid : ''}`}>
+                  <FaLock className={styles.inputIcon} />
+                  <div className={styles.passwordInput}>
+                    <input
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      id="confirmPassword"
+                      value={confirmPassword}
+                      onChange={(e) => {
+                        setConfirmPassword(e.target.value)
+                        validateField('confirmPassword', e.target.value)
+                      }}
+                      onBlur={(e) => validateField('confirmPassword', e.target.value)}
+                      required
+                      placeholder="Confirm your password"
+                      minLength={6}
+                      className={fieldErrors.confirmPassword ? styles.errorInput : ''}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className={styles.passwordToggle}
+                    >
+                      {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
+                  {confirmPassword && confirmPassword === password && <FaCheck className={styles.validIcon} />}
+                </div>
+                {fieldErrors.confirmPassword && (
+                  <span className={styles.fieldError}>
+                    <FaExclamationTriangle />
+                    {fieldErrors.confirmPassword}
+                  </span>
+                )}
               </div>
             )}
 
