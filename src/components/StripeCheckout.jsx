@@ -22,19 +22,12 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
       const result = await simulatePayment(user.email, user.id)
       
       if (result.success) {
-        // Update user to premium in localStorage for demo
-        const userProfile = JSON.parse(localStorage.getItem('userProfile') || '{}')
-        userProfile.plan = 'premium'
-        userProfile.paymentDate = new Date().toISOString()
-        userProfile.transactionId = result.sessionId
-        localStorage.setItem('userProfile', JSON.stringify(userProfile))
-        
         setPaymentSuccess(true)
         toast.success('🎉 Payment successful! Welcome to Premium!')
-        
-        // Refresh the auth context
-        await refreshProfile()
-        
+
+        // Trigger webhook simulation
+        triggerPaymentSuccess(result.sessionId, user.email)
+
         setTimeout(() => {
           onSuccess(result)
         }, 2000)
