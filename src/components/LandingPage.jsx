@@ -407,7 +407,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
               <span>Setup in 2 minutes</span>
             </div>
             <div className={styles.ctaFeature}>
-              <FaShield className={styles.ctaFeatureIcon} />
+              <FaShieldAlt className={styles.ctaFeatureIcon} />
               <span>30-day money-back guarantee</span>
             </div>
           </div>
