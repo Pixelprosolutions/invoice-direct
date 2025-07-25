@@ -68,6 +68,7 @@ function App() {
   // Only show authenticated app if user is logged in
   return (
     <ErrorBoundary>
+      <PaymentWebhookHandler />
       <div className={styles.container}>
         {!user ? (
           <>
