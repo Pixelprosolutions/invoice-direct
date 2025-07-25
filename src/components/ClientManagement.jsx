@@ -89,7 +89,16 @@ const ClientManagement = ({ onNavigateHome }) => {
     <div className={styles.clientManagement}>
       <div className={styles.header}>
         <div className={styles.headerContent}>
-          <h2>Client Management</h2>
+          <div className="title-row">
+            <button
+              onClick={onNavigateHome}
+              className="back-button"
+              title="Back to Home"
+            >
+              <FaArrowLeft />
+            </button>
+            <h2>Client Management</h2>
+          </div>
           <p>Manage your client directory and track payment history</p>
         </div>
         <button onClick={handleAddClient} className={styles.addButton}>
