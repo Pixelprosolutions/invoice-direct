@@ -1,15 +1,38 @@
 import React, { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import styles from './UserDashboard.module.css'
-import { FaUser, FaCrown, FaFileInvoice, FaChartLine } from 'react-icons/fa'
+import { FaUser, FaCrown, FaFileInvoice, FaChartLine, FaCheckCircle, FaTimes } from 'react-icons/fa'
+import { toast } from 'react-toastify'
+import StripeCheckout from './StripeCheckout'
 
 const UserDashboard = ({ onClose }) => {
   const { user, userProfile, isPremium, getRemainingInvoices } = useAuth()
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
+  const [showStripeCheckout, setShowStripeCheckout] = useState(false)
 
   const remainingInvoices = getRemainingInvoices()
-  const usagePercentage = userProfile ? 
+  const usagePercentage = userProfile ?
     (userProfile.invoice_count / (isPremium() ? 100 : 3)) * 100 : 0
+
+  const handleUpgradeClick = () => {
+    setShowUpgradeModal(false)
+    setShowStripeCheckout(true)
+  }
+
+  const handlePaymentSuccess = (paymentResult) => {
+    console.log('Payment successful:', paymentResult)
+    toast.success('🎉 Welcome to Premium! Your account has been upgraded.')
+    setShowStripeCheckout(false)
+    // Close the dashboard to let user see the updated UI
+    setTimeout(() => {
+      onClose()
+    }, 2000)
+  }
+
+  const handlePaymentCancel = () => {
+    setShowStripeCheckout(false)
+    setShowUpgradeModal(true)
+  }
 
   return (
     <div className={styles.dashboard}>
@@ -153,14 +176,11 @@ const UserDashboard = ({ onClose }) => {
             </ul>
 
             <div className={styles.upgradeActions}>
-              <button 
-                onClick={() => {
-                  // TODO: Implement Stripe checkout
-                  console.log('Redirect to Stripe checkout')
-                }}
+              <button
+                onClick={handleUpgradeClick}
                 className={styles.checkoutButton}
               >
-                Upgrade Now - $9 Lifetime
+                Upgrade Now - $10 Lifetime
               </button>
               <button 
                 onClick={() => setShowUpgradeModal(false)}
@@ -172,6 +192,12 @@ const UserDashboard = ({ onClose }) => {
           </div>
         </div>
       )}
+
+      <StripeCheckout
+        isOpen={showStripeCheckout}
+        onSuccess={handlePaymentSuccess}
+        onCancel={handlePaymentCancel}
+      />
     </div>
   )
 }

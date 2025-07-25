@@ -30,7 +30,11 @@ const AuthenticatedApp = () => {
   const [showMobileFeatures, setShowMobileFeatures] = useState(false)
   const [showQuickInvoice, setShowQuickInvoice] = useState(false)
   const [showPaymentStatus, setShowPaymentStatus] = useState(false)
-  const { user, canCreateInvoice, getRemainingInvoices, signOut } = useAuth()
+  const { user, canCreateInvoice, getRemainingInvoices, signOut, forceSignOut } = useAuth()
+
+  // Check if current user is valid for database operations
+  const isValidUser = user && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(user.id)
+  const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY
 
   const handleCreateInvoice = () => {
     if (!canCreateInvoice()) {
@@ -166,25 +170,9 @@ const AuthenticatedApp = () => {
                 <div className={styles.actionIcon}>
                   <FaChartBar />
                 </div>
-                <h3>App Status Check</h3>
-                <p>Check features and populate test data</p>
+                <h3>Reports & Analytics</h3>
+                <p>View detailed revenue and expense reports</p>
               </div>
-            </div>
-            
-            <div className={styles.actionCard} onClick={() => setActiveView('test')}>
-              <div className={styles.actionIcon}>
-                <FaFileInvoice />
-              </div>
-              <h3>Test MVP Features</h3>
-              <p>Check if all features are working properly</p>
-            </div>
-            
-            <div className={styles.actionCard} onClick={() => setActiveView('config')}>
-              <div className={styles.actionIcon}>
-                <FaFileInvoice />
-              </div>
-              <h3>Check Supabase Config</h3>
-              <p>Verify database and authentication setup</p>
             </div>
           </div>
         )
@@ -273,6 +261,38 @@ const AuthenticatedApp = () => {
           </button>
         </div>
       </header>
+
+      {isSupabaseConfigured && !isValidUser && (
+        <div className={styles.errorBanner}>
+          <p>
+            <strong>Session Error:</strong> Your current session is not compatible with the database.
+            Please sign in with a valid account.
+            <button
+              onClick={forceSignOut}
+              className={styles.signOutLink}
+            >
+              Sign Out & Continue →
+            </button>
+          </p>
+        </div>
+      )}
+
+      {!isSupabaseConfigured && (
+        <div className={styles.devBanner}>
+          <p>
+            <strong>Development Mode:</strong> Running without database.
+            Data is stored locally and will be lost on browser refresh.
+            <a
+              href="https://github.com/supabase/supabase"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.configLink}
+            >
+              Configure Supabase →
+            </a>
+          </p>
+        </div>
+      )}
 
       {!canCreateInvoice() && (
         <div className={styles.limitBanner}>

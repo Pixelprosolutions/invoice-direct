@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useRef, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { FaDownload, FaPrint, FaEnvelope, FaShare } from 'react-icons/fa';
 import { generatePDF } from '../utils/pdfGenerator';
@@ -13,7 +13,11 @@ import Watermark from './Watermark';
 function InvoicePreview() {
   const { invoiceData, appliedTemplate } = useInvoice();
   const { user, userProfile, refreshProfile } = useAuth();
-  
+
+  // Track whether we've already saved this invoice to prevent duplicates
+  const hasSaved = useRef(false);
+  const savedInvoiceId = useRef(null);
+
   // Ensure lineItems exists before calculating totals
   const lineItems = invoiceData?.lineItems || [];
   const { subtotal, tax, total } = useMemo(() =>
@@ -21,30 +25,107 @@ function InvoicePreview() {
     [lineItems]
   );
 
+  // Create a stable invoice identifier for duplicate prevention
+  const invoiceId = useMemo(() => {
+    if (!invoiceData) return null;
+    return `${invoiceData.invoiceNumber}-${invoiceData.invoiceDate}-${user?.id}`;
+  }, [invoiceData?.invoiceNumber, invoiceData?.invoiceDate, user?.id]);
+
   // Save invoice and increment count when component mounts
   useEffect(() => {
     const saveInvoiceData = async () => {
+      // Prevent duplicate saves
+      if (!user || !invoiceData || !invoiceId) return;
+
+      // Check if we've already saved this exact invoice
+      if (hasSaved.current && savedInvoiceId.current === invoiceId) {
+        console.log('📝 Invoice already saved, skipping duplicate save');
+        return;
+      }
+
       if (user && invoiceData) {
         try {
-          // Save invoice to database
-          await saveInvoice(user.id, invoiceData);
-          
-          // Increment user's invoice count
-          await incrementInvoiceCount(user.id);
-          
-          // Refresh user profile to update count
-          await refreshProfile();
-          
-          toast.success('Invoice saved successfully!');
+          // Check if Supabase is configured
+          const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+          const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+          // Validate user ID format for database operations
+          const isValidUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(user.id);
+
+          if (supabaseUrl && supabaseKey && isValidUUID) {
+            // Save to Supabase if configured and user ID is valid
+            await saveInvoice(user.id, invoiceData);
+            await incrementInvoiceCount(user.id);
+            await refreshProfile();
+
+            // Mark as saved to prevent duplicates
+            hasSaved.current = true;
+            savedInvoiceId.current = invoiceId;
+
+            toast.success('Invoice saved to database successfully!');
+          } else if (supabaseUrl && supabaseKey && !isValidUUID) {
+            // Supabase is configured but user ID is invalid
+            console.warn('Invalid user ID for database:', user.id);
+            throw new Error('Please sign in with a valid account to save to database');
+          } else {
+            // Fallback to localStorage when Supabase is not configured
+            const savedInvoices = JSON.parse(localStorage.getItem('savedInvoices') || '[]');
+            const invoiceRecord = {
+              id: Date.now().toString(),
+              user_id: user.id,
+              invoice_data: invoiceData,
+              status: 'draft',
+              created_at: new Date().toISOString()
+            };
+
+            savedInvoices.push(invoiceRecord);
+            // Keep only last 100 invoices to prevent storage overflow
+            if (savedInvoices.length > 100) {
+              savedInvoices.splice(0, savedInvoices.length - 100);
+            }
+
+            localStorage.setItem('savedInvoices', JSON.stringify(savedInvoices));
+
+            // Mark as saved to prevent duplicates
+            hasSaved.current = true;
+            savedInvoiceId.current = invoiceId;
+
+            toast.success('Invoice saved locally!');
+          }
         } catch (error) {
           console.error('Failed to save invoice:', error.message || error);
-          toast.error(`Failed to save invoice: ${error.message || 'Database connection issue'}`);
+          // If Supabase fails, fall back to localStorage
+          if (error.message === 'Supabase not configured' || error.message.includes('Supabase not configured')) {
+            try {
+              const savedInvoices = JSON.parse(localStorage.getItem('savedInvoices') || '[]');
+              const invoiceRecord = {
+                id: Date.now().toString(),
+                user_id: user.id,
+                invoice_data: invoiceData,
+                status: 'draft',
+                created_at: new Date().toISOString()
+              };
+
+              savedInvoices.push(invoiceRecord);
+              localStorage.setItem('savedInvoices', JSON.stringify(savedInvoices));
+
+              // Mark as saved to prevent duplicates
+              hasSaved.current = true;
+              savedInvoiceId.current = invoiceId;
+
+              toast.success('Invoice saved locally (database not configured)');
+            } catch (localError) {
+              toast.error('Failed to save invoice locally');
+            }
+          } else {
+            toast.error(`Failed to save invoice: ${error.message || 'Unknown error'}`);
+          }
         }
       }
     };
 
     saveInvoiceData();
-  }, [user, invoiceData, refreshProfile]);
+  }, [invoiceId]); // Only run when the invoice identity changes
 
   // Early return if data isn't loaded yet
   if (!invoiceData) {
@@ -173,18 +254,20 @@ function InvoicePreview() {
           }}
         >
           <div className={styles.invoiceHeader}>
-            {/* Left: Business Info */}
-            <div className={styles.businessInfo}>
+            {/* Left: Business Info with Logo */}
+            <div className={styles.businessSection}>
               {invoiceData.logo && (
-                <div className={styles.logo}>
-                  <img src={invoiceData.logo} alt={`${invoiceData.businessName} Logo`} />
+                <div className={styles.logoContainer}>
+                  <img src={invoiceData.logo} alt={`${invoiceData.businessName} Logo`} className={styles.logoImage} />
                 </div>
               )}
-              <h1>{invoiceData.businessName || 'Your Business Name'}</h1>
-              <p>{invoiceData.businessAddress || 'Your Business Address'}</p>
-              <div className={styles.contactInfo}>
-                {invoiceData.contactInfo?.phone && <p>{invoiceData.contactInfo.phone}</p>}
-                {invoiceData.contactInfo?.email && <p>{invoiceData.contactInfo.email}</p>}
+              <div className={styles.businessInfo}>
+                <h1>{invoiceData.businessName || 'Your Business Name'}</h1>
+                <p>{invoiceData.businessAddress || 'Your Business Address'}</p>
+                <div className={styles.contactInfo}>
+                  {invoiceData.contactInfo?.phone && <p>{invoiceData.contactInfo.phone}</p>}
+                  {invoiceData.contactInfo?.email && <p>{invoiceData.contactInfo.email}</p>}
+                </div>
               </div>
             </div>
 

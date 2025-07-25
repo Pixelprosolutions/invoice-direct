@@ -32,10 +32,25 @@ export const AuthProvider = ({ children }) => {
     const initializeAuth = async () => {
       try {
         console.log('🔄 Initializing auth...')
-        
+
+        // Check if Supabase is configured and clear dev user if needed
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+        const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+        if (supabaseUrl && supabaseKey) {
+          // If Supabase is configured, clear any dev user session
+          const currentUser = user || { id: localStorage.getItem('dev-user-id') }
+          if (currentUser && currentUser.id === 'dev-user-123') {
+            console.log('🔄 Clearing dev user session - Supabase is now configured')
+            setUser(null)
+            setUserProfile(null)
+            localStorage.removeItem('dev-user-id')
+          }
+        }
+
         // Try to get session with a shorter timeout
         const sessionPromise = supabase.auth.getSession()
-        const timeoutPromise = new Promise((_, reject) => 
+        const timeoutPromise = new Promise((_, reject) =>
           setTimeout(() => reject(new Error('Session timeout')), 5000)
         )
         
@@ -231,13 +246,33 @@ export const AuthProvider = ({ children }) => {
   const resetPassword = async (email) => {
     try {
       setError(null)
-      
+
       // Get the current origin dynamically
       const redirectTo = `${window.location.origin}/reset-password`
-      
+
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: redirectTo
       })
+      if (error) throw error
+      return { error: null }
+    } catch (error) {
+      setError(error.message)
+      return { error }
+    }
+  }
+
+  const resendConfirmation = async (email) => {
+    try {
+      setError(null)
+
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email: email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/confirm`
+        }
+      })
+
       if (error) throw error
       return { error: null }
     } catch (error) {
@@ -274,6 +309,21 @@ export const AuthProvider = ({ children }) => {
     if (!user) return
 
     try {
+      // First check localStorage for premium upgrade (demo mode)
+      const localProfile = localStorage.getItem('userProfile')
+      if (localProfile) {
+        try {
+          const parsedProfile = JSON.parse(localProfile)
+          if (parsedProfile.id === user.id) {
+            setUserProfile(parsedProfile)
+            return
+          }
+        } catch (e) {
+          console.warn('Error parsing local profile:', e)
+        }
+      }
+
+      // Fallback to Supabase profile
       const profile = await getUserProfile(user.id)
       setUserProfile(profile || {
         id: user.id,
@@ -288,7 +338,17 @@ export const AuthProvider = ({ children }) => {
   }
 
   const devLogin = () => {
-    console.log('🔧 Dev login activated')
+    // Check if Supabase is configured - if so, don't allow dev login
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+    if (supabaseUrl && supabaseKey) {
+      console.warn('🚫 Dev login disabled - Supabase is configured. Please use Sign In/Sign Up.')
+      setError('Development login is disabled when database is configured. Please sign in normally.')
+      return
+    }
+
+    console.log('🔧 Dev login activated (Supabase not configured)')
     const mockUser = {
       id: 'dev-user-123',
       email: 'dev@invoicedirect.app',
@@ -308,6 +368,16 @@ export const AuthProvider = ({ children }) => {
     setLoading(false)
   }
 
+  const forceSignOut = () => {
+    console.log('🔄 Force sign out - clearing all session data')
+    setUser(null)
+    setUserProfile(null)
+    setError(null)
+    localStorage.removeItem('invoiceData')
+    localStorage.removeItem('savedInvoices')
+    localStorage.removeItem('dev-user-id')
+  }
+
   const value = {
     user,
     userProfile,
@@ -317,11 +387,13 @@ export const AuthProvider = ({ children }) => {
     signIn,
     signOut,
     resetPassword,
+    resendConfirmation,
     canCreateInvoice,
     isPremium,
     getRemainingInvoices,
     refreshProfile,
-    devLogin
+    devLogin,
+    forceSignOut
   }
 
   return (

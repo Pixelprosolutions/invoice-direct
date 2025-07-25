@@ -13,8 +13,10 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
   const [localError, setLocalError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [resetEmailSent, setResetEmailSent] = useState(false)
+  const [confirmationEmailSent, setConfirmationEmailSent] = useState(false)
+  const [needsEmailConfirmation, setNeedsEmailConfirmation] = useState(false)
 
-  const { signIn, signUp, resetPassword, error, loading, devLogin } = useAuth()
+  const { signIn, signUp, resetPassword, resendConfirmation, error, loading, devLogin } = useAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -48,12 +50,23 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
         console.log('🔄 Starting signin process...')
         const { error } = await signIn(email, password)
         console.log('📊 Signin result:', error ? 'Failed' : 'Success')
-        
+
         if (!error) {
           onClose()
         } else {
           console.error('❌ Signin failed:', error.message || error)
-          setLocalError(error.message || 'Failed to sign in')
+
+          // Check if error is related to email confirmation
+          if (error.message && (
+            error.message.toLowerCase().includes('email not confirmed') ||
+            error.message.toLowerCase().includes('not confirmed') ||
+            error.message.toLowerCase().includes('confirm your email')
+          )) {
+            setNeedsEmailConfirmation(true)
+            setLocalError('')
+          } else {
+            setLocalError(error.message || 'Failed to sign in')
+          }
         }
       } else if (mode === 'reset') {
         const { error } = await resetPassword(email)
@@ -71,12 +84,33 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
     }
   }
 
+  const handleResendConfirmation = async () => {
+    setIsSubmitting(true)
+    setLocalError('')
+
+    try {
+      const { error } = await resendConfirmation(email)
+      if (!error) {
+        setConfirmationEmailSent(true)
+        setLocalError('')
+      } else {
+        setLocalError(error.message || 'Failed to resend confirmation email')
+      }
+    } catch (err) {
+      setLocalError(err.message || 'Failed to resend confirmation email')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const resetForm = () => {
     setEmail('')
     setPassword('')
     setConfirmPassword('')
     setLocalError('')
     setResetEmailSent(false)
+    setConfirmationEmailSent(false)
+    setNeedsEmailConfirmation(false)
   }
 
   const switchMode = (newMode) => {
@@ -106,12 +140,55 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
           <div className={styles.successMessage}>
             <h3>Check your email</h3>
             <p>We've sent a password reset link to {email}</p>
-            <button 
+            <button
               onClick={() => switchMode('signin')}
               className={styles.linkButton}
             >
               Back to Sign In
             </button>
+          </div>
+        ) : needsEmailConfirmation ? (
+          <div className={styles.confirmationMessage}>
+            <h3>Email Confirmation Required</h3>
+            <p>Your account needs email verification before you can sign in.</p>
+            <p>Please check your email at <strong>{email}</strong> for a confirmation link.</p>
+
+            {confirmationEmailSent ? (
+              <div className={styles.resendSuccess}>
+                <p>✅ Confirmation email sent! Check your inbox and spam folder.</p>
+              </div>
+            ) : (
+              <div className={styles.resendSection}>
+                <p>Didn't receive the email?</p>
+                <button
+                  onClick={handleResendConfirmation}
+                  className={styles.resendButton}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <FaSpinner className={styles.spinner} />
+                      Sending...
+                    </>
+                  ) : (
+                    'Resend Confirmation Email'
+                  )}
+                </button>
+              </div>
+            )}
+
+            <div className={styles.confirmationFooter}>
+              <button
+                onClick={() => {
+                  setNeedsEmailConfirmation(false)
+                  setConfirmationEmailSent(false)
+                  setLocalError('')
+                }}
+                className={styles.linkButton}
+              >
+                Back to Sign In
+              </button>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className={styles.authForm}>
@@ -172,22 +249,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
               </div>
             )}
 
-            {/* Dev Login Button */}
-            <div className={styles.devLoginSection}>
-              <button
-                type="button"
-                onClick={() => {
-                  devLogin()
-                  onClose()
-                }}
-                className={styles.devLoginButton}
-              >
-                🔧 Dev Login (Skip Auth)
-              </button>
-              <p className={styles.devLoginText}>
-                For development/testing - bypasses authentication
-              </p>
-            </div>
+
 
             <button 
               type="submit" 

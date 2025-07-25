@@ -171,6 +171,91 @@
   font-size: 0.875rem;
 }
 
+.confirmationMessage {
+  text-align: center;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.confirmationMessage h3 {
+  margin: 0 0 0.75rem 0;
+  color: #92400e;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.confirmationMessage p {
+  margin: 0 0 1rem 0;
+  color: #92400e;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.resendSection {
+  background: white;
+  border: 1px solid #f3f4f6;
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.resendSection p {
+  margin: 0 0 0.75rem 0;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.resendButton {
+  background: #f59e0b;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.resendButton:hover:not(:disabled) {
+  background: #d97706;
+  transform: translateY(-1px);
+}
+
+.resendButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.resendSuccess {
+  background: #ecfdf5;
+  border: 1px solid #10b981;
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.resendSuccess p {
+  margin: 0;
+  color: #047857;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.confirmationFooter {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
 .authFooter {
   margin-top: 1.5rem;
   text-align: center;
