@@ -11,7 +11,7 @@ import Modal from './Modal'
 import UserDashboard from './UserDashboard'
 import MVPStatusChecker from './MVPStatusChecker'
 import ConfigChecker from './ConfigChecker'
-import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding } from 'react-icons/fa'
+import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette } from 'react-icons/fa'
 
 const AuthenticatedApp = () => {
   const [activeView, setActiveView] = useState('home')
