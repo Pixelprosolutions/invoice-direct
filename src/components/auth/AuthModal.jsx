@@ -21,7 +21,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
   const [fieldErrors, setFieldErrors] = useState({})
   const [showSuccess, setShowSuccess] = useState(false)
 
-  const { signIn, signUp, resetPassword, resendConfirmation, error, loading, devLogin } = useAuth()
+  const { signIn, signUp, signInWithGoogle, resetPassword, resendConfirmation, error, loading, devLogin } = useAuth()
 
   // Email validation
   useEffect(() => {
