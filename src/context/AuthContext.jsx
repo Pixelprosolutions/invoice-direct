@@ -416,6 +416,7 @@ export const AuthProvider = ({ children }) => {
     error,
     signUp,
     signIn,
+    signInWithGoogle,
     signOut,
     resetPassword,
     resendConfirmation,
