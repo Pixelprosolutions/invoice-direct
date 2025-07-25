@@ -291,7 +291,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const canCreateInvoice = () => {
-    if (!userProfile) return false
+    if (!userProfile) return true // New users should be able to create invoices
     if (userProfile.plan === 'premium') return true
     return userProfile.invoice_count < 3
   }
@@ -305,7 +305,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const getRemainingInvoices = () => {
-    if (!userProfile) return 0
+    if (!userProfile) return 3 // New users get 3 free invoices
     // Test account for development - remove in production
     if (user?.email === 'hello@pixelpro.solutions') {
       return Infinity
