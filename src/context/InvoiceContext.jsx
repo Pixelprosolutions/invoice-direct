@@ -95,6 +95,7 @@ export const InvoiceProvider = ({ children }) => {
         businessData = {
           businessName: profile.businessName || defaultInvoiceData.businessName,
           businessAddress: `${profile.businessAddress || ''}\n${profile.businessCity || ''}, ${profile.businessState || ''} ${profile.businessZip || ''}`.trim(),
+          logo: profile.businessLogo || '',
           contactInfo: {
             email: profile.businessEmail || defaultInvoiceData.contactInfo.email,
             phone: profile.businessPhone || defaultInvoiceData.contactInfo.phone
