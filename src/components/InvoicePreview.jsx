@@ -202,6 +202,7 @@ function InvoicePreview() {
 
           <div className={styles.invoiceDetails}>
             <div className={styles.invoiceInfo}>
+              <h3>Invoice Details</h3>
               <div className={styles.infoRow}>
                 <span className={styles.infoLabel}>Invoice Number:</span>
                 <span className={styles.infoValue}>{invoiceData.invoiceNumber}</span>
@@ -222,12 +223,24 @@ function InvoicePreview() {
               )}
             </div>
 
-            <div className={styles.clientInfo}>
-              <h3>Bill To:</h3>
-              <p className={styles.clientName}>{invoiceData.clientName || 'Client Name'}</p>
-              <p className={styles.clientAddress}>{invoiceData.clientAddress || 'Client Address'}</p>
-              {invoiceData.clientEmail && <p>Email: {invoiceData.clientEmail}</p>}
-              {invoiceData.clientPhone && <p>Phone: {invoiceData.clientPhone}</p>}
+            <div className={styles.paymentInfo}>
+              <h3>Payment Terms</h3>
+              <div className={styles.infoRow}>
+                <span className={styles.infoLabel}>Terms:</span>
+                <span className={styles.infoValue}>{invoiceData.terms || 'Net 30'}</span>
+              </div>
+              {invoiceData.bankDetails?.accountName && (
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>Account:</span>
+                  <span className={styles.infoValue}>{invoiceData.bankDetails.accountName}</span>
+                </div>
+              )}
+              {invoiceData.bankDetails?.sortCode && (
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>Sort Code:</span>
+                  <span className={styles.infoValue}>{invoiceData.bankDetails.sortCode}</span>
+                </div>
+              )}
             </div>
           </div>
 
