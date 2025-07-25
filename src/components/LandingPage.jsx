@@ -288,8 +288,11 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
                 <p>"Perfect for my small business. Professional invoices, easy client management, and excellent payment tracking. Highly recommended!"</p>
               </div>
               <div className={styles.testimonialAuthor}>
-                <strong>Emma Davis</strong>
-                <span>Business Owner</span>
+                <div className={styles.authorAvatar} style={{background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'}}>ED</div>
+                <div className={styles.authorInfo}>
+                  <strong>Emma Davis</strong>
+                  <span>Business Owner • Austin, TX</span>
+                </div>
               </div>
             </div>
           </div>
