@@ -1101,12 +1101,13 @@ html {
 }
 
 .ctaFeatureIcon {
-  color: #10b981;
-  background: rgba(16, 185, 129, 0.2);
-  padding: 0.25rem;
+  color: #ffffff;
+  background: rgba(16, 185, 129, 0.8);
+  padding: 0.3rem;
   border-radius: 50%;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .ctaActions {
