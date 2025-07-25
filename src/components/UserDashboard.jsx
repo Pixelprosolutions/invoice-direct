@@ -192,6 +192,12 @@ const UserDashboard = ({ onClose }) => {
           </div>
         </div>
       )}
+
+      <StripeCheckout
+        isOpen={showStripeCheckout}
+        onSuccess={handlePaymentSuccess}
+        onCancel={handlePaymentCancel}
+      />
     </div>
   )
 }
