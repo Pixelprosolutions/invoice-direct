@@ -1023,24 +1023,75 @@ html {
 .ctaContent {
   position: relative;
   z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.ctaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ctaBadgeIcon {
+  color: #fbbf24;
+  font-size: 1rem;
 }
 
 .ctaContent h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 900;
   margin-bottom: 1.5rem;
   color: white;
   letter-spacing: -0.025em;
+  line-height: 1.1;
 }
 
 .ctaContent p {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   margin-bottom: 3rem;
   opacity: 0.95;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.6;
+}
+
+.ctaFeatures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaFeature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.95;
+}
+
+.ctaFeatureIcon {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.2);
+  padding: 0.25rem;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  flex-shrink: 0;
 }
 
 .ctaActions {
@@ -1062,10 +1113,27 @@ html {
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  margin: 0 auto 2rem;
+  margin: 0 auto 3rem;
   min-width: 320px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.ctaButton:hover::before {
+  left: 100%;
 }
 
 .ctaButton:hover {
@@ -1074,12 +1142,105 @@ html {
   background: white;
 }
 
-.ctaSubtext {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.05rem;
-  margin: 0;
+.ctaButtonIcon {
+  font-size: 1.1rem;
+}
+
+.ctaButtonArrow {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.ctaButton:hover .ctaButtonArrow {
+  transform: translateX(4px);
+}
+
+.ctaTrust {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.trustRating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.star {
+  color: #fbbf24;
+  font-size: 1.1rem;
+}
+
+.ratingText {
+  font-size: 0.95rem;
+  opacity: 0.9;
   font-weight: 500;
-  line-height: 1.6;
+}
+
+.securityBadges {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.securityBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  font-weight: 500;
+}
+
+.securityIcon {
+  color: #10b981;
+  font-size: 1rem;
+}
+
+.ctaBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.ctaFloatingElement {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.ctaFloatingElement:nth-child(1) {
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.ctaFloatingElement:nth-child(2) {
+  top: 60%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.ctaFloatingElement:nth-child(3) {
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 4s;
 }
 
 /* Responsive Design */
