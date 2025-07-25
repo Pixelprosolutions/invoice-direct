@@ -386,16 +386,67 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
       {/* Final CTA */}
       <section className={styles.finalCta}>
         <div className={styles.ctaContent}>
+          <div className={styles.ctaBadge}>
+            <FaStar className={styles.ctaBadgeIcon} />
+            Trusted by 50,000+ Businesses
+          </div>
           <h2>Ready to Transform Your Invoicing?</h2>
-          <p>Join 50,000+ professionals who trust Invoice Direct to get paid faster</p>
+          <p>Join thousands of professionals who switched to Invoice Direct to save time and get paid faster</p>
+
+          <div className={styles.ctaFeatures}>
+            <div className={styles.ctaFeature}>
+              <FaCheck className={styles.ctaFeatureIcon} />
+              <span>No credit card required</span>
+            </div>
+            <div className={styles.ctaFeature}>
+              <FaCheck className={styles.ctaFeatureIcon} />
+              <span>3 free invoices</span>
+            </div>
+            <div className={styles.ctaFeature}>
+              <FaCheck className={styles.ctaFeatureIcon} />
+              <span>Setup in 2 minutes</span>
+            </div>
+            <div className={styles.ctaFeature}>
+              <FaShield className={styles.ctaFeatureIcon} />
+              <span>30-day money-back guarantee</span>
+            </div>
+          </div>
+
           <div className={styles.ctaActions}>
             <button onClick={onSignUp} className={styles.ctaButton}>
-              <FaRocket /> Start Creating Invoices Free
+              <FaRocket className={styles.ctaButtonIcon} />
+              Start Creating Invoices Free
+              <FaArrowRight className={styles.ctaButtonArrow} />
             </button>
-            <p className={styles.ctaSubtext}>
-              ✅ No credit card required • ✅ 3 free invoices • ✅ Setup in 2 minutes • ✅ 30-day money-back guarantee
-            </p>
+
+            <div className={styles.ctaTrust}>
+              <div className={styles.trustRating}>
+                <div className={styles.stars}>
+                  {[...Array(5)].map((_, i) => (
+                    <FaStar key={i} className={styles.star} />
+                  ))}
+                </div>
+                <span className={styles.ratingText}>4.9/5 from 2,000+ reviews</span>
+              </div>
+
+              <div className={styles.securityBadges}>
+                <div className={styles.securityBadge}>
+                  <FaLock className={styles.securityIcon} />
+                  <span>SSL Secured</span>
+                </div>
+                <div className={styles.securityBadge}>
+                  <FaShield className={styles.securityIcon} />
+                  <span>GDPR Compliant</span>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+
+        <div className={styles.ctaBackground}>
+          <div className={styles.ctaFloatingElement}></div>
+          <div className={styles.ctaFloatingElement}></div>
+          <div className={styles.ctaFloatingElement}></div>
         </div>
       </section>
 
