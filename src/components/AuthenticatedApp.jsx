@@ -75,17 +75,17 @@ const AuthenticatedApp = () => {
           </section>
         )
       case 'history':
-        return <InvoiceHistory setActiveView={setActiveView} />
+        return <InvoiceHistory setActiveView={setActiveView} onNavigateHome={() => setActiveView('home')} />
       case 'clients':
-        return <ClientManagement />
+        return <ClientManagement onNavigateHome={() => setActiveView('home')} />
       case 'business':
         return <BusinessProfile onNavigateHome={() => setActiveView('home')} />
       case 'templates':
-        return <TemplateManager />
+        return <TemplateManager onNavigateHome={() => setActiveView('home')} />
       case 'payments':
-        return <PaymentTracking />
+        return <PaymentTracking onNavigateHome={() => setActiveView('home')} />
       case 'reports':
-        return <Reports />
+        return <Reports onNavigateHome={() => setActiveView('home')} />
       case 'status':
         return <AppStatusChecker />
       case 'test':
