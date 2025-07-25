@@ -174,12 +174,8 @@
   border: 1px solid rgba(var(--primary-color-rgb, 79, 70, 229), 0.1);
 }
 
-.invoiceInfo, .clientInfo {
-  flex: 1;
-}
-
-.clientInfo {
-  text-align: right;
+.invoiceInfo {
+  text-align: left;
 }
 
 .clientInfo h3, .invoiceInfo h3 {
