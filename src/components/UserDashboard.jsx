@@ -176,14 +176,11 @@ const UserDashboard = ({ onClose }) => {
             </ul>
 
             <div className={styles.upgradeActions}>
-              <button 
-                onClick={() => {
-                  // TODO: Implement Stripe checkout
-                  console.log('Redirect to Stripe checkout')
-                }}
+              <button
+                onClick={handleUpgradeClick}
                 className={styles.checkoutButton}
               >
-                Upgrade Now - $9 Lifetime
+                Upgrade Now - $10 Lifetime
               </button>
               <button 
                 onClick={() => setShowUpgradeModal(false)}
