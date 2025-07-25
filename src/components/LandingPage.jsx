@@ -32,7 +32,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <div className={styles.heroBadge}>
-            ✨ #1 Invoice Software with Lifetime Pricing
+            Best Free Invoice Maker Online
           </div>
           <h1 className={styles.heroTitle}>
             Professional Invoice Software for Freelancers & Small Businesses
