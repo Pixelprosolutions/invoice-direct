@@ -315,8 +315,8 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             </div>
             
             <div className={`${styles.pricingCard} ${styles.popular}`}>
-              <div className={styles.popularBadge}>🔥 Most Popular</div>
               <div className={styles.pricingHeader}>
+                <div className={styles.recommendedText}>Recommended</div>
                 <h3>Professional</h3>
                 <div className={styles.price}>
                   <span className={styles.amount}>$10</span>
