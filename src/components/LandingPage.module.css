@@ -117,10 +117,22 @@ html {
 
 .heroActions {
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
   align-items: center;
-  flex-wrap: wrap;
+}
+
+.heroSecondary {
+  margin-bottom: 3rem;
+}
+
+.ctaNote {
+  font-size: 0.95rem;
+  color: #059669;
+  margin: 0;
+  font-weight: 600;
+  text-align: center;
 }
 
 .primaryButton {
