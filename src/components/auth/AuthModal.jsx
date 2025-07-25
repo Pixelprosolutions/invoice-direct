@@ -113,8 +113,10 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
         
         if (!error) {
           setLocalError('')
-          setLocalError('Account created successfully! Please check your email for verification.')
-          onClose()
+          setShowSuccess(true)
+          setTimeout(() => {
+            onClose()
+          }, 2000)
         } else {
           console.error('❌ Signup failed:', error.message || error)
           setLocalError(error.message || 'Failed to create account')
