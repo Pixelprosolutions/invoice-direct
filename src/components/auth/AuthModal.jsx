@@ -13,8 +13,10 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
   const [localError, setLocalError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [resetEmailSent, setResetEmailSent] = useState(false)
+  const [confirmationEmailSent, setConfirmationEmailSent] = useState(false)
+  const [needsEmailConfirmation, setNeedsEmailConfirmation] = useState(false)
 
-  const { signIn, signUp, resetPassword, error, loading, devLogin } = useAuth()
+  const { signIn, signUp, resetPassword, resendConfirmation, error, loading, devLogin } = useAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
