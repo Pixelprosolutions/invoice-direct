@@ -8,10 +8,31 @@ import StripeCheckout from './StripeCheckout'
 const UserDashboard = ({ onClose }) => {
   const { user, userProfile, isPremium, getRemainingInvoices } = useAuth()
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
+  const [showStripeCheckout, setShowStripeCheckout] = useState(false)
 
   const remainingInvoices = getRemainingInvoices()
-  const usagePercentage = userProfile ? 
+  const usagePercentage = userProfile ?
     (userProfile.invoice_count / (isPremium() ? 100 : 3)) * 100 : 0
+
+  const handleUpgradeClick = () => {
+    setShowUpgradeModal(false)
+    setShowStripeCheckout(true)
+  }
+
+  const handlePaymentSuccess = (paymentResult) => {
+    console.log('Payment successful:', paymentResult)
+    toast.success('🎉 Welcome to Premium! Your account has been upgraded.')
+    setShowStripeCheckout(false)
+    // Close the dashboard to let user see the updated UI
+    setTimeout(() => {
+      onClose()
+    }, 2000)
+  }
+
+  const handlePaymentCancel = () => {
+    setShowStripeCheckout(false)
+    setShowUpgradeModal(true)
+  }
 
   return (
     <div className={styles.dashboard}>
