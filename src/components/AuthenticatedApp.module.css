@@ -268,6 +268,10 @@
   font-size: 0.875rem;
   font-weight: 500;
   border: 1px solid #bbf7d0;
+  word-wrap: break-word;
+  text-align: center;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 
@@ -281,6 +285,12 @@
   font-weight: 600;
   border: none;
   box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+  word-wrap: break-word;
+  text-align: center;
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  line-height: 1.4;
 }
 
 .navigationSections {
@@ -518,6 +528,16 @@
     margin-bottom: 1rem;
   }
 
+  .remainingInvoices,
+  .premium {
+    display: block;
+    margin: 0 auto;
+    max-width: 90%;
+    padding: 0.875rem 1rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    text-align: center;
+  }
   .formSection {
     padding: 1.5rem;
   }
@@ -547,6 +567,18 @@
     margin-bottom: 0.75rem;
   }
 
+  .remainingInvoices,
+  .premium {
+    display: block;
+    margin: 0.75rem auto 0;
+    max-width: 95%;
+    padding: 0.75rem 0.875rem;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    text-align: center;
+    word-break: break-word;
+    hyphens: auto;
+  }
   .userButton {
     width: 36px;
     height: 36px;

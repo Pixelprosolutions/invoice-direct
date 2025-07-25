@@ -1419,6 +1419,10 @@ html {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    max-width: 90%;
+    text-align: center;
+    word-wrap: break-word;
+    line-height: 1.4;
   }
 
   .heroTitle {
@@ -1426,6 +1430,8 @@ html {
     margin-bottom: 1.5rem;
     line-height: 1.1;
     max-width: 100%;
+    word-wrap: break-word;
+    hyphens: auto;
   }
 
   .heroSubtitle {
@@ -1436,6 +1442,7 @@ html {
     margin-left: auto;
     margin-right: auto;
     color: #64748b;
+    word-wrap: break-word;
   }
 
   .heroActions {
@@ -1458,6 +1465,9 @@ html {
     margin: 0 auto;
     display: flex;
     align-items: center;
+    word-wrap: break-word;
+    text-align: center;
+    line-height: 1.3;
   }
 
   .ctaNote {
@@ -1465,6 +1475,11 @@ html {
     margin-top: 0.75rem;
     color: #10b981;
     font-weight: 600;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    line-height: 1.4;
   }
 
   .heroSecondary {
@@ -1604,12 +1619,19 @@ html {
     font-size: 0.85rem;
     padding: 0.75rem 1.5rem;
     margin-bottom: 1.75rem;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
   }
 
   .heroTitle {
     font-size: clamp(2rem, 9vw, 2.5rem);
     line-height: 1.1;
     margin-bottom: 1.25rem;
+    padding: 0 0.5rem;
+    word-break: break-word;
   }
 
   .heroSubtitle {
@@ -1617,22 +1639,34 @@ html {
     line-height: 1.5;
     margin-bottom: 2.25rem;
     max-width: 100%;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
   }
 
   .primaryButton {
     max-width: 320px;
     padding: 1rem 1.5rem;
     font-size: 1rem;
+    margin: 0 auto;
+    word-wrap: break-word;
+    white-space: normal;
+    line-height: 1.3;
+    min-height: 48px;
   }
 
   .secondaryButton {
     font-size: 0.85rem;
     padding: 0.625rem 1rem;
+    word-wrap: break-word;
+    text-align: center;
   }
 
   .ctaNote {
     font-size: 0.85rem;
     line-height: 1.4;
+    padding: 0 1rem;
+    max-width: 100%;
+    word-wrap: break-word;
   }
 
   .heroVisual {
@@ -1706,32 +1740,50 @@ html {
     font-size: 0.8rem;
     padding: 0.625rem 1.25rem;
     margin-bottom: 1.5rem;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    word-break: break-word;
+    line-height: 1.5;
   }
 
   .heroTitle {
     font-size: clamp(1.75rem, 10vw, 2.25rem);
     margin-bottom: 1rem;
+    padding: 0 0.25rem;
+    word-break: break-word;
+    hyphens: auto;
   }
 
   .heroSubtitle {
     font-size: 0.95rem;
     margin-bottom: 2rem;
     line-height: 1.5;
+    padding: 0 0.25rem;
+    word-wrap: break-word;
   }
 
   .primaryButton {
     max-width: 300px;
     padding: 0.875rem 1.25rem;
     font-size: 0.9rem;
+    word-wrap: break-word;
+    white-space: normal;
+    line-height: 1.4;
+    min-height: 44px;
   }
 
   .secondaryButton {
     padding: 0.5rem 0.875rem;
     font-size: 0.8rem;
+    word-wrap: break-word;
   }
 
   .ctaNote {
     font-size: 0.8rem;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
+    line-height: 1.5;
   }
 
   .heroVisual {
@@ -1742,6 +1794,9 @@ html {
     min-width: 220px;
     padding: 0.875rem 1.25rem;
     font-size: 0.9rem;
+    word-wrap: break-word;
+    white-space: normal;
+    line-height: 1.3;
   }
 
   .benefits,
