@@ -4,16 +4,14 @@ import styles from './App.module.css'
 import ErrorBoundary from './components/ErrorBoundary'
 import LandingPage from './components/LandingPage'
 import AuthenticatedApp from './components/AuthenticatedApp'
-import LoginPage from './components/auth/LoginPage'
-import SignupPage from './components/auth/SignupPage'
-import PasswordResetPage from './components/auth/PasswordResetPage'
-import PasswordResetHandler from './components/auth/PasswordResetHandler'
-import CheckoutSuccessPage from './components/CheckoutSuccessPage'
+import AuthModal from './components/auth/AuthModal'
 import { FaSignInAlt, FaCode } from 'react-icons/fa'
 import { initializeSEO } from './utils/seoHelpers'
 
 function App() {
-  const [authMode, setAuthMode] = useState<'landing' | 'login' | 'signup' | 'reset'>('landing')
+  const [authMode, setAuthMode] = useState('landing')
+  const [showAuthModal, setShowAuthModal] = useState(false)
+  const [authModalMode, setAuthModalMode] = useState('signin')
 
   const { user, loading, error, devLogin } = useAuth()
 
@@ -25,31 +23,10 @@ function App() {
                           window.location.hash.includes('type=recovery') ||
                           window.location.search.includes('type=recovery')
 
-  // Check if this is a checkout success page
-  const isCheckoutSuccess = window.location.pathname.includes('/checkout/success')
-
   // Initialize SEO optimizations
   useEffect(() => {
     initializeSEO()
   }, [])
-
-  // Show password reset handler if it's a password reset callback
-  if (isPasswordReset) {
-    return (
-      <ErrorBoundary>
-        <PasswordResetHandler />
-      </ErrorBoundary>
-    )
-  }
-
-  // Show checkout success page
-  if (isCheckoutSuccess) {
-    return (
-      <ErrorBoundary>
-        <CheckoutSuccessPage />
-      </ErrorBoundary>
-    )
-  }
 
   if (loading) {
     return (
@@ -87,36 +64,14 @@ function App() {
     )
   }
 
-  // Show auth pages for non-authenticated users
-  if (authMode === 'login') {
-    return (
-      <ErrorBoundary>
-        <LoginPage
-          onSwitchToSignup={() => setAuthMode('signup')}
-          onSwitchToReset={() => setAuthMode('reset')}
-        />
-      </ErrorBoundary>
-    )
+  const handleSignIn = () => {
+    setAuthModalMode('signin')
+    setShowAuthModal(true)
   }
 
-  if (authMode === 'signup') {
-    return (
-      <ErrorBoundary>
-        <SignupPage
-          onSwitchToLogin={() => setAuthMode('login')}
-        />
-      </ErrorBoundary>
-    )
-  }
-
-  if (authMode === 'reset') {
-    return (
-      <ErrorBoundary>
-        <PasswordResetPage
-          onSwitchToLogin={() => setAuthMode('login')}
-        />
-      </ErrorBoundary>
-    )
+  const handleSignUp = () => {
+    setAuthModalMode('signup')
+    setShowAuthModal(true)
   }
 
   // Show landing page with auth buttons
@@ -143,14 +98,14 @@ function App() {
                   </button>
                 )}
                 <button
-                  onClick={() => setAuthMode('login')}
+                  onClick={handleSignIn}
                   className={styles.signInButton}
                 >
                   <FaSignInAlt />
                   Sign In
                 </button>
                 <button
-                  onClick={() => setAuthMode('signup')}
+                  onClick={handleSignUp}
                   className={styles.signUpButton}
                 >
                   Sign Up
@@ -160,9 +115,16 @@ function App() {
           </div>
         </header>
         <LandingPage
-          onSignUp={() => setAuthMode('signup')}
-          onSignIn={() => setAuthMode('login')}
+          onSignUp={handleSignUp}
+          onSignIn={handleSignIn}
         />
+        {showAuthModal && (
+          <AuthModal
+            isOpen={showAuthModal}
+            onClose={() => setShowAuthModal(false)}
+            initialMode={authModalMode}
+          />
+        )}
       </div>
     </ErrorBoundary>
   )

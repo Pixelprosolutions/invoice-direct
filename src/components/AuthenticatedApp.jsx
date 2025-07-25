@@ -21,7 +21,6 @@ import Modal from './Modal'
 import UserDashboard from './UserDashboard'
 import MVPStatusChecker from './MVPStatusChecker'
 import ConfigChecker from './ConfigChecker'
-import SubscriptionStatus from './SubscriptionStatus'
 import StripeCheckout from './StripeCheckout'
 import { FaUser, FaHome, FaFileInvoice, FaHistory, FaSignOutAlt, FaUsers, FaBuilding, FaPalette, FaBolt, FaMobile, FaCreditCard, FaChartBar, FaCog, FaCamera, FaCrown } from 'react-icons/fa'
 
@@ -301,7 +300,6 @@ const AuthenticatedApp = () => {
           <h1 onClick={() => setActiveView('home')} className={styles.logo}>Invoice Direct</h1>
         </div>
         <div className={styles.headerActions}>
-          <SubscriptionStatus />
           <button
             onClick={() => setShowUserDashboard(true)}
             className={styles.userButton}
@@ -419,7 +417,7 @@ const AuthenticatedApp = () => {
       {showUpgradeModal && (
         <Modal onClose={() => setShowUpgradeModal(false)}>
           <StripeCheckout
-            productId="lifetimeAccess"
+            isOpen={showUpgradeModal}
             onSuccess={handleUpgradeSuccess}
             onCancel={() => setShowUpgradeModal(false)}
           />
