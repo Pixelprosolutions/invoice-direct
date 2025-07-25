@@ -1386,53 +1386,82 @@ html {
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
-    padding: 4rem 1.5rem;
-    padding-top: 70px;
-    gap: 2.5rem;
+    padding: 2rem 1.5rem 4rem;
+    padding-top: 80px;
+    gap: 3rem;
+    min-height: auto;
+  }
+
+  .heroContent {
+    order: 2;
+    max-width: 100%;
+  }
+
+  .heroVisual {
+    order: 1;
+  }
+
+  .heroBadge {
+    font-size: 0.85rem;
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .heroTitle {
-    font-size: clamp(2rem, 8vw, 3rem);
+    font-size: clamp(2rem, 8vw, 2.75rem);
+    margin-bottom: 1rem;
+    line-height: 1.1;
   }
 
   .heroSubtitle {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .heroActions {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    margin-bottom: 1.5rem;
   }
 
-  .heroTrust {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-  }
-
-  .primaryButton,
-  .secondaryButton {
+  .primaryButton {
     width: 100%;
-    max-width: 350px;
+    max-width: 320px;
     justify-content: center;
     padding: 1rem 1.5rem;
     font-size: 1rem;
+    order: 1;
   }
 
-  .heroStats {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 1.5rem;
+  .heroSecondary {
+    order: 2;
+    margin-top: 0;
   }
 
-  .heroVisual {
-    order: -1;
+  .secondaryButton {
+    font-size: 0.9rem;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .ctaNote {
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    order: 3;
   }
 
   .appDemo {
-    transform: scale(0.85);
+    transform: scale(0.7);
     max-width: 100%;
+    margin: -2rem auto;
+  }
+
+  .demoFloating {
+    display: none; /* Hide floating badges on mobile */
   }
 
   .benefitsGrid,
