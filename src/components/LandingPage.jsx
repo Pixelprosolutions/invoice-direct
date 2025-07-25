@@ -256,8 +256,11 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
                 <p>"Invoice Direct saved me hours every week. I can create professional invoices in under a minute and my clients pay me 50% faster now."</p>
               </div>
               <div className={styles.testimonialAuthor}>
-                <strong>Sarah Johnson</strong>
-                <span>Freelance Designer</span>
+                <div className={styles.authorAvatar} style={{background: 'linear-gradient(135deg, #f59e0b, #ea580c)'}}>SJ</div>
+                <div className={styles.authorInfo}>
+                  <strong>Sarah Johnson</strong>
+                  <span>Freelance Designer • Boston, MA</span>
+                </div>
               </div>
             </div>
             
