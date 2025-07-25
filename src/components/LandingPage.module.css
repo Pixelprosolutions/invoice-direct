@@ -1375,7 +1375,37 @@ html {
   .socialProof,
   .pricing,
   .faq {
-    padding: 6rem 1rem;
+    padding: 4rem 1rem;
+  }
+
+  .appDemo {
+    max-width: 350px;
+  }
+
+  .demoContent {
+    height: 250px;
+  }
+
+  .demoSidebar {
+    width: 100px;
+  }
+
+  .sidebarItem {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .demoMain {
+    padding: 1rem;
+  }
+
+  .heroActions {
+    align-items: stretch;
+  }
+
+  .primaryButton {
+    width: 100%;
+    justify-content: center;
   }
 }
 
