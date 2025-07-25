@@ -1322,6 +1322,23 @@ html {
   .finalCta {
     padding: 6rem 1rem;
   }
+
+  .ctaFeatures {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .ctaButton {
+    min-width: 280px;
+    padding: 1.25rem 2rem;
+    font-size: 1.1rem;
+  }
+
+  .securityBadges {
+    gap: 1rem;
+    flex-direction: column;
+  }
   
   .benefits,
   .features,
