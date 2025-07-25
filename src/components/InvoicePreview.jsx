@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useRef, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { FaDownload, FaPrint, FaEnvelope, FaShare } from 'react-icons/fa';
 import { generatePDF } from '../utils/pdfGenerator';
