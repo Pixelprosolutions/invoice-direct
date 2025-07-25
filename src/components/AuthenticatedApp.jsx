@@ -147,6 +147,14 @@ const AuthenticatedApp = () => {
                 <h3>Mobile Features</h3>
                 <p>Quick invoice creation and mobile-optimized tools</p>
               </div>
+
+              <div className={styles.actionCard} onClick={() => setActiveView('payments')}>
+                <div className={styles.actionIcon}>
+                  <FaCreditCard />
+                </div>
+                <h3>Payment Tracking</h3>
+                <p>Monitor payment status and send reminders</p>
+              </div>
             </div>
             
             <div className={styles.actionCard} onClick={() => setActiveView('test')}>
