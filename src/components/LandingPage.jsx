@@ -393,7 +393,7 @@ const LandingPage = ({ onSignUp, onSignIn }) => {
             
             <div className={styles.faqItem}>
               <h3>Is my invoice data secure?</h3>
-              <p>Yes! We use bank-grade encryption and security measures. Your invoice data is stored securely and never shared with third parties. We're trusted by 50,000+ users worldwide.</p>
+              <p>Yes! We use bank-grade encryption and security measures. Your invoice data is stored securely and never shared with third parties. We maintain enterprise-grade security standards.</p>
             </div>
             
             <div className={styles.faqItem}>
