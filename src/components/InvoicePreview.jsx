@@ -26,19 +26,59 @@ function InvoicePreview() {
     const saveInvoiceData = async () => {
       if (user && invoiceData) {
         try {
-          // Save invoice to database
-          await saveInvoice(user.id, invoiceData);
-          
-          // Increment user's invoice count
-          await incrementInvoiceCount(user.id);
-          
-          // Refresh user profile to update count
-          await refreshProfile();
-          
-          toast.success('Invoice saved successfully!');
+          // Check if Supabase is configured
+          const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+          const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+          if (supabaseUrl && supabaseKey) {
+            // Save to Supabase if configured
+            await saveInvoice(user.id, invoiceData);
+            await incrementInvoiceCount(user.id);
+            await refreshProfile();
+            toast.success('Invoice saved to database successfully!');
+          } else {
+            // Fallback to localStorage when Supabase is not configured
+            const savedInvoices = JSON.parse(localStorage.getItem('savedInvoices') || '[]');
+            const invoiceRecord = {
+              id: Date.now().toString(),
+              user_id: user.id,
+              invoice_data: invoiceData,
+              status: 'draft',
+              created_at: new Date().toISOString()
+            };
+
+            savedInvoices.push(invoiceRecord);
+            // Keep only last 100 invoices to prevent storage overflow
+            if (savedInvoices.length > 100) {
+              savedInvoices.splice(0, savedInvoices.length - 100);
+            }
+
+            localStorage.setItem('savedInvoices', JSON.stringify(savedInvoices));
+            toast.success('Invoice saved locally!');
+          }
         } catch (error) {
           console.error('Failed to save invoice:', error.message || error);
-          toast.error(`Failed to save invoice: ${error.message || 'Database connection issue'}`);
+          // If Supabase fails, fall back to localStorage
+          if (error.message === 'Supabase not configured' || error.message.includes('Supabase not configured')) {
+            try {
+              const savedInvoices = JSON.parse(localStorage.getItem('savedInvoices') || '[]');
+              const invoiceRecord = {
+                id: Date.now().toString(),
+                user_id: user.id,
+                invoice_data: invoiceData,
+                status: 'draft',
+                created_at: new Date().toISOString()
+              };
+
+              savedInvoices.push(invoiceRecord);
+              localStorage.setItem('savedInvoices', JSON.stringify(savedInvoices));
+              toast.success('Invoice saved locally (database not configured)');
+            } catch (localError) {
+              toast.error('Failed to save invoice locally');
+            }
+          } else {
+            toast.error(`Failed to save invoice: ${error.message || 'Unknown error'}`);
+          }
         }
       }
     };
