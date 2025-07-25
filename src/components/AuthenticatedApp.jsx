@@ -79,7 +79,7 @@ const AuthenticatedApp = () => {
       case 'clients':
         return <ClientManagement />
       case 'business':
-        return <BusinessProfile />
+        return <BusinessProfile onNavigateHome={() => setActiveView('home')} />
       case 'templates':
         return <TemplateManager />
       case 'payments':
