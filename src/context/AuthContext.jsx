@@ -332,7 +332,13 @@ export const AuthProvider = ({ children }) => {
     }
   }
   const canCreateInvoice = () => {
-    if (!userProfile) return true // New users should be able to create invoices
+    // Always allow creating/editing invoice forms
+    // The actual counting happens only when the invoice is finalized (in InvoicePreview)
+    return true
+  }
+
+  const canFinalizeInvoice = () => {
+    if (!userProfile) return true // New users should be able to finalize invoices
     if (userProfile.plan === 'premium') return true
     return userProfile.invoice_count < 3
   }

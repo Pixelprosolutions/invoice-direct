@@ -14,9 +14,8 @@ function InvoicePreview() {
   const { invoiceData, appliedTemplate } = useInvoice();
   const { user, userProfile, refreshProfile, canCreateInvoice, isPremium } = useAuth();
 
-  // Track whether we've already saved this invoice to prevent duplicates
-  const hasSaved = useRef(false);
-  const savedInvoiceId = useRef(null);
+  // Track saved invoices to prevent duplicate counting
+  const savedInvoices = useRef(new Set());
 
   // Ensure lineItems exists before calculating totals
   const lineItems = invoiceData?.lineItems || [];
@@ -28,18 +27,26 @@ function InvoicePreview() {
   // Create a stable invoice identifier for duplicate prevention
   const invoiceId = useMemo(() => {
     if (!invoiceData) return null;
-    return `${invoiceData.invoiceNumber}-${invoiceData.invoiceDate}-${user?.id}`;
+    // Create a unique ID based on invoice content, not just metadata
+    const contentHash = JSON.stringify({
+      invoiceNumber: invoiceData.invoiceNumber,
+      businessName: invoiceData.businessName,
+      clientName: invoiceData.clientName,
+      lineItems: invoiceData.lineItems,
+      userId: user?.id
+    });
+    return btoa(contentHash).slice(0, 16); // Short unique hash
   }, [invoiceData?.invoiceNumber, invoiceData?.invoiceDate, user?.id]);
 
   // Save invoice and increment count when component mounts
   useEffect(() => {
     const saveInvoiceData = async () => {
-      // Prevent duplicate saves
+      // Prevent duplicate counting for the same invoice
       if (!user || !invoiceData || !invoiceId) return;
 
-      // Check if we've already saved this exact invoice
-      if (hasSaved.current && savedInvoiceId.current === invoiceId) {
-        console.log('📝 Invoice already saved, skipping duplicate save');
+      // Check if we've already counted this invoice
+      if (savedInvoices.current.has(invoiceId)) {
+        console.log('📝 Invoice already counted, skipping duplicate');
         return;
       }
 
@@ -65,13 +72,11 @@ function InvoicePreview() {
             // Increment invoice count for free users
             if (!isPremium()) {
               await incrementInvoiceCount(user.id);
+              // Mark this invoice as counted
+              savedInvoices.current.add(invoiceId);
             }
             
             await refreshProfile();
-
-            // Mark as saved to prevent duplicates
-            hasSaved.current = true;
-            savedInvoiceId.current = invoiceId;
 
             toast.success('Invoice saved to database successfully!');
           } else if (supabaseUrl && supabaseKey && !isValidUUID) {
@@ -111,10 +116,9 @@ function InvoicePreview() {
               };
               localStorage.setItem('userProfile', JSON.stringify(updatedProfile));
               await refreshProfile();
+              // Mark this invoice as counted
+              savedInvoices.current.add(invoiceId);
             }
-            // Mark as saved to prevent duplicates
-            hasSaved.current = true;
-            savedInvoiceId.current = invoiceId;
 
             toast.success('Invoice saved locally!');
           }
@@ -149,10 +153,8 @@ function InvoicePreview() {
                 };
                 localStorage.setItem('userProfile', JSON.stringify(updatedProfile));
                 await refreshProfile();
-              }
-              // Mark as saved to prevent duplicates
-              hasSaved.current = true;
-              savedInvoiceId.current = invoiceId;
+                // Mark this invoice as counted
+                savedInvoices.current.add(invoiceId);
 
               toast.success('Invoice saved locally (database not configured)');
             } catch (localError) {

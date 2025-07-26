@@ -51,22 +51,10 @@ const AuthenticatedApp = () => {
   const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY
 
   const handleCreateInvoice = () => {
-    if (!canCreateInvoice()) {
-      toast.warning(`You have reached your free invoice limit (3 invoices). Please upgrade to continue.`);
-      setShowUpgradeModal(true)
-      return
-    }
-    
     setActiveView('create')
   }
 
   const handlePreviewInvoice = () => {
-    if (!canCreateInvoice()) {
-      toast.warning(`You have reached your free invoice limit (3 invoices). Please upgrade to continue.`);
-      setShowUpgradeModal(true)
-      return
-    }
-    
     setShowPreview(true)
   }
 

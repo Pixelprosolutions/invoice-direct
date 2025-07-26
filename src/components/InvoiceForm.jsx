@@ -30,11 +30,6 @@ const InvoiceForm = ({ onPreview, onNavigateHome }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Check invoice limits for free users
-    if (!canCreateInvoice()) {
-      toast.error(`You have reached your free invoice limit (3 invoices). Please upgrade to create more invoices.`);
-      return;
-    }
     // Basic validation
     if (!invoiceData.businessName || !invoiceData.clientName) {
       toast.error('Please fill in business name and client name');
@@ -50,7 +45,7 @@ const InvoiceForm = ({ onPreview, onNavigateHome }) => {
     try {
       localStorage.setItem('invoiceData', JSON.stringify(invoiceData));
 
-      // Also save to invoice history for Quick Actions
+      // Save to invoice history for Quick Actions (but don't count towards limit)
       const savedInvoices = JSON.parse(localStorage.getItem('savedInvoices') || '[]');
       const invoiceRecord = {
         id: Date.now().toString(),
@@ -66,7 +61,7 @@ const InvoiceForm = ({ onPreview, onNavigateHome }) => {
       }
 
       localStorage.setItem('savedInvoices', JSON.stringify(savedInvoices));
-      toast.success('Invoice saved successfully!');
+      toast.success('Invoice form saved successfully!');
 
       // Trigger preview
       if (onPreview) {
