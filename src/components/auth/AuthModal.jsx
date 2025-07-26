@@ -127,8 +127,30 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
         } else {
           console.error('❌ Signup failed:', error.message || error)
           // Handle specific signup errors
-          if (error.message?.includes('already registered')) {
-            setLocalError('This email is already registered. Try signing in instead.')
+          if (error.message?.includes('already registered') || error.message?.includes('user_already_exists')) {
+            setLocalError('')
+            // Show a special message with clickable link to switch to sign in
+            setLocalError(
+              <span>
+                This email is already registered.{' '}
+                <button 
+                  type="button"
+                  onClick={() => switchMode('signin')}
+                  className={styles.inlineLink}
+                  style={{ 
+                    background: 'none', 
+                    border: 'none', 
+                    color: '#3b82f6', 
+                    textDecoration: 'underline', 
+                    cursor: 'pointer',
+                    padding: 0,
+                    font: 'inherit'
+                  }}
+                >
+                  Click here to sign in instead
+                </button>
+              </span>
+            )
           } else if (error.message?.includes('email')) {
             setLocalError('Please enter a valid email address')
           } else {
@@ -432,7 +454,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
 
             {(error || localError) && (
               <div className={styles.errorMessage}>
-                {localError || error}
+                {typeof localError === 'string' ? localError : localError || error}
               </div>
             )}
 
