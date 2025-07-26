@@ -155,6 +155,7 @@ function InvoicePreview() {
                 await refreshProfile();
                 // Mark this invoice as counted
                 savedInvoices.current.add(invoiceId);
+              }
 
               toast.success('Invoice saved locally (database not configured)');
             } catch (localError) {
