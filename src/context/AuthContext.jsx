@@ -419,18 +419,47 @@ export const AuthProvider = ({ children }) => {
       })
     } catch (error) {
       console.warn('Profile refresh failed:', error.message)
+      // Always ensure we have a profile, even if refresh fails
+      if (!userProfile) {
+        setUserProfile({
+          id: user.id,
+          email: user.email,
+          plan: 'free',
+          invoice_count: 0,
+          created_at: new Date().toISOString()
+        })
+      }
     }
   }
 
   const incrementLocalInvoiceCount = () => {
     if (!user || isPremium()) return
     
-    const currentProfile = userProfile || {
-      id: user.id,
-      email: user.email,
-      plan: 'free',
-      invoice_count: 0,
-      created_at: new Date().toISOString()
+    // Get current profile from state or localStorage
+    let currentProfile = userProfile
+    
+    if (!currentProfile) {
+      const localProfile = localStorage.getItem('userProfile')
+      if (localProfile) {
+        try {
+          const parsedProfile = JSON.parse(localProfile)
+          if (parsedProfile.id === user.id) {
+            currentProfile = parsedProfile
+          }
+        } catch (e) {
+          console.warn('Error parsing local profile for increment:', e)
+        }
+      }
+    }
+    
+    if (!currentProfile) {
+      currentProfile = {
+        id: user.id,
+        email: user.email,
+        plan: 'free',
+        invoice_count: 0,
+        created_at: new Date().toISOString()
+      }
     }
     
     const updatedProfile = {
@@ -439,8 +468,52 @@ export const AuthProvider = ({ children }) => {
       updated_at: new Date().toISOString()
     }
     
+    console.log('📊 Incrementing invoice count:', {
+      from: currentProfile.invoice_count || 0,
+      to: updatedProfile.invoice_count,
+      userId: user.id
+    })
+    
     setUserProfile(updatedProfile)
     localStorage.setItem('userProfile', JSON.stringify(updatedProfile))
+  }
+
+  const forceRefreshProfile = async () => {
+    if (!user) return
+    
+    try {
+      // Force refresh from both sources
+      const localProfile = localStorage.getItem('userProfile')
+      let profile = null
+      
+      if (localProfile) {
+        try {
+          const parsedProfile = JSON.parse(localProfile)
+          if (parsedProfile.id === user.id) {
+            profile = parsedProfile
+          }
+        } catch (e) {
+          console.warn('Error parsing local profile:', e)
+        }
+      }
+      
+      if (!profile) {
+        profile = await getUserProfile(user.id)
+      }
+      
+      const finalProfile = profile || {
+      id: user.id,
+      email: user.email,
+      plan: 'free',
+      invoice_count: 0,
+      created_at: new Date().toISOString()
+    }
+      
+      setUserProfile(finalProfile)
+      console.log('🔄 Force refreshed profile:', finalProfile)
+    } catch (error) {
+      console.error('Force refresh failed:', error)
+    }
   }
   const devLogin = () => {
     // Check if Supabase is configured - if so, don't allow dev login

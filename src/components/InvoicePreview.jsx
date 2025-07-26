@@ -75,9 +75,9 @@ function InvoicePreview() {
               await incrementInvoiceCount(user.id);
               // Mark this invoice as counted
               savedInvoices.current.add(invoiceId);
+               // Force refresh profile to get updated count
+               setTimeout(() => refreshProfile(), 500);
             }
-            
-            await refreshProfile();
 
             toast.success('Invoice saved to database successfully!');
           } else if (supabaseUrl && supabaseKey && !isValidUUID) {
@@ -105,18 +105,7 @@ function InvoicePreview() {
 
             // Update local user profile for free users
             if (!isPremium()) {
-              const currentProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-              const updatedProfile = {
-                ...currentProfile,
-                id: user.id,
-                email: user.email,
-                plan: currentProfile.plan || 'free',
-                invoice_count: (currentProfile.invoice_count || 0) + 1,
-                created_at: currentProfile.created_at || new Date().toISOString(),
-                updated_at: new Date().toISOString()
-              };
-              localStorage.setItem('userProfile', JSON.stringify(updatedProfile));
-              await refreshProfile();
+               incrementLocalInvoiceCount();
               // Mark this invoice as counted
               savedInvoices.current.add(invoiceId);
             }
@@ -170,7 +159,6 @@ function InvoicePreview() {
     };
 
     saveInvoiceData();
-  }, [invoiceId]); // Only run when the invoice identity changes
 
   // Early return if data isn't loaded yet
   if (!invoiceData) {
@@ -179,18 +167,7 @@ function InvoicePreview() {
 
   const handleDownload = async () => {
     try {
-      // Show loading state
-      toast.info('Generating PDF... Please wait');
-      
-      const element = document.getElementById('invoice-preview');
-      if (!element) {
-        throw new Error('Invoice preview not found');
-      }
-      
-      await generatePDF(element, invoiceData.invoiceNumber);
-      toast.success('Invoice PDF generated successfully!');
-    } catch (error) {
-      console.error('Failed to generate PDF:', error);
+                 incrementLocalInvoiceCount();
       toast.error(error.message || 'Failed to generate PDF. Please try again.');
     }
   };

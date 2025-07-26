@@ -91,6 +91,19 @@ export const getUserProfile = async (userId) => {
     
     if (!supabaseUrl || !supabaseKey) {
       console.warn('Supabase not configured, using local profile')
+       // Check localStorage first for existing profile
+       const localProfile = localStorage.getItem('userProfile')
+       if (localProfile) {
+         try {
+           const parsedProfile = JSON.parse(localProfile)
+           if (parsedProfile.id === userId) {
+             return parsedProfile
+           }
+         } catch (e) {
+           console.warn('Error parsing local profile:', e)
+         }
+       }
+       
       return {
         id: userId,
         email: testUser.data?.user?.email || 'user@example.com',
@@ -117,6 +130,21 @@ export const getUserProfile = async (userId) => {
       if (error.code === 'PGRST116') {
         // No rows returned - profile doesn't exist
         console.log('Profile not found for user:', userId)
+         
+         // Check localStorage for existing profile before creating default
+         const localProfile = localStorage.getItem('userProfile')
+         if (localProfile) {
+           try {
+             const parsedProfile = JSON.parse(localProfile)
+             if (parsedProfile.id === userId) {
+               console.log('📱 Using existing localStorage profile')
+               return parsedProfile
+             }
+           } catch (e) {
+             console.warn('Error parsing local profile:', e)
+           }
+         }
+         
         // Return default profile immediately instead of trying to create
         const defaultProfile = {
           id: userId,
@@ -125,6 +153,9 @@ export const getUserProfile = async (userId) => {
           invoice_count: 0,
           created_at: new Date().toISOString()
         }
+         
+         // Save to localStorage for consistency
+         localStorage.setItem('userProfile', JSON.stringify(defaultProfile))
         
         // Try to create profile in background (don't wait for it)
         supabase
@@ -141,36 +172,92 @@ export const getUserProfile = async (userId) => {
         return defaultProfile
       }
       console.error('Profile fetch error:', error)
+       
+       // Check localStorage as fallback
+       const localProfile = localStorage.getItem('userProfile')
+       if (localProfile) {
+         try {
+           const parsedProfile = JSON.parse(localProfile)
+           if (parsedProfile.id === userId) {
+             console.log('📱 Using localStorage profile as fallback')
+             return parsedProfile
+           }
+         } catch (e) {
+           console.warn('Error parsing local profile fallback:', e)
+         }
+       }
+       
       // Return a default profile instead of null
-      return {
+       const defaultProfile = {
         id: userId,
         email: testUser.data?.user?.email || 'user@example.com',
         plan: 'free',
         invoice_count: 0,
         created_at: new Date().toISOString()
       }
+       
+       localStorage.setItem('userProfile', JSON.stringify(defaultProfile))
+       return defaultProfile
     }
     
+     // Save successful profile to localStorage for consistency
+     localStorage.setItem('userProfile', JSON.stringify(data))
     return data
   } catch (error) {
     if (error.name === 'AbortError') {
       console.warn('Profile fetch timed out, using default')
-      return {
+       
+       // Check localStorage first
+       const localProfile = localStorage.getItem('userProfile')
+       if (localProfile) {
+         try {
+           const parsedProfile = JSON.parse(localProfile)
+           if (parsedProfile.id === userId) {
+             console.log('📱 Using localStorage profile after timeout')
+             return parsedProfile
+           }
+         } catch (e) {
+           console.warn('Error parsing local profile after timeout:', e)
+         }
+       }
+       
+       const defaultProfile = {
         id: userId,
         email: 'user@example.com', 
         plan: 'free',
         invoice_count: 0,
         created_at: new Date().toISOString()
       }
+       
+       localStorage.setItem('userProfile', JSON.stringify(defaultProfile))
+       return defaultProfile
     }
     console.error('getUserProfile failed:', error)
-    return {
+     
+     // Check localStorage as final fallback
+     const localProfile = localStorage.getItem('userProfile')
+     if (localProfile) {
+       try {
+         const parsedProfile = JSON.parse(localProfile)
+         if (parsedProfile.id === userId) {
+           console.log('📱 Using localStorage profile as final fallback')
+           return parsedProfile
+         }
+       } catch (e) {
+         console.warn('Error parsing local profile final fallback:', e)
+       }
+     }
+     
+     const defaultProfile = {
       id: userId,
       email: 'user@example.com',
       plan: 'free',
       invoice_count: 0,
       created_at: new Date().toISOString()
     }
+     
+     localStorage.setItem('userProfile', JSON.stringify(defaultProfile))
+     return defaultProfile
   }
 }
 
