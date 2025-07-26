@@ -12,7 +12,7 @@ import Watermark from './Watermark';
 
 function InvoicePreview() {
   const { invoiceData, appliedTemplate } = useInvoice();
-  const { user, userProfile, refreshProfile, canCreateInvoice, isPremium } = useAuth();
+  const { user, userProfile, refreshProfile, canCreateInvoice, isPremium, getRemainingInvoices } = useAuth();
 
   // Track saved invoices to prevent duplicate counting
   const savedInvoices = useRef(new Set());
