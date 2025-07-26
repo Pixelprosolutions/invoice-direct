@@ -116,13 +116,21 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
           // Check if user was created successfully
           if (data?.user) {
             console.log('✅ User created successfully:', data.user.email)
-            setShowSuccess(true)
-            setTimeout(() => {
-              onClose()
-            }, 2000)
+            // Check if email confirmation is required
+            if (data.user.email_confirmed_at) {
+              // User is immediately confirmed
+              setShowSuccess(true)
+              setTimeout(() => {
+                onClose()
+              }, 2000)
+            } else {
+              // Email confirmation required
+              setNeedsEmailConfirmation(true)
+              setLocalError('')
+            }
           } else {
             console.log('⚠️ Signup completed but no user data returned')
-            setLocalError('Account created but please try signing in')
+            setLocalError('Account may have been created. Please try signing in.')
           }
         } else {
           console.error('❌ Signup failed:', error.message || error)
@@ -133,6 +141,8 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
             setLocalError('This email is already registered. Please sign in with your password.')
             setPassword('')
             setConfirmPassword('')
+          } else if (error.message?.includes('Database not configured')) {
+            setLocalError('Database connection issue. Please check your setup or try demo mode.')
           } else if (error.message?.includes('email')) {
             setLocalError('Please enter a valid email address')
           } else {

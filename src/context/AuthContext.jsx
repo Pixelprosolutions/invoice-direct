@@ -182,6 +182,14 @@ export const AuthProvider = ({ children }) => {
         throw new Error('Password must be at least 6 characters')
       }
       
+      // Check if Supabase is configured
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+      
+      if (!supabaseUrl || !supabaseKey) {
+        throw new Error('Database not configured. Please set up Supabase credentials.')
+      }
+      
       const { data, error } = await supabase.auth.signUp({
         email,
         password,

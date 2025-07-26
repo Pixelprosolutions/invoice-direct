@@ -43,12 +43,6 @@ function App() {
   const isPaymentSuccess = window.location.pathname.includes('payment-success') ||
                            window.location.search.includes('session_id')
   
-  // Show diagnostics if there are persistent errors
-  useEffect(() => {
-    if (error && !user && !loading) {
-      setShowDiagnostics(true)
-    }
-  }, [error, user, loading])
   // Initialize SEO optimizations
   useEffect(() => {
     initializeSEO()
