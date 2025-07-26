@@ -20,14 +20,14 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     let mounted = true
     
-    // Set a maximum loading time of 10 seconds
+    // Set a maximum loading time of 5 seconds
     const maxLoadingTimeout = setTimeout(() => {
       if (mounted) {
-        console.warn('Auth initialization timed out after 10 seconds')
+        console.warn('Auth initialization timed out after 5 seconds')
         setLoading(false)
-        setError('Connection timeout - using offline mode')
+        setError(null) // Don't show error, just stop loading
       }
-    }, 10000)
+    }, 5000)
 
     const initializeAuth = async () => {
       try {
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
         // Try to get session with a shorter timeout
         const sessionPromise = supabase.auth.getSession()
         const timeoutPromise = new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('Session timeout')), 5000)
+          setTimeout(() => reject(new Error('Session timeout')), 3000)
         )
         
         const { data: { session }, error: sessionError } = await Promise.race([
@@ -63,7 +63,9 @@ export const AuthProvider = ({ children }) => {
         
         if (sessionError) {
           console.warn('Session error:', sessionError.message)
-          setError(sessionError.message)
+          if (!sessionError.message.includes('timeout')) {
+            setError(sessionError.message)
+          }
           setLoading(false)
           return
         }
@@ -72,29 +74,21 @@ export const AuthProvider = ({ children }) => {
           console.log('✅ Found existing session for:', session.user.email)
           setUser(session.user)
           
-          // Try to load profile, but don't block on it
-          try {
-            const profile = await getUserProfile(session.user.id)
-            if (mounted) {
-              setUserProfile(profile || {
-                id: session.user.id,
-                email: session.user.email,
-                plan: 'free',
-                invoice_count: 0,
-                created_at: new Date().toISOString()
-              })
-            }
-          } catch (profileError) {
-            console.warn('Profile load failed, using default:', profileError.message)
-            if (mounted) {
-              setUserProfile({
-                id: session.user.id,
-                email: session.user.email,
-                plan: 'free',
-                invoice_count: 0,
-                created_at: new Date().toISOString()
-              })
-            }
+          // Load profile with timeout
+          const profilePromise = getUserProfile(session.user.id)
+          const profileTimeout = new Promise((resolve) =>
+            setTimeout(() => resolve({
+              id: session.user.id,
+              email: session.user.email,
+              plan: 'free',
+              invoice_count: 0,
+              created_at: new Date().toISOString()
+            }), 2000)
+          )
+          
+          const profile = await Promise.race([profilePromise, profileTimeout])
+          if (mounted) {
+            setUserProfile(profile)
           }
         } else {
           console.log('ℹ️ No existing session found')
@@ -103,7 +97,9 @@ export const AuthProvider = ({ children }) => {
       } catch (error) {
         console.warn('Auth initialization failed:', error.message)
         if (mounted) {
-          setError(error.message)
+          if (!error.message.includes('timeout')) {
+            setError(error.message)
+          }
         }
       } finally {
         if (mounted) {
@@ -127,32 +123,36 @@ export const AuthProvider = ({ children }) => {
           if (session?.user) {
             setUser(session.user)
             
-            // Try to load profile
-            try {
-              const profile = await getUserProfile(session.user.id)
-              setUserProfile(profile || {
+            // Load profile with timeout for auth state changes
+            const profilePromise = getUserProfile(session.user.id)
+            const profileTimeout = new Promise((resolve) =>
+              setTimeout(() => resolve({
                 id: session.user.id,
                 email: session.user.email,
                 plan: 'free',
                 invoice_count: 0,
                 created_at: new Date().toISOString()
-              })
-            } catch (profileError) {
-              console.warn('Profile load failed in auth change:', profileError.message)
-              setUserProfile({
-                id: session.user.id,
-                email: session.user.email,
-                plan: 'free',
-                invoice_count: 0,
-                created_at: new Date().toISOString()
-              })
-            }
+              }), 1500)
+            )
+            
+            const profile = await Promise.race([profilePromise, profileTimeout])
+            setUserProfile(profile)
           } else {
             setUser(null)
             setUserProfile(null)
           }
         } catch (error) {
           console.error('Error in auth state change:', error)
+          // Don't let profile errors block the auth flow
+          if (session?.user) {
+            setUserProfile({
+              id: session.user.id,
+              email: session.user.email,
+              plan: 'free',
+              invoice_count: 0,
+              created_at: new Date().toISOString()
+            })
+          }
         } finally {
           setLoading(false)
         }

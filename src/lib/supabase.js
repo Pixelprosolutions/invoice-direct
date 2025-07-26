@@ -100,9 +100,9 @@ export const getUserProfile = async (userId) => {
       }
     }
     
-    // Add timeout to prevent hanging
+    // Add shorter timeout to prevent hanging
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 5000)
+    const timeoutId = setTimeout(() => controller.abort(), 2000)
     
     const { data, error } = await supabase
       .from('profiles')
@@ -117,39 +117,28 @@ export const getUserProfile = async (userId) => {
       if (error.code === 'PGRST116') {
         // No rows returned - profile doesn't exist
         console.log('Profile not found for user:', userId)
-        // Try to create a default profile
-        try {
-          const defaultProfile = {
-            id: userId,
-            email: testUser.data?.user?.email || 'user@example.com',
-            plan: 'free',
-            invoice_count: 0,
-            created_at: new Date().toISOString()
-          }
-          
-          const { data: newProfile, error: createError } = await supabase
-            .from('profiles')
-            .insert([defaultProfile])
-            .select()
-            .single()
-          
-          if (!createError) {
-            console.log('✅ Created default profile for user:', userId)
-            return newProfile
-          } else {
-            console.warn('Failed to create profile, using default:', createError)
-            return defaultProfile
-          }
-        } catch (createError) {
-          console.warn('Profile creation failed, using default:', createError)
-          return {
-            id: userId,
-            email: testUser.data?.user?.email || 'user@example.com',
-            plan: 'free',
-            invoice_count: 0,
-            created_at: new Date().toISOString()
-          }
+        // Return default profile immediately instead of trying to create
+        const defaultProfile = {
+          id: userId,
+          email: testUser.data?.user?.email || 'user@example.com',
+          plan: 'free',
+          invoice_count: 0,
+          created_at: new Date().toISOString()
         }
+        
+        // Try to create profile in background (don't wait for it)
+        supabase
+          .from('profiles')
+          .insert([defaultProfile])
+          .then(({ error: createError }) => {
+            if (createError) {
+              console.warn('Background profile creation failed:', createError)
+            } else {
+              console.log('✅ Profile created in background for user:', userId)
+            }
+          })
+        
+        return defaultProfile
       }
       console.error('Profile fetch error:', error)
       // Return a default profile instead of null
@@ -165,10 +154,10 @@ export const getUserProfile = async (userId) => {
     return data
   } catch (error) {
     if (error.name === 'AbortError') {
-      console.error('Profile fetch timed out')
+      console.warn('Profile fetch timed out, using default')
       return {
         id: userId,
-        email: 'user@example.com',
+        email: 'user@example.com', 
         plan: 'free',
         invoice_count: 0,
         created_at: new Date().toISOString()
