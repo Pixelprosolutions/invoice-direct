@@ -162,6 +162,14 @@ const AuthenticatedApp = () => {
                 </h2>
                 <div className={styles.featureCards}>
                   <div className={styles.featureCard} onClick={handleCreateInvoice}>
+                    {!canCreateInvoice() && (
+                      <div className={styles.limitOverlay}>
+                        <div className={styles.limitMessage}>
+                          <FaCrown />
+                          <span>Upgrade Required</span>
+                        </div>
+                      </div>
+                    )}
                     <div className={styles.cardIcon}>
                       <FaPlus />
                     </div>
@@ -408,7 +416,7 @@ const AuthenticatedApp = () => {
           <div className={styles.limitContent}>
             <div className={styles.limitText}>
               <strong>Free Plan Limit Reached</strong>
-              <span>You've used all 3 free invoices this month</span>
+              <span>You've used all 3 free invoices. Upgrade for unlimited access!</span>
             </div>
             <button
               onClick={() => setShowUpgradeModal(true)}

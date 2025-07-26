@@ -332,15 +332,16 @@ export const AuthProvider = ({ children }) => {
     }
   }
   const canCreateInvoice = () => {
-    // Always allow creating/editing invoice forms
-    // The actual counting happens only when the invoice is finalized (in InvoicePreview)
-    return true
+    // Allow creating forms, but check limits for finalizing
+    if (!userProfile) return true // New users should be able to create
+    if (isPremium()) return true // Premium users have unlimited
+    return getRemainingInvoices() > 0 // Free users must have remaining invoices
   }
 
   const canFinalizeInvoice = () => {
     if (!userProfile) return true // New users should be able to finalize invoices
     if (userProfile.plan === 'premium') return true
-    return userProfile.invoice_count < 3
+    return getRemainingInvoices() > 0
   }
 
   const isPremium = () => {

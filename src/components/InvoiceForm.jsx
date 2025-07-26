@@ -30,6 +30,12 @@ const InvoiceForm = ({ onPreview, onNavigateHome }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    // Check invoice limits before allowing preview
+    if (!isPremium() && getRemainingInvoices() <= 0) {
+      toast.error('You have reached your free invoice limit of 3 invoices. Please upgrade to continue creating invoices.');
+      return;
+    }
+    
     // Basic validation
     if (!invoiceData.businessName || !invoiceData.clientName) {
       toast.error('Please fill in business name and client name');

@@ -50,12 +50,13 @@ function InvoicePreview() {
         return;
       }
 
-      // Check if user can create more invoices (for free users)
-      if (!canCreateInvoice()) {
+      // Check if user can finalize more invoices (for free users)
+      if (!isPremium() && getRemainingInvoices() <= 0) {
         console.warn('User has reached invoice limit');
-        toast.error('You have reached your free invoice limit. Please upgrade to continue.');
+        toast.error('You have reached your free invoice limit of 3 invoices. Please upgrade to continue creating invoices.');
         return;
       }
+
       if (user && invoiceData) {
         try {
           // Check if Supabase is configured
