@@ -1,12 +1,14 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 import { useInvoice } from '../context/InvoiceContext';
+import { useAuth } from '../context/AuthContext';
 import LineItems from './LineItems';
 import styles from './InvoiceForm.module.css';
 import { FaSave, FaEye, FaUndo, FaArrowLeft } from 'react-icons/fa';
 
 const InvoiceForm = ({ onPreview, onNavigateHome }) => {
   const { invoiceData, updateInvoiceData, resetInvoiceData, appliedTemplate } = useInvoice();
+  const { canCreateInvoice, getRemainingInvoices, isPremium } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +30,11 @@ const InvoiceForm = ({ onPreview, onNavigateHome }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    // Check invoice limits for free users
+    if (!canCreateInvoice()) {
+      toast.error(`You have reached your free invoice limit (3 invoices). Please upgrade to create more invoices.`);
+      return;
+    }
     // Basic validation
     if (!invoiceData.businessName || !invoiceData.clientName) {
       toast.error('Please fill in business name and client name');
@@ -92,6 +99,11 @@ const InvoiceForm = ({ onPreview, onNavigateHome }) => {
             </button>
             <h2>Invoice Details</h2>
           </div>
+          {!isPremium() && (
+            <div className={styles.limitIndicator}>
+              <span>📊 Free Plan: {getRemainingInvoices()} invoice{getRemainingInvoices() !== 1 ? 's' : ''} remaining</span>
+            </div>
+          )}
           {appliedTemplate && (
             <div className={styles.templateIndicator}>
               <span>📋 Using template: <strong>{appliedTemplate.name}</strong></span>

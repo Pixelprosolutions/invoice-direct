@@ -186,12 +186,32 @@ export const updateUserProfile = async (userId, updates) => {
 }
 
 export const incrementInvoiceCount = async (userId) => {
-  const { data, error } = await supabase.rpc('increment_invoice_count', {
-    user_id: userId
-  })
+  try {
+    const { data, error } = await supabase.rpc('increment_invoice_count', {
+      user_id: userId
+    })
 
-  if (error) throw error
-  return data
+    if (error) {
+      console.warn('RPC function failed, using direct update:', error.message)
+      // Fallback to direct update if RPC function doesn't exist
+      const { data: updateData, error: updateError } = await supabase
+        .from('profiles')
+        .update({ 
+          invoice_count: supabase.raw('invoice_count + 1'),
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', userId)
+        .select()
+      
+      if (updateError) throw updateError
+      return updateData
+    }
+
+    return data
+  } catch (error) {
+    console.error('Failed to increment invoice count:', error)
+    throw error
+  }
 }
 
 export const saveInvoice = async (userId, invoiceData) => {

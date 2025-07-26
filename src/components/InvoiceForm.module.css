@@ -37,6 +37,15 @@
   color: #1e293b;
 }
 
+.limitIndicator {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #d97706;
+  font-weight: 500;
+}
 .formSection {
   margin-bottom: 2rem;
   padding: 1.5rem;

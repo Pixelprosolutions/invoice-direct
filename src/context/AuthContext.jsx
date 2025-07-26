@@ -415,6 +415,26 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  const incrementLocalInvoiceCount = () => {
+    if (!user || isPremium()) return
+    
+    const currentProfile = userProfile || {
+      id: user.id,
+      email: user.email,
+      plan: 'free',
+      invoice_count: 0,
+      created_at: new Date().toISOString()
+    }
+    
+    const updatedProfile = {
+      ...currentProfile,
+      invoice_count: (currentProfile.invoice_count || 0) + 1,
+      updated_at: new Date().toISOString()
+    }
+    
+    setUserProfile(updatedProfile)
+    localStorage.setItem('userProfile', JSON.stringify(updatedProfile))
+  }
   const devLogin = () => {
     // Check if Supabase is configured - if so, don't allow dev login
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
@@ -454,6 +474,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('invoiceData')
     localStorage.removeItem('savedInvoices')
     localStorage.removeItem('dev-user-id')
+    localStorage.removeItem('userProfile')
   }
 
   const value = {
@@ -470,6 +491,7 @@ export const AuthProvider = ({ children }) => {
     isPremium,
     getRemainingInvoices,
     refreshProfile,
+    incrementLocalInvoiceCount,
     devLogin,
     forceSignOut
   }

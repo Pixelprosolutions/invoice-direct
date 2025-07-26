@@ -52,7 +52,7 @@ const AuthenticatedApp = () => {
 
   const handleCreateInvoice = () => {
     if (!canCreateInvoice()) {
-      toast.warning('You have reached your free invoice limit. Please upgrade to continue.');
+      toast.warning(`You have reached your free invoice limit (3 invoices). Please upgrade to continue.`);
       setShowUpgradeModal(true)
       return
     }
@@ -62,7 +62,7 @@ const AuthenticatedApp = () => {
 
   const handlePreviewInvoice = () => {
     if (!canCreateInvoice()) {
-      toast.warning('You have reached your free invoice limit. Please upgrade to continue.');
+      toast.warning(`You have reached your free invoice limit (3 invoices). Please upgrade to continue.`);
       setShowUpgradeModal(true)
       return
     }

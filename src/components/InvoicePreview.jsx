@@ -5,14 +5,14 @@ import { generatePDF } from '../utils/pdfGenerator';
 import { calculateTotals, formatCurrency, formatDate } from '../utils/helpers';
 import { useInvoice } from '../context/InvoiceContext';
 import { useAuth } from '../context/AuthContext';
-import { saveInvoice, incrementInvoiceCount } from '../lib/supabase';
+import { saveInvoice, incrementInvoiceCount, updateUserProfile } from '../lib/supabase';
 import styles from './InvoicePreview.module.css';
 import ActionButtons from './ActionButtons';
 import Watermark from './Watermark';
 
 function InvoicePreview() {
   const { invoiceData, appliedTemplate } = useInvoice();
-  const { user, userProfile, refreshProfile } = useAuth();
+  const { user, userProfile, refreshProfile, canCreateInvoice, isPremium } = useAuth();
 
   // Track whether we've already saved this invoice to prevent duplicates
   const hasSaved = useRef(false);
@@ -43,6 +43,12 @@ function InvoicePreview() {
         return;
       }
 
+      // Check if user can create more invoices (for free users)
+      if (!canCreateInvoice()) {
+        console.warn('User has reached invoice limit');
+        toast.error('You have reached your free invoice limit. Please upgrade to continue.');
+        return;
+      }
       if (user && invoiceData) {
         try {
           // Check if Supabase is configured
@@ -55,7 +61,12 @@ function InvoicePreview() {
           if (supabaseUrl && supabaseKey && isValidUUID) {
             // Save to Supabase if configured and user ID is valid
             await saveInvoice(user.id, invoiceData);
-            await incrementInvoiceCount(user.id);
+            
+            // Increment invoice count for free users
+            if (!isPremium()) {
+              await incrementInvoiceCount(user.id);
+            }
+            
             await refreshProfile();
 
             // Mark as saved to prevent duplicates
@@ -86,6 +97,21 @@ function InvoicePreview() {
 
             localStorage.setItem('savedInvoices', JSON.stringify(savedInvoices));
 
+            // Update local user profile for free users
+            if (!isPremium()) {
+              const currentProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+              const updatedProfile = {
+                ...currentProfile,
+                id: user.id,
+                email: user.email,
+                plan: currentProfile.plan || 'free',
+                invoice_count: (currentProfile.invoice_count || 0) + 1,
+                created_at: currentProfile.created_at || new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              };
+              localStorage.setItem('userProfile', JSON.stringify(updatedProfile));
+              await refreshProfile();
+            }
             // Mark as saved to prevent duplicates
             hasSaved.current = true;
             savedInvoiceId.current = invoiceId;
@@ -109,6 +135,21 @@ function InvoicePreview() {
               savedInvoices.push(invoiceRecord);
               localStorage.setItem('savedInvoices', JSON.stringify(savedInvoices));
 
+              // Update local user profile for free users
+              if (!isPremium()) {
+                const currentProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                const updatedProfile = {
+                  ...currentProfile,
+                  id: user.id,
+                  email: user.email,
+                  plan: currentProfile.plan || 'free',
+                  invoice_count: (currentProfile.invoice_count || 0) + 1,
+                  created_at: currentProfile.created_at || new Date().toISOString(),
+                  updated_at: new Date().toISOString()
+                };
+                localStorage.setItem('userProfile', JSON.stringify(updatedProfile));
+                await refreshProfile();
+              }
               // Mark as saved to prevent duplicates
               hasSaved.current = true;
               savedInvoiceId.current = invoiceId;
