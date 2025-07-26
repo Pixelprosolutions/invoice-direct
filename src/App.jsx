@@ -175,21 +175,6 @@ function App() {
                 >
                   Sign Up
                 </button>
-                <button
-                  onClick={() => setShowDiagnostics(true)}
-                  style={{
-                    background: '#f59e0b',
-                    color: 'white',
-                    border: 'none',
-                    padding: '0.875rem 1.25rem',
-                    borderRadius: '8px',
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    fontSize: '0.85rem'
-                  }}
-                >
-                  🔍 Diagnose
-                </button>
               </div>
             </div>
           </div>
