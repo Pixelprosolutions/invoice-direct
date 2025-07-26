@@ -159,6 +159,7 @@ function InvoicePreview() {
     };
 
     saveInvoiceData();
+  }, [user, invoiceData, invoiceId, isPremium, refreshProfile]);
 
   // Early return if data isn't loaded yet
   if (!invoiceData) {
@@ -167,7 +168,15 @@ function InvoicePreview() {
 
   const handleDownload = async () => {
     try {
-                 incrementLocalInvoiceCount();
+      const element = document.getElementById('invoice-preview');
+      if (!element) {
+        throw new Error('Invoice preview not found');
+      }
+      
+      await generatePDF(element, invoiceData.invoiceNumber);
+      toast.success('Invoice downloaded successfully!');
+    } catch (error) {
+      console.error('Failed to download invoice:', error);
       toast.error(error.message || 'Failed to generate PDF. Please try again.');
     }
   };
