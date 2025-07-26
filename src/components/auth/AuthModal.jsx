@@ -128,29 +128,11 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
           console.error('❌ Signup failed:', error.message || error)
           // Handle specific signup errors
           if (error.message?.includes('already registered') || error.message?.includes('user_already_exists')) {
-            setLocalError('')
-            // Show a special message with clickable link to switch to sign in
-            setLocalError(
-              <span>
-                This email is already registered.{' '}
-                <button 
-                  type="button"
-                  onClick={() => switchMode('signin')}
-                  className={styles.inlineLink}
-                  style={{ 
-                    background: 'none', 
-                    border: 'none', 
-                    color: '#3b82f6', 
-                    textDecoration: 'underline', 
-                    cursor: 'pointer',
-                    padding: 0,
-                    font: 'inherit'
-                  }}
-                >
-                  Click here to sign in instead
-                </button>
-              </span>
-            )
+            // Automatically switch to sign-in mode and preserve email
+            setMode('signin')
+            setLocalError('This email is already registered. Please sign in with your password.')
+            setPassword('')
+            setConfirmPassword('')
           } else if (error.message?.includes('email')) {
             setLocalError('Please enter a valid email address')
           } else {
