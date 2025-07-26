@@ -5,6 +5,7 @@ import ErrorBoundary from './components/ErrorBoundary'
 import LandingPage from './components/LandingPage'
 import AuthenticatedApp from './components/AuthenticatedApp'
 import AuthModal from './components/auth/AuthModal'
+import DiagnosticPanel from './components/DiagnosticPanel'
 import { FaSignInAlt, FaCode } from 'react-icons/fa'
 import { initializeSEO } from './utils/seoHelpers'
 
@@ -12,6 +13,7 @@ function App() {
   const [authMode, setAuthMode] = useState('landing')
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [authModalMode, setAuthModalMode] = useState('signin')
+  const [showDiagnostics, setShowDiagnostics] = useState(false)
 
   const { user, loading, error, devLogin } = useAuth()
 
@@ -40,6 +42,13 @@ function App() {
   // Check if this is a payment success callback
   const isPaymentSuccess = window.location.pathname.includes('payment-success') ||
                            window.location.search.includes('session_id')
+  
+  // Show diagnostics if there are persistent errors
+  useEffect(() => {
+    if (error && !user && !loading) {
+      setShowDiagnostics(true)
+    }
+  }, [error, user, loading])
   // Initialize SEO optimizations
   useEffect(() => {
     initializeSEO()
@@ -71,6 +80,20 @@ function App() {
             >
               Retry
             </button>
+            <button 
+              onClick={() => setShowDiagnostics(true)} 
+              style={{ 
+                padding: '0.5rem 1rem', 
+                background: '#f59e0b', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '4px',
+                cursor: 'pointer',
+                marginLeft: '0.5rem'
+              }}
+            >
+              Diagnose Issues
+            </button>
           </div>
         )}
       </div>
@@ -96,6 +119,32 @@ function App() {
     setShowAuthModal(true)
   }
 
+  // Show diagnostics panel if requested
+  if (showDiagnostics) {
+    return (
+      <ErrorBoundary>
+        <div className={styles.container}>
+          <DiagnosticPanel />
+          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+            <button 
+              onClick={() => setShowDiagnostics(false)}
+              style={{ 
+                padding: '0.75rem 1.5rem', 
+                background: '#4f46e5', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '600'
+              }}
+            >
+              Back to App
+            </button>
+          </div>
+        </div>
+      </ErrorBoundary>
+    )
+  }
   // Show landing page with auth buttons
   return (
     <ErrorBoundary>
@@ -131,6 +180,21 @@ function App() {
                   className={styles.signUpButton}
                 >
                   Sign Up
+                </button>
+                <button
+                  onClick={() => setShowDiagnostics(true)}
+                  style={{
+                    background: '#f59e0b',
+                    color: 'white',
+                    border: 'none',
+                    padding: '0.875rem 1.25rem',
+                    borderRadius: '8px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    fontSize: '0.85rem'
+                  }}
+                >
+                  🔍 Diagnose
                 </button>
               </div>
             </div>
