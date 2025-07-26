@@ -15,9 +15,16 @@ export const STRIPE_CONFIG = {
 // Create checkout session
 export const createCheckoutSession = async (priceId, customerEmail, userId, userToken) => {
   try {
+    // Validate inputs
+    if (!priceId || !customerEmail || !userId || !userToken) {
+      throw new Error('Missing required parameters for checkout session')
+    }
+    
     // Create AbortController for timeout
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 8000) // 8 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+    
+    console.log('🔄 Creating checkout session with Supabase Edge Function...')
     
     const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-checkout`, {
       method: 'POST',
@@ -39,15 +46,30 @@ export const createCheckoutSession = async (priceId, customerEmail, userId, user
     if (!response.ok) {
       const errorText = await response.text()
       console.error('Checkout session error:', response.status, errorText)
-      throw new Error('Failed to create checkout session')
+      
+      if (response.status === 401) {
+        throw new Error('Authentication failed - please sign in again')
+      } else if (response.status === 403) {
+        throw new Error('Access denied - please check your account permissions')
+      } else if (response.status >= 500) {
+        throw new Error('Payment service temporarily unavailable')
+      } else {
+        throw new Error(`Payment setup failed (${response.status})`)
+      }
     }
 
     const session = await response.json()
+    console.log('✅ Checkout session created successfully')
     return session
   } catch (error) {
     if (error.name === 'AbortError') {
-      throw new Error('Request timeout - Edge Function not responding')
+      throw new Error('Request timeout - payment service not responding')
     }
+    
+    if (error.message.includes('fetch')) {
+      throw new Error('Network error - please check your connection')
+    }
+    
     console.error('Error creating checkout session:', error)
     throw error
   }

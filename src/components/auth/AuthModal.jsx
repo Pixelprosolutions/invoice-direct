@@ -109,52 +109,71 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
         }
         
         console.log('🔄 Starting signup process...')
-        const { error } = await signUp(email, password)
+        const { data, error } = await signUp(email, password)
         console.log('📊 Signup result:', error ? 'Failed' : 'Success')
         
         if (!error) {
-          setLocalError('')
-          setShowSuccess(true)
-          setTimeout(() => {
-            onClose()
-          }, 2000)
+          // Check if user was created successfully
+          if (data?.user) {
+            console.log('✅ User created successfully:', data.user.email)
+            setShowSuccess(true)
+            setTimeout(() => {
+              onClose()
+            }, 2000)
+          } else {
+            console.log('⚠️ Signup completed but no user data returned')
+            setLocalError('Account created but please try signing in')
+          }
         } else {
           console.error('❌ Signup failed:', error.message || error)
-          setLocalError(error.message || 'Failed to create account')
+          // Handle specific signup errors
+          if (error.message?.includes('already registered')) {
+            setLocalError('This email is already registered. Try signing in instead.')
+          } else if (error.message?.includes('email')) {
+            setLocalError('Please enter a valid email address')
+          } else {
+            setLocalError(error.message || 'Failed to create account. Please try again.')
+          }
         }
       } else if (mode === 'signin') {
         console.log('🔄 Starting signin process...')
-        const { error } = await signIn(email, password)
+        const { data, error } = await signIn(email, password)
         console.log('📊 Signin result:', error ? 'Failed' : 'Success')
 
         if (!error) {
+          console.log('✅ Sign in successful:', data?.user?.email)
           onClose()
         } else {
           console.error('❌ Signin failed:', error.message || error)
 
-          // Check if error is related to email confirmation
-          if (error.message && (
-            error.message.toLowerCase().includes('email not confirmed') ||
-            error.message.toLowerCase().includes('not confirmed') ||
-            error.message.toLowerCase().includes('confirm your email')
-          )) {
+          // Handle specific signin errors
+          if (error.message?.includes('Invalid login credentials')) {
+            setLocalError('Invalid email or password. Please check your credentials and try again.')
+          } else if (error.message?.includes('email not confirmed')) {
             setNeedsEmailConfirmation(true)
             setLocalError('')
+          } else if (error.message?.includes('too many requests')) {
+            setLocalError('Too many login attempts. Please wait a moment and try again.')
           } else {
-            setLocalError(error.message || 'Failed to sign in')
+            setLocalError(error.message || 'Failed to sign in. Please try again.')
           }
         }
       } else if (mode === 'reset') {
+        if (!email) {
+          setLocalError('Please enter your email address')
+          return
+        }
+        
         const { error } = await resetPassword(email)
         if (!error) {
           setResetEmailSent(true)
         } else {
-          setLocalError(error.message || 'Failed to send reset email')
+          setLocalError(error.message || 'Failed to send reset email. Please check your email address.')
         }
       }
     } catch (err) {
       console.error('❌ Auth error:', err)
-      setLocalError(err.message)
+      setLocalError('An unexpected error occurred. Please try again.')
     } finally {
       setIsSubmitting(false)
     }

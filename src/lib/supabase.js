@@ -85,6 +85,21 @@ export const getUserProfile = async (userId) => {
       }
     }
     
+    // Check if Supabase is properly configured
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+    
+    if (!supabaseUrl || !supabaseKey) {
+      console.warn('Supabase not configured, using local profile')
+      return {
+        id: userId,
+        email: testUser.data?.user?.email || 'user@example.com',
+        plan: 'free',
+        invoice_count: 0,
+        created_at: new Date().toISOString()
+      }
+    }
+    
     // Add timeout to prevent hanging
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 5000)
@@ -102,20 +117,71 @@ export const getUserProfile = async (userId) => {
       if (error.code === 'PGRST116') {
         // No rows returned - profile doesn't exist
         console.log('Profile not found for user:', userId)
-        return null
+        // Try to create a default profile
+        try {
+          const defaultProfile = {
+            id: userId,
+            email: testUser.data?.user?.email || 'user@example.com',
+            plan: 'free',
+            invoice_count: 0,
+            created_at: new Date().toISOString()
+          }
+          
+          const { data: newProfile, error: createError } = await supabase
+            .from('profiles')
+            .insert([defaultProfile])
+            .select()
+            .single()
+          
+          if (!createError) {
+            console.log('✅ Created default profile for user:', userId)
+            return newProfile
+          } else {
+            console.warn('Failed to create profile, using default:', createError)
+            return defaultProfile
+          }
+        } catch (createError) {
+          console.warn('Profile creation failed, using default:', createError)
+          return {
+            id: userId,
+            email: testUser.data?.user?.email || 'user@example.com',
+            plan: 'free',
+            invoice_count: 0,
+            created_at: new Date().toISOString()
+          }
+        }
       }
       console.error('Profile fetch error:', error)
-      return null
+      // Return a default profile instead of null
+      return {
+        id: userId,
+        email: testUser.data?.user?.email || 'user@example.com',
+        plan: 'free',
+        invoice_count: 0,
+        created_at: new Date().toISOString()
+      }
     }
     
     return data
   } catch (error) {
     if (error.name === 'AbortError') {
       console.error('Profile fetch timed out')
-      return null
+      return {
+        id: userId,
+        email: 'user@example.com',
+        plan: 'free',
+        invoice_count: 0,
+        created_at: new Date().toISOString()
+      }
     }
     console.error('getUserProfile failed:', error)
-    return null
+    return {
+      id: userId,
+      email: 'user@example.com',
+      plan: 'free',
+      invoice_count: 0,
+      created_at: new Date().toISOString()
+    }
   }
 }
 

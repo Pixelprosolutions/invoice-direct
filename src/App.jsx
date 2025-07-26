@@ -18,6 +18,20 @@ function App() {
   // Check if Supabase is configured
   const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY
 
+  // Enhanced error handling for development
+  useEffect(() => {
+    if (!isSupabaseConfigured) {
+      console.warn('⚠️ Supabase not configured. Running in demo mode.')
+      console.warn('📝 To enable full functionality:')
+      console.warn('1. Create a .env file in your project root')
+      console.warn('2. Add VITE_SUPABASE_URL=your_supabase_url')
+      console.warn('3. Add VITE_SUPABASE_ANON_KEY=your_supabase_anon_key')
+      console.warn('4. Restart the development server')
+    } else {
+      console.log('✅ Supabase configuration detected')
+    }
+  }, [isSupabaseConfigured])
+
   // Check if this is a password reset callback
   const isPasswordReset = window.location.pathname.includes('reset-password') ||
                           window.location.hash.includes('type=recovery') ||
@@ -39,6 +53,11 @@ function App() {
         {error && (
           <div style={{ marginTop: '1rem', color: '#ef4444', textAlign: 'center' }}>
             <p>Connection issue: {error}</p>
+            {!isSupabaseConfigured && (
+              <p style={{ fontSize: '0.875rem', marginTop: '0.5rem' }}>
+                Running in demo mode - database not configured
+              </p>
+            )}
             <button 
               onClick={() => window.location.reload()} 
               style={{ 

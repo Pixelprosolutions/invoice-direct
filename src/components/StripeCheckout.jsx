@@ -51,53 +51,65 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
       const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
       
       if (!supabaseUrl || !supabaseKey) {
-        toast.info('Stripe integration ready! Using demo payment for development.')
+        toast.info('Database not configured. Using demo payment for development.')
         await handleDemoPayment()
         return
       }
 
+      // Check if user is properly authenticated
+      if (!user || !user.id) {
+        toast.error('Please sign in to upgrade your account.')
+        return
+      }
+      
       // Check if Edge Functions are available by testing the URL
       const functionsUrl = `${supabaseUrl}/functions/v1/stripe-checkout`
       
       try {
-        // Quick connectivity test with short timeout
-        const testResponse = await fetch(functionsUrl, {
-          method: 'OPTIONS',
-          signal: AbortSignal.timeout(3000)
-        })
-        
-        if (!testResponse.ok && testResponse.status !== 405) {
-          throw new Error('Edge Functions not available')
+        // Get the user's session token with timeout
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+        if (sessionError || !session?.access_token) {
+          throw new Error('User not authenticated properly')
         }
-      } catch (connectError) {
-        console.warn('Edge Functions connectivity test failed:', connectError.message)
-        toast.warning('Payment system not available. Using demo payment.')
+        
+        // Quick connectivity test with short timeout
+        try {
+          const testResponse = await fetch(functionsUrl, {
+            method: 'OPTIONS',
+            signal: AbortSignal.timeout(2000)
+          })
+          
+          if (!testResponse.ok && testResponse.status !== 405) {
+            throw new Error('Edge Functions not available')
+          }
+        } catch (connectError) {
+          console.warn('Edge Functions connectivity test failed:', connectError.message)
+          throw new Error('Payment system not available')
+        }
+
+        toast.info('Creating checkout session...')
+        
+        // Create checkout session with shorter timeout
+        const checkoutSession = await createCheckoutSession(
+          product.priceId,
+          user.email,
+          user.id,
+          session.access_token
+        )
+        
+        if (checkoutSession?.url) {
+          toast.success('Redirecting to secure payment...')
+          // Redirect to Stripe Checkout
+          window.location.href = checkoutSession.url
+        } else {
+          throw new Error('No checkout URL received')
+        }
+        
+      } catch (authError) {
+        console.warn('Authentication or connectivity issue:', authError.message)
+        toast.warning('Payment system not ready. Using demo payment instead.')
         await handleDemoPayment()
         return
-      }
-
-      toast.info('Creating checkout session...')
-      
-      // Get the user's session token with timeout
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
-      if (sessionError || !session?.access_token) {
-        throw new Error('User not authenticated')
-      }
-      
-      // Create checkout session with shorter timeout
-      const checkoutSession = await createCheckoutSession(
-        product.priceId,
-        user.email,
-        user.id,
-        session.access_token
-      )
-      
-      if (checkoutSession?.url) {
-        toast.success('Redirecting to secure payment...')
-        // Redirect to Stripe Checkout
-        window.location.href = checkoutSession.url
-      } else {
-        throw new Error('No checkout URL received')
       }
       
     } catch (error) {
@@ -105,8 +117,11 @@ const StripeCheckout = ({ onSuccess, onCancel, isOpen }) => {
       
       if (error.name === 'TimeoutError' || error.message.includes('timeout')) {
         toast.warning('Payment system timeout. Using demo payment instead.')
-      } else if (error.message.includes('not available') || error.message.includes('not authenticated')) {
+      } else if (error.message.includes('not available') || error.message.includes('not ready')) {
         toast.warning('Payment system not ready. Using demo payment instead.')
+      } else if (error.message.includes('authenticated')) {
+        toast.error('Please sign in again to upgrade your account.')
+        return
       } else {
         toast.warning('Payment system error. Using demo payment instead.')
       }

@@ -173,17 +173,44 @@ export const AuthProvider = ({ children }) => {
       
       console.log('🔄 Attempting signup for:', email)
       
+      // Validate inputs
+      if (!email || !password) {
+        throw new Error('Email and password are required')
+      }
+      
+      if (password.length < 6) {
+        throw new Error('Password must be at least 6 characters')
+      }
+      
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: undefined, // Disable email confirmation
+          emailRedirectTo: `${window.location.origin}/`,
+          data: {
+            email_confirm: false // Try to disable email confirmation
+          }
         }
       })
 
       console.log('📊 Signup response:', { data, error })
 
       if (error) throw error
+      
+      // If user was created successfully, try to create profile
+      if (data?.user && !error) {
+        console.log('✅ User created, attempting to create profile...')
+        // The profile should be created automatically by the trigger
+        // But let's add a small delay to ensure it's processed
+        setTimeout(async () => {
+          try {
+            await refreshProfile()
+          } catch (profileError) {
+            console.warn('Profile creation delayed, will retry later:', profileError)
+          }
+        }, 1000)
+      }
+      
       return { data, error: null }
     } catch (error) {
       console.error('❌ Signup failed:', error.message || error)
@@ -200,6 +227,11 @@ export const AuthProvider = ({ children }) => {
       setLoading(true)
 
       console.log('🔄 Attempting signin for:', email)
+      
+      // Validate inputs
+      if (!email || !password) {
+        throw new Error('Email and password are required')
+      }
 
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
@@ -209,6 +241,19 @@ export const AuthProvider = ({ children }) => {
       console.log('📊 Signin response:', { data, error })
 
       if (error) throw error
+      
+      // Ensure profile is loaded after successful signin
+      if (data?.user) {
+        console.log('✅ Sign in successful, loading profile...')
+        setTimeout(async () => {
+          try {
+            await refreshProfile()
+          } catch (profileError) {
+            console.warn('Profile load failed, using defaults:', profileError)
+          }
+        }, 500)
+      }
+      
       return { data, error: null }
     } catch (error) {
       console.error('❌ Signin failed:', error.message || error)
